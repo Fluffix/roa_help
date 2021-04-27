@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -7,7 +5,7 @@ import 'package:roa_help/generated/l10n.dart';
 import 'package:waveprogressbar_flutter/waveprogressbar_flutter.dart';
 
 class WaterConrol extends StatefulWidget {
-  Function onChange;
+  final Function onChange;
   WaterConrol({@required this.onChange});
   @override
   _WaterConrolState createState() => _WaterConrolState();

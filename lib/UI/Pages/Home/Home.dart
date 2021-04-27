@@ -6,10 +6,10 @@ import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class Home extends StatefulWidget {
-  int firstFats;
-  int secondFats;
-  int feeling;
-  int recipes;
+  final int firstFats;
+  final int secondFats;
+  final int feeling;
+  final int recipes;
   Home({this.firstFats, this.secondFats, this.feeling, this.recipes = 8});
   @override
   _HomeState createState() => _HomeState();

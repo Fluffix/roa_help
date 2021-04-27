@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
 class SmallCardWidget extends StatefulWidget {
-  Widget icon;
-  String text;
-  String subtitlte;
-  int quantity;
-  bool recieps;
-  Function onTap;
+  final Widget icon;
+  final String text;
+  final String subtitlte;
+  final int quantity;
+  final bool recieps;
+  final Function onTap;
   SmallCardWidget(
       {@required this.icon,
       @required this.text,

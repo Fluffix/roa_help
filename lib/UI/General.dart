@@ -17,7 +17,7 @@ class _GeneralState extends State<General> {
   // PageController pageControllerBackground = PageController(initialPage: 0);
   setPage(int index) {
     pageControllerPage.animateToPage(index,
-        duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+        duration: Duration(milliseconds: 400), curve: Curves.easeOut);
     // pageControllerBackground.animateToPage(index,
     //     duration: Duration(milliseconds: 300), curve: Curves.easeOut);
   }
