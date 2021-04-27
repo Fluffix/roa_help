@@ -1,3 +1,16 @@
 {
-    "ghjkgkj" : "текст"
+    "appName" : "Roa Help",
+    "waterControl":"Потребление воды",
+    "firstPeaunts" :"1 прием",
+    "secondPeaunts" : "2 прием",
+    "feeling" : "Состояние",
+    "recieps" :  "Рек. рецепты",
+    "grammsEating":"г. съедено",
+    "pieces":"шт.",
+    "glasses" : "стаканов",
+    "quantityOfFeelings":"побочек"
+
+
+
+
 }

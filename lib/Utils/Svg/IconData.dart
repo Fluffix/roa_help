@@ -18,4 +18,9 @@ class IconsSvg {
   static int get profileLight => 14;
   static int get profileTopDark => 15;
   static int get profileTopLight => 16;
+  static int get waterDrop => 17;
+  static int get recipes => 18;
+  static int get fats => 19;
+  static int get feeling => 20;
+  static int get plus => 21;
 }

@@ -35,11 +35,101 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `текст`
-  String get ghjkgkj {
+  /// `Roa Help`
+  String get appName {
     return Intl.message(
-      'текст',
-      name: 'ghjkgkj',
+      'Roa Help',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Потребление воды`
+  String get waterControl {
+    return Intl.message(
+      'Потребление воды',
+      name: 'waterControl',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 прием`
+  String get firstPeaunts {
+    return Intl.message(
+      '1 прием',
+      name: 'firstPeaunts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 прием`
+  String get secondPeaunts {
+    return Intl.message(
+      '2 прием',
+      name: 'secondPeaunts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Состояние`
+  String get feeling {
+    return Intl.message(
+      'Состояние',
+      name: 'feeling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Рек. рецепты`
+  String get recieps {
+    return Intl.message(
+      'Рек. рецепты',
+      name: 'recieps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `г. съедено`
+  String get grammsEating {
+    return Intl.message(
+      'г. съедено',
+      name: 'grammsEating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `шт.`
+  String get pieces {
+    return Intl.message(
+      'шт.',
+      name: 'pieces',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `стаканов`
+  String get glasses {
+    return Intl.message(
+      'стаканов',
+      name: 'glasses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `побочек`
+  String get quantityOfFeelings {
+    return Intl.message(
+      'побочек',
+      name: 'quantityOfFeelings',
       desc: '',
       args: [],
     );
