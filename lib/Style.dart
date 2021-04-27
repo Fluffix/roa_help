@@ -9,17 +9,25 @@ const Color cIcon = Color.fromRGBO(201, 200, 205, 1);
 const Color cSecondary = Color.fromRGBO(136, 134, 145, 1);
 const Color cDarkIcon = Color.fromRGBO(242, 175, 208, 1);
 const Color cLightIcon = Color.fromRGBO(230, 197, 244, 1);
-const Color cDarkArticles = Color.fromRGBO(62, 65, 70, 0.8);
-const Color cLightArticles = Color.fromRGBO(230, 197, 244, 0.8);
+const Color cLightCard = Color.fromRGBO(246, 247, 251, 1);
+const Color cDarkCard = Color.fromRGBO(62, 65, 70, 1);
+const Color cBlue = Color.fromRGBO(63, 162, 243, 1);
 
 final kDarkTheme = ThemeData.dark().copyWith(
-    dialogBackgroundColor: cDarkArticles,
     primaryColorDark: cWhite,
     accentColor: cText,
+    cardColor: cDarkCard,
     buttonColor: cText,
     backgroundColor: cBlack,
     focusColor: cDarkIcon,
     disabledColor: cSecondary,
+    // accentTextTheme: TextTheme(
+    //   headline3: TextStyle(
+    //       color: cWhite,
+    //       fontFamily: fontFamilyMedium,
+    //       fontSize: 16,
+    //       fontWeight: FontWeight.w700),
+    // ),
     textTheme: TextTheme(
       headline1: TextStyle(
           color: cWhite,
@@ -46,6 +54,11 @@ final kDarkTheme = ThemeData.dark().copyWith(
           fontFamily: fontFamilyMedium,
           fontSize: 14,
           fontWeight: FontWeight.w700),
+      headline6: TextStyle(
+          color: cWhite,
+          fontFamily: fontFamilyMedium,
+          fontSize: 12,
+          fontWeight: FontWeight.w600),
       subtitle1: TextStyle(
           color: cIcon,
           fontFamily: fontFamilyMedium,
@@ -59,9 +72,9 @@ final kDarkTheme = ThemeData.dark().copyWith(
     ));
 
 final kLightTheme = ThemeData.light().copyWith(
-    dialogBackgroundColor: cLightArticles,
     primaryColorDark: cText,
     accentColor: cText,
+    cardColor: cLightCard,
     buttonColor: cWhite,
     backgroundColor: cWhite,
     focusColor: cLightIcon,
@@ -92,6 +105,11 @@ final kLightTheme = ThemeData.light().copyWith(
           fontFamily: fontFamilyMedium,
           fontSize: 14,
           fontWeight: FontWeight.w700),
+      headline6: TextStyle(
+          color: cSecondary,
+          fontFamily: fontFamilyMedium,
+          fontSize: 12,
+          fontWeight: FontWeight.w600),
       subtitle1: TextStyle(
           color: cSecondary,
           fontFamily: fontFamilyMedium,

@@ -20,10 +20,21 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "articles_body" : MessageLookupByLibrary.simpleMessage("Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы."),
-    "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
-    "roa_help" : MessageLookupByLibrary.simpleMessage("Roa Help"),
-    "settings" : MessageLookupByLibrary.simpleMessage("Настройки")
-  };
+  static _notInlinedMessages(_) => <String, Function>{
+        "articles_body": MessageLookupByLibrary.simpleMessage(
+            "Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы."),
+        "articles_head": MessageLookupByLibrary.simpleMessage(
+            "Как избавиться от сухости глаз?"),
+        "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
+        "appName": MessageLookupByLibrary.simpleMessage("Roa Help"),
+        "feeling": MessageLookupByLibrary.simpleMessage("Состояние"),
+        "firstPeaunts": MessageLookupByLibrary.simpleMessage("1 прием"),
+        "glasses": MessageLookupByLibrary.simpleMessage("стаканов"),
+        "grammsEating": MessageLookupByLibrary.simpleMessage("г. съедено"),
+        "pieces": MessageLookupByLibrary.simpleMessage("шт."),
+        "quantityOfFeelings": MessageLookupByLibrary.simpleMessage("побочек"),
+        "recieps": MessageLookupByLibrary.simpleMessage("Рек. рецепты"),
+        "secondPeaunts": MessageLookupByLibrary.simpleMessage("2 прием"),
+        "waterControl": MessageLookupByLibrary.simpleMessage("Потребление воды")
+      };
 }
