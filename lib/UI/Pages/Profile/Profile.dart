@@ -24,7 +24,7 @@ class _ProfileState extends State<Profile> {
               child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: CustomAppBar(
-                title: S.of(context).roa_help,
+                title: S.of(context).app_name,
                 icon: IconsSvg.calendar,
                 color: Theme.of(context).accentColor),
             body: SingleChildScrollView(

@@ -14,43 +14,25 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  
   static S current;
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-
+      
       return S.current;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
-  }
-
-  /// `Roa Help`
-  String get roa_help {
-    return Intl.message(
-      'Roa Help',
-      name: 'roa_help',
-    );
-  }
-
-  String get appName {
-    return Intl.message(
-      'Roa Help',
-      name: 'appName',
-      desc: '',
-      args: [],
-    );
   }
 
   /// `Настройки`
@@ -58,14 +40,6 @@ class S {
     return Intl.message(
       'Настройки',
       name: 'settings',
-    );
-  }
-
-  /// `Потребление воды`
-  String get waterControl {
-    return Intl.message(
-      'Потребление воды',
-      name: 'waterControl',
       desc: '',
       args: [],
     );
@@ -76,14 +50,6 @@ class S {
     return Intl.message(
       'Как избавиться от сухости глаз?',
       name: 'articles_head',
-    );
-  }
-
-  /// `1 прием`
-  String get firstPeaunts {
-    return Intl.message(
-      '1 прием',
-      name: 'firstPeaunts',
       desc: '',
       args: [],
     );
@@ -94,14 +60,46 @@ class S {
     return Intl.message(
       'Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы.',
       name: 'articles_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roa Help`
+  String get app_name {
+    return Intl.message(
+      'Roa Help',
+      name: 'app_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Потребление воды`
+  String get water_control {
+    return Intl.message(
+      'Потребление воды',
+      name: 'water_control',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 прием`
+  String get first_peaunts {
+    return Intl.message(
+      '1 прием',
+      name: 'first_peaunts',
+      desc: '',
+      args: [],
     );
   }
 
   /// `2 прием`
-  String get secondPeaunts {
+  String get second_peaunts {
     return Intl.message(
       '2 прием',
-      name: 'secondPeaunts',
+      name: 'second_peaunts',
       desc: '',
       args: [],
     );
@@ -128,10 +126,10 @@ class S {
   }
 
   /// `г. съедено`
-  String get grammsEating {
+  String get gramms_eating {
     return Intl.message(
       'г. съедено',
-      name: 'grammsEating',
+      name: 'gramms_eating',
       desc: '',
       args: [],
     );
@@ -158,10 +156,10 @@ class S {
   }
 
   /// `побочек`
-  String get quantityOfFeelings {
+  String get quantity_of_feelings {
     return Intl.message(
       'побочек',
-      name: 'quantityOfFeelings',
+      name: 'quantity_of_feelings',
       desc: '',
       args: [],
     );

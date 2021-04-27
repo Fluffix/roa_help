@@ -2,16 +2,16 @@
     "settings" : "Настройки",
     "articles_head" : "Как избавиться от сухости глаз?",
     "articles_body" : "Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы.",
-    "appName" : "Roa Help",
-    "waterControl":"Потребление воды",
-    "firstPeaunts" :"1 прием",
-    "secondPeaunts" : "2 прием",
+    "app_name" : "Roa Help",
+    "water_control":"Потребление воды",
+    "first_peaunts" :"1 прием",
+    "second_peaunts" : "2 прием",
     "feeling" : "Состояние",
     "recieps" :  "Рек. рецепты",
-    "grammsEating":"г. съедено",
+    "gramms_eating":"г. съедено",
     "pieces":"шт.",
     "glasses" : "стаканов",
-    "quantityOfFeelings":"побочек"
+    "quantity_of_feelings":"побочек"
 
 
 

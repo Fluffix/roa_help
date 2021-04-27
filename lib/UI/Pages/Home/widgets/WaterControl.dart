@@ -44,7 +44,7 @@ class _WaterConrolState extends State<WaterConrol> {
                         width: 8,
                       ),
                       Text(
-                        S.of(context).waterControl,
+                        S.of(context).water_control,
                         style: Theme.of(context).textTheme.headline2,
                       )
                     ],

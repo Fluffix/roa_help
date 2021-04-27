@@ -24,7 +24,7 @@ class _ArticlesState extends State<Articles> {
               child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: CustomAppBar(
-                title: S.of(context).roa_help,
+                title: S.of(context).app_name,
                 icon: IconsSvg.calendar,
                 color: Theme.of(context).primaryColorDark),
             body: SingleChildScrollView(

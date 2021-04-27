@@ -45,18 +45,18 @@ class _HomeState extends State<Home> {
                           SmallCardWidget(
                             onTap: () {},
                             quantity: widget.firstFats,
-                            subtitlte: S.of(context).grammsEating,
+                            subtitlte: S.of(context).gramms_eating,
                             icon: IconSvg(
                               IconsSvg.fats,
                               width: 20,
                             ),
-                            text: '${S.of(context).firstPeaunts}',
+                            text: '${S.of(context).first_peaunts}',
                           ),
                           SmallCardWidget(
                             onTap: () {},
                             icon: IconSvg(IconsSvg.fats, width: 20),
-                            subtitlte: S.of(context).grammsEating,
-                            text: '${S.of(context).secondPeaunts}',
+                            subtitlte: S.of(context).gramms_eating,
+                            text: '${S.of(context).second_peaunts}',
                           ),
                         ],
                       ),
@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
                         children: [
                           SmallCardWidget(
                             onTap: () {},
-                            subtitlte: S.of(context).quantityOfFeelings,
+                            subtitlte: S.of(context).quantity_of_feelings,
                             icon: IconSvg(IconsSvg.feeling, width: 20),
                             text: '${S.of(context).feeling}',
                           ),
