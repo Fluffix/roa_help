@@ -18,4 +18,5 @@ class IconsSvg {
   static int get profileLight => 14;
   static int get profileTopDark => 15;
   static int get profileTopLight => 16;
+  static int get calendar => 17;
 }

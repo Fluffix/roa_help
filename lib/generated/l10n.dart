@@ -35,11 +35,41 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `текст`
-  String get ghjkgkj {
+  /// `Roa Help`
+  String get roa_help {
     return Intl.message(
-      'текст',
-      name: 'ghjkgkj',
+      'Roa Help',
+      name: 'roa_help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Настройки`
+  String get settings {
+    return Intl.message(
+      'Настройки',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Как избавиться от сухости глаз?`
+  String get articles_head {
+    return Intl.message(
+      'Как избавиться от сухости глаз?',
+      name: 'articles_head',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы.`
+  String get articles_body {
+    return Intl.message(
+      'Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы.',
+      name: 'articles_body',
       desc: '',
       args: [],
     );

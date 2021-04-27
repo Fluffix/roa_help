@@ -9,13 +9,18 @@ const Color cIcon = Color.fromRGBO(201, 200, 205, 1);
 const Color cSecondary = Color.fromRGBO(136, 134, 145, 1);
 const Color cDarkIcon = Color.fromRGBO(242, 175, 208, 1);
 const Color cLightIcon = Color.fromRGBO(230, 197, 244, 1);
+const Color cDarkArticles = Color.fromRGBO(62, 65, 70, 0.8);
+const Color cLightArticles = Color.fromRGBO(230, 197, 244, 0.8);
 
 final kDarkTheme = ThemeData.dark().copyWith(
+    dialogBackgroundColor: cDarkArticles,
+    primaryColorDark: cWhite,
+    accentColor: cText,
     buttonColor: cText,
     backgroundColor: cBlack,
     focusColor: cDarkIcon,
     disabledColor: cSecondary,
-    primaryTextTheme: TextTheme(
+    textTheme: TextTheme(
       headline1: TextStyle(
           color: cWhite,
           fontFamily: fontFamilyMedium,
@@ -54,11 +59,14 @@ final kDarkTheme = ThemeData.dark().copyWith(
     ));
 
 final kLightTheme = ThemeData.light().copyWith(
+    dialogBackgroundColor: cLightArticles,
+    primaryColorDark: cText,
+    accentColor: cText,
     buttonColor: cWhite,
     backgroundColor: cWhite,
     focusColor: cLightIcon,
     disabledColor: cSecondary,
-    primaryTextTheme: TextTheme(
+    textTheme: TextTheme(
       headline1: TextStyle(
           color: cBlack,
           fontFamily: fontFamilyMedium,

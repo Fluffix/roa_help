@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/UI/Pages/Articles/Articles.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';

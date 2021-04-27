@@ -21,6 +21,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "ghjkgkj" : MessageLookupByLibrary.simpleMessage("текст")
+    "articles_body" : MessageLookupByLibrary.simpleMessage("Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы."),
+    "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
+    "roa_help" : MessageLookupByLibrary.simpleMessage("Roa Help"),
+    "settings" : MessageLookupByLibrary.simpleMessage("Настройки")
   };
 }
