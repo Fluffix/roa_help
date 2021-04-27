@@ -8,19 +8,69 @@ Widget IconSvg(int id,
     {Color color, double width, double height, bool nullColor}) {
   // ignore: unused_element
   String icon(String name, {bool active, bool check}) {
-    String path = "assets/icons/";
-    if (active != null) path = "lib/assets/icons/active/";
-    if (check != null) path = "lib/assets/icons/checkBox/";
+    String path = "assets/images/";
+    if (active != null) path = "lib/assets/images/active/";
+    if (check != null) path = "lib/assets/images/checkBox/";
     String ex = ".svg";
     return path + name + ex;
   }
 
   String iconName;
 
-  int count = 5;
+  int count = 17;
   if (id < 0 || id >= count) id = 0;
-
   switch (id) {
+    case 0:
+      iconName = icon('home');
+      break;
+    case 1:
+      iconName = icon('articles');
+      break;
+    case 2:
+      iconName = icon('pills');
+      break;
+    case 3:
+      iconName = icon('markets');
+      break;
+    case 4:
+      iconName = icon('person');
+      break;
+    case 5:
+      iconName = icon('articlesDark');
+      break;
+    case 6:
+      iconName = icon('articlesLight');
+      break;
+    case 7:
+      iconName = icon('homeDark');
+      break;
+    case 8:
+      iconName = icon('homeLight');
+      break;
+    case 9:
+      iconName = icon('marketsDark');
+      break;
+    case 10:
+      iconName = icon('marketsLight');
+      break;
+    case 11:
+      iconName = icon('marketsTopDark');
+      break;
+    case 12:
+      iconName = icon('marketsTopLight');
+      break;
+    case 13:
+      iconName = icon('profileDark');
+      break;
+    case 14:
+      iconName = icon('profileLight');
+      break;
+    case 15:
+      iconName = icon('profileTopDark');
+      break;
+    case 16:
+      iconName = icon('profileTopLight');
+      break;
   }
 
   final String assetName = iconName;
