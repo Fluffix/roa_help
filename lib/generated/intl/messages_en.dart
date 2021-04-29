@@ -24,15 +24,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "app_name" : MessageLookupByLibrary.simpleMessage("Roa Help"),
     "articles_body" : MessageLookupByLibrary.simpleMessage("Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы."),
     "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
+    "city" : MessageLookupByLibrary.simpleMessage("Город"),
     "feeling" : MessageLookupByLibrary.simpleMessage("Состояние"),
     "first_peaunts" : MessageLookupByLibrary.simpleMessage("1 прием"),
     "glasses" : MessageLookupByLibrary.simpleMessage("стаканов"),
     "gramms_eating" : MessageLookupByLibrary.simpleMessage("г. съедено"),
+    "mail" : MessageLookupByLibrary.simpleMessage("Изменить почту"),
+    "notification" : MessageLookupByLibrary.simpleMessage("Поставить напоминание"),
+    "password" : MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "pieces" : MessageLookupByLibrary.simpleMessage("шт."),
     "quantity_of_feelings" : MessageLookupByLibrary.simpleMessage("побочек"),
-    "recieps" : MessageLookupByLibrary.simpleMessage("Рек. рецепты"),
+    "recieps" : MessageLookupByLibrary.simpleMessage("Рецепты"),
     "second_peaunts" : MessageLookupByLibrary.simpleMessage("2 прием"),
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
-    "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды")
+    "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды"),
+    "water_norm" : MessageLookupByLibrary.simpleMessage("Дневная норма воды")
   };
 }

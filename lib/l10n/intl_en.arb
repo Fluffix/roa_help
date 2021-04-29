@@ -7,13 +7,14 @@
     "first_peaunts" :"1 прием",
     "second_peaunts" : "2 прием",
     "feeling" : "Состояние",
-    "recieps" :  "Рек. рецепты",
+    "recieps" :  "Рецепты",
     "gramms_eating":"г. съедено",
     "pieces":"шт.",
     "glasses" : "стаканов",
-    "quantity_of_feelings":"побочек"
-
-
-
-
+    "quantity_of_feelings":"побочек",
+    "notification" : "Поставить напоминание",
+    "mail" : "Изменить почту",
+    "password" : "Изменить пароль",
+    "city" : "Город",
+    "water_norm" : "Дневная норма воды"
 }

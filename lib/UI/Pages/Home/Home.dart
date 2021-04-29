@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
 import 'package:roa_help/UI/widgets/Background.dart';
+import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
@@ -28,6 +29,10 @@ class _HomeState extends State<Home> {
             SafeArea(
               child: Scaffold(
                 backgroundColor: Colors.transparent,
+                appBar: CustomAppBar(
+                    title: S.of(context).app_name,
+                    icon: IconsSvg.calendar,
+                    color: Theme.of(context).primaryColorDark),
                 body: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 32.0, vertical: 32),
