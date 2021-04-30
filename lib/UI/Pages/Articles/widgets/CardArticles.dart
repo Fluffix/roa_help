@@ -21,7 +21,7 @@ class _CardArticlesState extends State<CardArticles> {
           Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: Theme.of(context).dialogBackgroundColor,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(24)),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

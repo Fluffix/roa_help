@@ -9,8 +9,8 @@ const Color cIcon = Color.fromRGBO(201, 200, 205, 1);
 const Color cSecondary = Color.fromRGBO(136, 134, 145, 1);
 const Color cDarkIcon = Color.fromRGBO(242, 175, 208, 1);
 const Color cLightIcon = Color.fromRGBO(230, 197, 244, 1);
-const Color cLightCard = Color.fromRGBO(246, 247, 251, 1);
-const Color cDarkCard = Color.fromRGBO(62, 65, 70, 1);
+const Color cLightCard = Color.fromRGBO(246, 247, 251, 0.8);
+const Color cDarkCard = Color.fromRGBO(62, 65, 70, 0.8);
 const Color cBlue = Color.fromRGBO(63, 162, 243, 1);
 
 final kDarkTheme = ThemeData.dark().copyWith(
@@ -21,13 +21,6 @@ final kDarkTheme = ThemeData.dark().copyWith(
     backgroundColor: cBlack,
     focusColor: cDarkIcon,
     disabledColor: cSecondary,
-    // accentTextTheme: TextTheme(
-    //   headline3: TextStyle(
-    //       color: cWhite,
-    //       fontFamily: fontFamilyMedium,
-    //       fontSize: 16,
-    //       fontWeight: FontWeight.w700),
-    // ),
     textTheme: TextTheme(
       headline1: TextStyle(
           color: cWhite,
@@ -68,6 +61,11 @@ final kDarkTheme = ThemeData.dark().copyWith(
           color: cWhite,
           fontFamily: fontFamilyMedium,
           fontSize: 40,
+          fontWeight: FontWeight.w700),
+      bodyText1: TextStyle(
+          color: cText,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
           fontWeight: FontWeight.w700),
     ));
 
@@ -119,5 +117,10 @@ final kLightTheme = ThemeData.light().copyWith(
           color: cBlack,
           fontFamily: fontFamilyMedium,
           fontSize: 40,
+          fontWeight: FontWeight.w700),
+      bodyText1: TextStyle(
+          color: cText,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
           fontWeight: FontWeight.w700),
     ));

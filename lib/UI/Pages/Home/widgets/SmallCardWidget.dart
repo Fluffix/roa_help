@@ -28,9 +28,9 @@ class _SmallCardWidgetState extends State<SmallCardWidget> {
       height: 139,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
-          color: Theme.of(context).cardColor.withOpacity(0.8)),
+          color: Theme.of(context).cardColor),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         child: Column(
           children: [
             Row(
@@ -50,11 +50,11 @@ class _SmallCardWidgetState extends State<SmallCardWidget> {
             ),
             widget.quantity == null
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24.0),
+                    padding: const EdgeInsets.only(top: 24.0),
                     child: plus,
                   )
                 : Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.only(top: 8.0),
                     child: Column(
                       children: [
                         Text(

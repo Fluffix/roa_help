@@ -24,4 +24,6 @@ class IconsSvg {
   static int get fats => 20;
   static int get feeling => 21;
   static int get plus => 22;
+  static int get chooseCity => 23;
+  static int get chooseDrug => 24;
 }

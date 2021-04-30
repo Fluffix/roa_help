@@ -115,10 +115,10 @@ class S {
     );
   }
 
-  /// `Рек. рецепты`
+  /// `Рецепты`
   String get recieps {
     return Intl.message(
-      'Рек. рецепты',
+      'Рецепты',
       name: 'recieps',
       desc: '',
       args: [],
@@ -160,6 +160,36 @@ class S {
     return Intl.message(
       'побочек',
       name: 'quantity_of_feelings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выберите свой город`
+  String get chooseCity {
+    return Intl.message(
+      'Выберите свой город',
+      name: 'chooseCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выберите препарат`
+  String get chooseDrug {
+    return Intl.message(
+      'Выберите препарат',
+      name: 'chooseDrug',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ПОИСК`
+  String get find {
+    return Intl.message(
+      'ПОИСК',
+      name: 'find',
       desc: '',
       args: [],
     );

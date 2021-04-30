@@ -17,7 +17,7 @@ Widget IconSvg(int id,
 
   String iconName;
 
-  int count = 23;
+  int count = 25;
   if (id < 0 || id >= count) id = 0;
   switch (id) {
     case 0:
@@ -88,6 +88,13 @@ Widget IconSvg(int id,
       break;
     case 22:
       iconName = icon('plus');
+      break;
+    case 23:
+      iconName = icon('chooseCity');
+      break;
+    case 24:
+      iconName = icon('chooseDrug');
+      break;
   }
 
   final String assetName = iconName;

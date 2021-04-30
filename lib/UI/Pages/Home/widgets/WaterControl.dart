@@ -25,7 +25,7 @@ class _WaterConrolState extends State<WaterConrol> {
         width: MediaQuery.of(context).size.width * 351 / 414,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            color: Theme.of(context).cardColor.withOpacity(0.8)),
+            color: Theme.of(context).cardColor),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
           child: Row(
