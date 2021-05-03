@@ -26,16 +26,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
     "chooseCity" : MessageLookupByLibrary.simpleMessage("Выберите свой город"),
     "chooseDrug" : MessageLookupByLibrary.simpleMessage("Выберите препарат"),
+    "city" : MessageLookupByLibrary.simpleMessage("Город"),
     "feeling" : MessageLookupByLibrary.simpleMessage("Состояние"),
     "find" : MessageLookupByLibrary.simpleMessage("ПОИСК"),
     "first_peaunts" : MessageLookupByLibrary.simpleMessage("1 прием"),
     "glasses" : MessageLookupByLibrary.simpleMessage("стаканов"),
     "gramms_eating" : MessageLookupByLibrary.simpleMessage("г. съедено"),
+    "mail" : MessageLookupByLibrary.simpleMessage("Изменить почту"),
+    "notification" : MessageLookupByLibrary.simpleMessage("Поставить напоминание"),
+    "password" : MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "pieces" : MessageLookupByLibrary.simpleMessage("шт."),
     "quantity_of_feelings" : MessageLookupByLibrary.simpleMessage("побочек"),
     "recieps" : MessageLookupByLibrary.simpleMessage("Рецепты"),
     "second_peaunts" : MessageLookupByLibrary.simpleMessage("2 прием"),
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
-    "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды")
+    "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды"),
+    "water_norm" : MessageLookupByLibrary.simpleMessage("Дневная норма воды")
   };
 }

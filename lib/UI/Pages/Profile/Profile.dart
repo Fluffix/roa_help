@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/CardSettings.dart';
 import 'package:roa_help/UI/widgets/Background.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
@@ -30,7 +31,18 @@ class _ProfileState extends State<Profile> {
             body: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
-                child: CardSettings()),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 32.0),
+                  child: CardSettings(
+                    items: [
+                      CardSettingsItem(text: S.of(context).notification),
+                      CardSettingsItem(text: S.of(context).mail),
+                      CardSettingsItem(text: S.of(context).password),
+                      CardSettingsItem(text: S.of(context).city),
+                      CardSettingsItem(text: S.of(context).water_norm),
+                    ],
+                  ),
+                )),
           ))
         ],
       ),

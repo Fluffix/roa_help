@@ -194,6 +194,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Поставить напоминание`
+  String get notification {
+    return Intl.message(
+      'Поставить напоминание',
+      name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Изменить почту`
+  String get mail {
+    return Intl.message(
+      'Изменить почту',
+      name: 'mail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Изменить пароль`
+  String get password {
+    return Intl.message(
+      'Изменить пароль',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Город`
+  String get city {
+    return Intl.message(
+      'Город',
+      name: 'city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Дневная норма воды`
+  String get water_norm {
+    return Intl.message(
+      'Дневная норма воды',
+      name: 'water_norm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

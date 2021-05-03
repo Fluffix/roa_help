@@ -14,6 +14,7 @@ const Color cDarkCard = Color.fromRGBO(62, 65, 70, 0.8);
 const Color cBlue = Color.fromRGBO(63, 162, 243, 1);
 
 final kDarkTheme = ThemeData.dark().copyWith(
+    toggleableActiveColor: cWhite,
     primaryColorDark: cWhite,
     accentColor: cText,
     cardColor: cDarkCard,
@@ -70,6 +71,7 @@ final kDarkTheme = ThemeData.dark().copyWith(
     ));
 
 final kLightTheme = ThemeData.light().copyWith(
+    toggleableActiveColor: cWhite,
     primaryColorDark: cText,
     accentColor: cText,
     cardColor: cLightCard,

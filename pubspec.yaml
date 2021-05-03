@@ -63,7 +63,9 @@ flutter:
   fonts:
     - family: SanFrancisco
       fonts:
-        - asset: assets/fonts/SanFrancisco.ttf
+        - asset: assets/fonts/SanFranciscoMedium.ttf
+        - asset: assets/fonts/SanFranciscoSemibold.ttf
+        - asset: assets/fonts/SanFranciscoBold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
