@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
 import 'package:roa_help/UI/widgets/Background.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -46,6 +47,7 @@ class _MarketsState extends State<Markets> {
                           height: 16,
                         ),
                         GestureDetector(
+                          onTap: () {},
                           child: Container(
                             width:
                                 MediaQuery.of(context).size.width * 138 / 414,
@@ -92,7 +94,7 @@ class _MarketsState extends State<Markets> {
                 width: 16,
               ),
               Text(
-                '${S.of(context).chooseDrug}',
+                '${S.of(context).choose_drug}',
                 style: Theme.of(context).textTheme.headline4,
               )
             ],
@@ -104,6 +106,10 @@ class _MarketsState extends State<Markets> {
 
   Widget findCity(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ChooseCity()));
+      },
       child: Container(
         width: MediaQuery.of(context).size.width * 272 / 414,
         decoration: BoxDecoration(
@@ -119,7 +125,7 @@ class _MarketsState extends State<Markets> {
                 width: 16,
               ),
               Text(
-                '${S.of(context).chooseCity}',
+                '${S.of(context).choose_city}',
                 style: Theme.of(context).textTheme.headline4,
               )
             ],

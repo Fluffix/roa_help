@@ -17,7 +17,7 @@ Widget IconSvg(int id,
 
   String iconName;
 
-  int count = 26;
+  int count = 33;
   if (id < 0 || id >= count) id = 0;
   switch (id) {
     case 0:
@@ -97,6 +97,27 @@ Widget IconSvg(int id,
       break;
     case 25:
       iconName = icon('next');
+      break;
+    case 26:
+      iconName = icon('add');
+      break;
+    case 27:
+      iconName = icon('done');
+      break;
+    case 28:
+      iconName = icon('remove');
+      break;
+    case 29:
+      iconName = icon('star');
+      break;
+    case 30:
+      iconName = icon('darkMode');
+      break;
+    case 31:
+      iconName = icon('lightMode');
+      break;
+    case 32:
+      iconName = icon('find');
       break;
   }
 

@@ -27,4 +27,11 @@ class IconsSvg {
   static int get chooseCity => 23;
   static int get chooseDrug => 24;
   static int get next => 25;
+  static int get add => 26;
+  static int get done => 27;
+  static int get remove => 28;
+  static int get star => 29;
+  static int get darkMode => 30;
+  static int get lightMode => 31;
+  static int get find => 32;
 }

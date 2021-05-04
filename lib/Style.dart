@@ -12,6 +12,7 @@ const Color cLightIcon = Color.fromRGBO(230, 197, 244, 1);
 const Color cLightCard = Color.fromRGBO(246, 247, 251, 0.8);
 const Color cDarkCard = Color.fromRGBO(62, 65, 70, 0.8);
 const Color cBlue = Color.fromRGBO(63, 162, 243, 1);
+const Color cDoneButton = Color.fromRGBO(75, 171, 201, 1);
 
 final kDarkTheme = ThemeData.dark().copyWith(
     toggleableActiveColor: cWhite,
@@ -22,6 +23,25 @@ final kDarkTheme = ThemeData.dark().copyWith(
     backgroundColor: cBlack,
     focusColor: cDarkIcon,
     disabledColor: cSecondary,
+    // Home Text Theme
+    primaryTextTheme: TextTheme(
+      headline1: TextStyle(
+          color: cWhite,
+          fontFamily: fontFamilyMedium,
+          fontSize: 20,
+          fontWeight: FontWeight.w500),
+      headline2: TextStyle(
+          color: cSecondary,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
+          fontWeight: FontWeight.w500),
+      headline3: TextStyle(
+          color: cBlue,
+          fontFamily: fontFamilyMedium,
+          fontSize: 18,
+          fontWeight: FontWeight.w500),
+    ),
+    // Main Text Theme
     textTheme: TextTheme(
       headline1: TextStyle(
           color: cWhite,
@@ -79,6 +99,25 @@ final kLightTheme = ThemeData.light().copyWith(
     backgroundColor: cWhite,
     focusColor: cLightIcon,
     disabledColor: cSecondary,
+    // Home Text Theme
+    primaryTextTheme: TextTheme(
+      headline1: TextStyle(
+          color: cText,
+          fontFamily: fontFamilyMedium,
+          fontSize: 20,
+          fontWeight: FontWeight.w500),
+      headline2: TextStyle(
+          color: cSecondary,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
+          fontWeight: FontWeight.w500),
+      headline3: TextStyle(
+          color: cDoneButton,
+          fontFamily: fontFamilyMedium,
+          fontSize: 18,
+          fontWeight: FontWeight.w500),
+    ),
+    // Main Text Theme
     textTheme: TextTheme(
       headline1: TextStyle(
           color: cBlack,

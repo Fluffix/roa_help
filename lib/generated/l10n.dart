@@ -165,21 +165,21 @@ class S {
     );
   }
 
-  /// `Выберите свой город`
-  String get chooseCity {
+  /// `Выберите город`
+  String get choose_city {
     return Intl.message(
-      'Выберите свой город',
-      name: 'chooseCity',
+      'Выберите город',
+      name: 'choose_city',
       desc: '',
       args: [],
     );
   }
 
   /// `Выберите препарат`
-  String get chooseDrug {
+  String get choose_drug {
     return Intl.message(
       'Выберите препарат',
-      name: 'chooseDrug',
+      name: 'choose_drug',
       desc: '',
       args: [],
     );
@@ -240,6 +240,56 @@ class S {
     return Intl.message(
       'Дневная норма воды',
       name: 'water_norm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Счётчик Жиров`
+  String get fats_calc {
+    return Intl.message(
+      'Счётчик Жиров',
+      name: 'fats_calc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Готово`
+  String get done {
+    return Intl.message(
+      'Готово',
+      name: 'done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Поиск блюда`
+  String get food_find {
+    return Intl.message(
+      'Поиск блюда',
+      name: 'food_find',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Поиск города`
+  String get city_find {
+    return Intl.message(
+      'Поиск города',
+      name: 'city_find',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Побочные эффекты`
+  String get side_effects {
+    return Intl.message(
+      'Побочные эффекты',
+      name: 'side_effects',
       desc: '',
       args: [],
     );

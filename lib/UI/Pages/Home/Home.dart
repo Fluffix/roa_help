@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
+import 'package:roa_help/UI/Pages/Home/Feelings.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
 import 'package:roa_help/UI/widgets/Background.dart';
@@ -51,7 +53,12 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SmallCardWidget(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FatsCalc()));
+                              },
                               quantity: widget.firstFats,
                               subtitlte: S.of(context).gramms_eating,
                               icon: IconSvg(
@@ -61,7 +68,12 @@ class _HomeState extends State<Home> {
                               text: '${S.of(context).first_peaunts}',
                             ),
                             SmallCardWidget(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FatsCalc()));
+                              },
                               icon: IconSvg(IconsSvg.fats, width: 20),
                               subtitlte: S.of(context).gramms_eating,
                               text: '${S.of(context).second_peaunts}',
@@ -75,7 +87,12 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SmallCardWidget(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Feelings()));
+                              },
                               subtitlte: S.of(context).quantity_of_feelings,
                               icon: IconSvg(IconsSvg.feeling, width: 20),
                               text: '${S.of(context).feeling}',
