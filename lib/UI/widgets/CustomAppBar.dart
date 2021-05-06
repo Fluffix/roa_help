@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String title;
   final int icon;
-  final Color color;
+  final Function onTap;
+  final bool colorIsBlack;
 
   const CustomAppBar(
       {this.height = 100,
       @required this.title,
-      @required this.icon,
-      @required this.color});
+      this.icon,
+      this.onTap,
+      this.colorIsBlack = false});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -28,12 +31,28 @@ class _CustomAppBarState extends State<CustomAppBar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(widget.title,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline1
-                  .copyWith(color: widget.color)),
-          IconSvg(widget.icon, height: 28, width: 28, color: widget.color)
+          SizedBox(
+              width: MediaQuery.of(context).size.width - 92,
+              child: Text(widget.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: widget.colorIsBlack
+                      ? Theme.of(context)
+                          .textTheme
+                          .headline1
+                          .copyWith(color: cBlack)
+                      : Theme.of(context).textTheme.headline1)),
+          widget.icon == null
+              ? SizedBox(width: 28)
+              : GestureDetector(
+                  onTap: () {
+                    // ignore: unnecessary_statements
+                    widget.onTap != null ? widget.onTap() : null;
+                  },
+                  child: IconSvg(widget.icon,
+                      height: 28,
+                      width: 28,
+                      color: Theme.of(context).textTheme.headline5.color),
+                )
         ],
       ),
     );

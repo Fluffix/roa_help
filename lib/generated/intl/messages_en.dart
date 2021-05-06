@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "app_name" : MessageLookupByLibrary.simpleMessage("Roa Help"),
+    "articles" : MessageLookupByLibrary.simpleMessage("Статьи"),
     "articles_body" : MessageLookupByLibrary.simpleMessage("Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы."),
     "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
     "choose_city" : MessageLookupByLibrary.simpleMessage("Выберите город"),
@@ -29,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "city" : MessageLookupByLibrary.simpleMessage("Город"),
     "city_find" : MessageLookupByLibrary.simpleMessage("Поиск города"),
     "done" : MessageLookupByLibrary.simpleMessage("Готово"),
-    "fats_calc" : MessageLookupByLibrary.simpleMessage("Счётчик Жиров"),
+    "fats_calc" : MessageLookupByLibrary.simpleMessage("Счётчик жиров"),
     "feeling" : MessageLookupByLibrary.simpleMessage("Состояние"),
     "find" : MessageLookupByLibrary.simpleMessage("ПОИСК"),
     "first_peaunts" : MessageLookupByLibrary.simpleMessage("1 прием"),
@@ -42,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pieces" : MessageLookupByLibrary.simpleMessage("шт."),
     "quantity_of_feelings" : MessageLookupByLibrary.simpleMessage("побочек"),
     "recieps" : MessageLookupByLibrary.simpleMessage("Рецепты"),
+    "search_markets" : MessageLookupByLibrary.simpleMessage("Поиск препарата"),
     "second_peaunts" : MessageLookupByLibrary.simpleMessage("2 прием"),
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
     "side_effects" : MessageLookupByLibrary.simpleMessage("Побочные эффекты"),

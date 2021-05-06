@@ -245,10 +245,30 @@ class S {
     );
   }
 
-  /// `Счётчик Жиров`
+  /// `Статьи`
+  String get articles {
+    return Intl.message(
+      'Статьи',
+      name: 'articles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Поиск препарата`
+  String get search_markets {
+    return Intl.message(
+      'Поиск препарата',
+      name: 'search_markets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Счётчик жиров`
   String get fats_calc {
     return Intl.message(
-      'Счётчик Жиров',
+      'Счётчик жиров',
       name: 'fats_calc',
       desc: '',
       args: [],

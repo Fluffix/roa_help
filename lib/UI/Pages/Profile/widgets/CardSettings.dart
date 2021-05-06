@@ -23,9 +23,14 @@ class _CardSettingsState extends State<CardSettings> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 30),
+                  blurRadius: 100,
+                  color: Theme.of(context).shadowColor.withOpacity(0.7))
+            ]),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,14 +60,10 @@ class _CardSettingsState extends State<CardSettings> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(widget.items[index].text,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline4
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .toggleableActiveColor)),
+                              style: Theme.of(context).textTheme.headline5),
                           IconSvg(IconsSvg.next,
-                              color: Theme.of(context).toggleableActiveColor,
+                              color:
+                                  Theme.of(context).textTheme.headline5.color,
                               height: 16,
                               width: 16)
                         ]),

@@ -22,7 +22,13 @@ class _CardArticlesState extends State<CardArticles> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(24)),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0, 30),
+                      blurRadius: 100,
+                      color: Theme.of(context).shadowColor.withOpacity(0.7))
+                ]),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
@@ -44,7 +50,8 @@ class _CardArticlesState extends State<CardArticles> {
                             SizedBox(
                               width: (MediaQuery.of(context).size.width - 194),
                               child: Text(S.of(context).articles_head,
-                                  overflow: TextOverflow.clip,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                   style: Theme.of(context).textTheme.headline3),
                             ),
                             SizedBox(
@@ -53,7 +60,8 @@ class _CardArticlesState extends State<CardArticles> {
                             SizedBox(
                               width: (MediaQuery.of(context).size.width - 194),
                               child: Text(S.of(context).articles_body,
-                                  overflow: TextOverflow.clip,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 5,
                                   style: Theme.of(context).textTheme.subtitle1),
                             ),
                           ],

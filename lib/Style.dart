@@ -8,16 +8,17 @@ const Color cText = Color.fromRGBO(65, 62, 82, 1);
 const Color cIcon = Color.fromRGBO(201, 200, 205, 1);
 const Color cSecondary = Color.fromRGBO(136, 134, 145, 1);
 const Color cDarkIcon = Color.fromRGBO(242, 175, 208, 1);
-const Color cLightIcon = Color.fromRGBO(230, 197, 244, 1);
+const Color cLightIcon = Color.fromRGBO(231, 199, 246, 1);
 const Color cLightCard = Color.fromRGBO(246, 247, 251, 0.8);
 const Color cDarkCard = Color.fromRGBO(62, 65, 70, 0.8);
 const Color cBlue = Color.fromRGBO(63, 162, 243, 1);
 const Color cDoneButton = Color.fromRGBO(75, 171, 201, 1);
+const Color cLightAppBar = Color.fromRGBO(245, 225, 253, 1);
+const Color cDarkAppBar = Color.fromRGBO(255, 202, 227, 1);
 
 final kDarkTheme = ThemeData.dark().copyWith(
-    toggleableActiveColor: cWhite,
-    primaryColorDark: cWhite,
-    accentColor: cText,
+    appBarTheme: AppBarTheme(color: cDarkAppBar),
+    shadowColor: Colors.transparent,
     cardColor: cDarkCard,
     buttonColor: cText,
     backgroundColor: cBlack,
@@ -91,9 +92,8 @@ final kDarkTheme = ThemeData.dark().copyWith(
     ));
 
 final kLightTheme = ThemeData.light().copyWith(
-    toggleableActiveColor: cWhite,
-    primaryColorDark: cText,
-    accentColor: cText,
+    appBarTheme: AppBarTheme(color: cLightAppBar),
+    shadowColor: cIcon,
     cardColor: cLightCard,
     buttonColor: cWhite,
     backgroundColor: cWhite,

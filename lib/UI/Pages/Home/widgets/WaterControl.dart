@@ -22,10 +22,16 @@ class _WaterConrolState extends State<WaterConrol> {
         waterController.changeWaterHeight(0.3);
       },
       child: Container(
-        width: MediaQuery.of(context).size.width - 32,
+        width: MediaQuery.of(context).size.width - 64,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            color: Theme.of(context).cardColor),
+            color: Theme.of(context).cardColor,
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 30),
+                  blurRadius: 100,
+                  color: Theme.of(context).shadowColor.withOpacity(0.7))
+            ]),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
           child: Row(

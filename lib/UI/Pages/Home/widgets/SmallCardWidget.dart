@@ -24,42 +24,63 @@ class _SmallCardWidgetState extends State<SmallCardWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        widget.onTap != null ? widget.onTap() : null;
-      },
-      child: Container(
-        width: (MediaQuery.of(context).size.width - 88) / 2,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            color: Theme.of(context).cardColor),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-          child: Column(
-            children: [
-              Row(
+        onTap: () {
+          widget.onTap != null ? widget.onTap() : null;
+        },
+        child: Container(
+          width: (MediaQuery.of(context).size.width - 88) / 2,
+          height: (MediaQuery.of(context).size.width - 88) / 2,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: Theme.of(context).cardColor,
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(0, 30),
+                    blurRadius: 100,
+                    color: Theme.of(context).shadowColor.withOpacity(0.7))
+              ]),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Stack(children: [
+              Column(
                 children: [
-                  widget.icon,
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    '${widget.text}',
-                    style: Theme.of(context).textTheme.headline2,
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      widget.icon,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: SizedBox(
+                          width:
+                              ((MediaQuery.of(context).size.width - 88) / 2) -
+                                  60,
+                          child: Text(
+                            '${widget.text}',
+                            style: Theme.of(context).textTheme.headline2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              SizedBox(
-                height: 8,
-              ),
               widget.quantity == null
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 24.0, bottom: 16),
-                      child: plus,
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                  ? Align(
+                      alignment: Alignment.center,
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          SizedBox(height: 30),
+                          plus,
+                        ],
+                      ))
+                  : Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 30),
                           Text(
                             '${widget.quantity}',
                             style: Theme.of(context).textTheme.caption,
@@ -69,10 +90,8 @@ class _SmallCardWidgetState extends State<SmallCardWidget> {
                         ],
                       ),
                     )
-            ],
+            ]),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
