@@ -36,4 +36,5 @@ class IconsSvg {
   static int get darkMode => 32;
   static int get lightMode => 33;
   static int get find => 34;
+  static int get pencil => 35;
 }

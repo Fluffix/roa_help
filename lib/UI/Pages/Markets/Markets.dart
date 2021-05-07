@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -20,7 +19,7 @@ class _MarketsState extends State<Markets> {
             alignment: Alignment.topCenter,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * (400 / 896),
+              height: MediaQuery.of(context).size.height * (360 / 896),
               decoration: BoxDecoration(
                   color: Theme.of(context).appBarTheme.color,
                   borderRadius: BorderRadius.only(
@@ -39,16 +38,15 @@ class _MarketsState extends State<Markets> {
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 32.0, vertical: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      findCity(context),
+                      chooseDrug(context),
                       SizedBox(
                         height: 16,
                       ),
-                      chooseDrug(context),
+                      findCity(context),
                       SizedBox(
                         height: 16,
                       ),
@@ -84,7 +82,7 @@ class _MarketsState extends State<Markets> {
   GestureDetector chooseDrug(BuildContext context) {
     return GestureDetector(
       child: Container(
-        width: MediaQuery.of(context).size.width * 210 / 414,
+        width: MediaQuery.of(context).size.width * 272 / 414,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Theme.of(context).focusColor,
@@ -115,7 +113,7 @@ class _MarketsState extends State<Markets> {
             context, MaterialPageRoute(builder: (context) => ChooseCity()));
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 272 / 414,
+        width: MediaQuery.of(context).size.width * 210 / 414,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Theme.of(context).focusColor,

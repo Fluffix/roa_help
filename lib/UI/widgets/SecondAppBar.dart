@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
@@ -7,14 +6,15 @@ class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String text;
   final String findText;
-
   final bool isFeelings;
+  final bool themeModeDark;
 
   const SecondAppBar({
     this.height = 150,
     this.isFeelings = false,
     this.findText,
     @required this.text,
+    this.themeModeDark = false,
   });
   @override
   _SecondAppBarState createState() => _SecondAppBarState();
@@ -62,7 +62,9 @@ class _SecondAppBarState extends State<SecondAppBar> {
               : Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).disabledColor.withOpacity(0.4),
+                      color: widget.themeModeDark
+                          ? Theme.of(context).disabledColor.withOpacity(0.4)
+                          : Theme.of(context).disabledColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(32)),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),

@@ -6,14 +6,14 @@
     "water_control":"Потребление воды",
     "first_peaunts" :"1 прием",
     "second_peaunts" : "2 прием",
-    "feeling" : "Состояние",
+    "feeling" : "Здоровье",
     "recieps" :  "Рецепты",
     "gramms_eating":"г. съедено",
     "pieces":"шт.",
     "glasses" : "стаканов",
     "quantity_of_feelings":"побочек",
-    "choose_city":"Выберите город",
-    "choose_drug":"Выберите препарат",
+    "choose_city":"Город",
+    "choose_drug":"Препарат",
     "find":"ПОИСК",
     "notification" : "Поставить напоминание",
     "mail" : "Изменить почту",
@@ -26,5 +26,8 @@
     "done" : "Готово",
     "food_find" : "Поиск блюда",
     "city_find" : "Поиск города",
-    "side_effects" : "Побочные эффекты"
+    "side_effects" : "Побочные эффекты",
+    "save" : "Сохранить",
+    "morning" : "Утренний приём",
+    "evening" : "Вечерний приём"
 }

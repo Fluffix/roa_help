@@ -131,7 +131,7 @@ class _MainPanelState extends State<MainPanel> {
                   width: 88,
                   height: 88,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).cardColor.withOpacity(1.0),
                       borderRadius: BorderRadius.all(Radius.circular(90))),
                   child: Align(
                     alignment: Alignment.center,
@@ -145,7 +145,8 @@ class _MainPanelState extends State<MainPanel> {
                         child: Align(
                           alignment: Alignment.center,
                           child: IconSvg(IconsSvg.pills,
-                              color: Theme.of(context).backgroundColor,
+                              color:
+                                  Theme.of(context).cardColor.withOpacity(1.0),
                               width: 40,
                               height: 40),
                         )),

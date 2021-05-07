@@ -105,10 +105,10 @@ class S {
     );
   }
 
-  /// `Состояние`
+  /// `Здоровье`
   String get feeling {
     return Intl.message(
-      'Состояние',
+      'Здоровье',
       name: 'feeling',
       desc: '',
       args: [],
@@ -165,20 +165,20 @@ class S {
     );
   }
 
-  /// `Выберите город`
+  /// `Город`
   String get choose_city {
     return Intl.message(
-      'Выберите город',
+      'Город',
       name: 'choose_city',
       desc: '',
       args: [],
     );
   }
 
-  /// `Выберите препарат`
+  /// `Препарат`
   String get choose_drug {
     return Intl.message(
-      'Выберите препарат',
+      'Препарат',
       name: 'choose_drug',
       desc: '',
       args: [],
@@ -310,6 +310,36 @@ class S {
     return Intl.message(
       'Побочные эффекты',
       name: 'side_effects',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Сохранить`
+  String get save {
+    return Intl.message(
+      'Сохранить',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Утренний приём`
+  String get morning {
+    return Intl.message(
+      'Утренний приём',
+      name: 'morning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вечерний приём`
+  String get evening {
+    return Intl.message(
+      'Вечерний приём',
+      name: 'evening',
       desc: '',
       args: [],
     );

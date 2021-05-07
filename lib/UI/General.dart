@@ -71,13 +71,12 @@ class _GeneralState extends State<General> {
             alignment: Alignment.bottomCenter,
             child: MainPanel(
               height: 82,
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).cardColor.withOpacity(1.0),
               currentIndex: currentIndex,
               onChange: (index) {
                 setPage(index);
                 currentIndex = index;
                 setState(() {});
-                print("index $index");
               },
               items: [
                 ItemMainPanel(

@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -26,12 +27,10 @@ class _WaterConrolState extends State<WaterConrol> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             color: Theme.of(context).cardColor,
-            boxShadow: [
-              BoxShadow(
-                  offset: Offset(0, 30),
-                  blurRadius: 100,
-                  color: Theme.of(context).shadowColor.withOpacity(0.7))
-            ]),
+            boxShadow: AdaptiveTheme.of(context).theme !=
+                    AdaptiveTheme.of(context).darkTheme
+                ? shadow
+                : null),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
           child: Row(
