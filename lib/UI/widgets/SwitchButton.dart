@@ -34,6 +34,7 @@ class _SwitchButtonState extends State<SwitchButton> {
         setState(() {});
       },
       child: AnimatedContainer(
+        curve: Curves.ease,
         duration: Duration(milliseconds: 400),
         width: MediaQuery.of(context).size.width * 61 / 414,
         decoration: BoxDecoration(
@@ -41,8 +42,9 @@ class _SwitchButtonState extends State<SwitchButton> {
             borderRadius: BorderRadius.circular(90)),
         child: SizedBox(
           height: widget.circleHeight + 10,
-          child: Padding(
-            padding: EdgeInsets.all(5),
+          child: AnimatedPadding(
+            duration: Duration(milliseconds: 200),
+            padding: EdgeInsets.all(isActive ? 4 : 5),
             child: Stack(children: [
               AnimatedPositioned(
                 curve: Curves.ease,
@@ -53,9 +55,11 @@ class _SwitchButtonState extends State<SwitchButton> {
                         10
                     : 0.0,
                 child: AnimatedContainer(
+                  curve: Curves.ease,
                   duration: Duration(milliseconds: 300),
-                  width: widget.circleWidth,
-                  height: widget.circleHeight,
+                  width: isActive ? widget.circleWidth + 2 : widget.circleWidth,
+                  height:
+                      isActive ? widget.circleHeight + 2 : widget.circleHeight,
                   decoration: BoxDecoration(
                       color: isActive
                           ? widget.activeCircleColor

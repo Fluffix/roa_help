@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class ButtonSave extends StatefulWidget {
+  final Function onChance;
   final Function onTap;
+  final bool delayed;
 
-  const ButtonSave({@required this.onTap});
+  const ButtonSave({this.onChance, @required this.onTap, this.delayed = false});
   @override
   _ButtonSaveState createState() => _ButtonSaveState();
 }
@@ -13,9 +15,11 @@ class _ButtonSaveState extends State<ButtonSave> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // ignore: unnecessary_statements
-        widget.onTap != null ? widget.onTap() : null;
+      onTap: () async {
+        if (widget.onChance != null) widget.onChance();
+        if (widget.delayed)
+          await Future.delayed(const Duration(milliseconds: 400));
+        if (widget.onTap != null) widget.onTap();
       },
       child: Container(
         width: MediaQuery.of(context).size.width / 3,

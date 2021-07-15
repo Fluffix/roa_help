@@ -131,7 +131,7 @@ class _MainPanelState extends State<MainPanel> {
                   width: 88,
                   height: 88,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor.withOpacity(1.0),
+                      color: Theme.of(context).backgroundColor,
                       borderRadius: BorderRadius.all(Radius.circular(90))),
                   child: Align(
                     alignment: Alignment.center,

@@ -344,6 +344,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Текущий пароль`
+  String get current_password {
+    return Intl.message(
+      'Текущий пароль',
+      name: 'current_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Новый пароль`
+  String get new_password {
+    return Intl.message(
+      'Новый пароль',
+      name: 'new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Повторите пароль`
+  String get repeat_password {
+    return Intl.message(
+      'Повторите пароль',
+      name: 'repeat_password',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

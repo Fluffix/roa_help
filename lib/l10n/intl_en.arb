@@ -29,5 +29,8 @@
     "side_effects" : "Побочные эффекты",
     "save" : "Сохранить",
     "morning" : "Утренний приём",
-    "evening" : "Вечерний приём"
+    "evening" : "Вечерний приём",
+    "current_password" : "Текущий пароль",
+    "new_password" : "Новый пароль",
+    "repeat_password" : "Повторите пароль"
 }
