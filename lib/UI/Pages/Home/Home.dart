@@ -3,6 +3,8 @@ import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
 import 'package:roa_help/UI/Pages/Home/Feelings.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
+import 'package:roa_help/UI/Requests/Food/FoodRequest.dart';
+import 'package:roa_help/UI/Requests/Food/GetFood.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -12,12 +14,14 @@ class Home extends StatefulWidget {
   final int secondFats;
   final int feeling;
   final int recipes;
+
   Home({this.firstFats, this.secondFats, this.feeling, this.recipes = 8});
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  GetFood db;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -90,7 +94,10 @@ class _HomeState extends State<Home> {
                           text: '${S.of(context).feeling}',
                         ),
                         SmallCardWidget(
-                          onTap: () {},
+                          onTap: () async {
+                            db = await getFood('Яйцо');
+                            print(db.items[1].name);
+                          },
                           quantity: widget.recipes,
                           subtitlte: S.of(context).pieces,
                           icon: IconSvg(IconsSvg.recipes, width: 20),

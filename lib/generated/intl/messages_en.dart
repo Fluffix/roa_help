@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "choose_drug" : MessageLookupByLibrary.simpleMessage("Препарат"),
     "city" : MessageLookupByLibrary.simpleMessage("Город"),
     "city_find" : MessageLookupByLibrary.simpleMessage("Поиск города"),
+    "confirm_code" : MessageLookupByLibrary.simpleMessage("Введите код"),
+    "confirm_pass" : MessageLookupByLibrary.simpleMessage("Повторите пароль"),
     "done" : MessageLookupByLibrary.simpleMessage("Готово"),
     "evening" : MessageLookupByLibrary.simpleMessage("Вечерний приём"),
     "fats_calc" : MessageLookupByLibrary.simpleMessage("Счётчик жиров"),
@@ -38,6 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "food_find" : MessageLookupByLibrary.simpleMessage("Поиск блюда"),
     "glasses" : MessageLookupByLibrary.simpleMessage("стаканов"),
     "gramms_eating" : MessageLookupByLibrary.simpleMessage("г. съедено"),
+    "input_pass" : MessageLookupByLibrary.simpleMessage("Введите пароль"),
+    "input_userName" : MessageLookupByLibrary.simpleMessage("Введите имя пользователя"),
+    "login" : MessageLookupByLibrary.simpleMessage("ВОЙТИ"),
     "mail" : MessageLookupByLibrary.simpleMessage("Изменить почту"),
     "morning" : MessageLookupByLibrary.simpleMessage("Утренний приём"),
     "notification" : MessageLookupByLibrary.simpleMessage("Поставить напоминание"),
@@ -50,7 +55,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "second_peaunts" : MessageLookupByLibrary.simpleMessage("2 прием"),
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
     "side_effects" : MessageLookupByLibrary.simpleMessage("Побочные эффекты"),
+    "signin" : MessageLookupByLibrary.simpleMessage("РЕГИСТРАЦИЯ"),
     "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды"),
-    "water_norm" : MessageLookupByLibrary.simpleMessage("Дневная норма воды")
+    "water_norm" : MessageLookupByLibrary.simpleMessage("Дневная норма воды"),
+    "welcome" : MessageLookupByLibrary.simpleMessage("Добро Пожаловать!")
   };
 }

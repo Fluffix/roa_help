@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:roa_help/UI/widgets/SecondAppBar.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -16,8 +18,9 @@ class _FatsCalcState extends State<FatsCalc> {
           child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: SecondAppBar(
-                text: S.of(context).fats_calc,
-                findText: S.of(context).food_find),
+              text: S.of(context).fats_calc,
+              findText: S.of(context).food_find,
+            ),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),

@@ -4,9 +4,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:roa_help/Routes.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/General.dart';
+import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:flutter/services.dart';
 
+import 'UI/Pages/Auth/Auth.dart';
+
+const String apiURL = 'http://178.250.156.130/api/';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));
@@ -33,9 +37,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: light,
           darkTheme: dark,
-          initialRoute: Routes.home,
+          initialRoute: Routes.welcomeNew,
           routes: <String, WidgetBuilder>{
             Routes.home: (BuildContext context) => General(),
+            Routes.welcomeNew: (BuildContext context) => Auth(),
+            Routes.chooseCity: (BuildContext context) => ChooseCity(),
           },
         ),
       ),
