@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: light,
           darkTheme: dark,
-          initialRoute: Routes.welcomeNew,
+          initialRoute: Routes.home,
           routes: <String, WidgetBuilder>{
             Routes.home: (BuildContext context) => General(),
             Routes.welcomeNew: (BuildContext context) => Auth(),

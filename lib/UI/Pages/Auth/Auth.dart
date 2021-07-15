@@ -91,7 +91,7 @@ class _AuthState extends State<Auth> {
                           child: Column(
                             children: [
                               inputTextContainer(usernameController,
-                                  S.of(context).input_userName),
+                                  S.of(context).input_user_name),
                               SizedBox(
                                 height: 16,
                               ),
@@ -112,7 +112,7 @@ class _AuthState extends State<Auth> {
                                     },
                                     child: inputTextContainer(
                                         confirmPasswordController,
-                                        S.of(context).confirm_pass),
+                                        S.of(context).repeat_password),
                                   ),
                                 ),
                               ),
@@ -187,7 +187,7 @@ class _AuthState extends State<Auth> {
                         child: Column(
                           children: [
                             inputTextContainer(usernameController,
-                                S.of(context).input_userName),
+                                S.of(context).input_user_name),
                             SizedBox(
                               height: 16,
                             ),
@@ -200,7 +200,7 @@ class _AuthState extends State<Auth> {
                                 : SizedBox(),
                             registration
                                 ? inputTextContainer(confirmPasswordController,
-                                    S.of(context).confirm_pass)
+                                    S.of(context).repeat_password)
                                 : SizedBox(),
                             registration
                                 ? SizedBox(
