@@ -17,6 +17,7 @@ class _ChooseCityState extends State<ChooseCity> {
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: SecondAppBar(
                 text: S.of(context).choose_city,
+                isFood: false,
                 findText: S.of(context).choose_city),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,

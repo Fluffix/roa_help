@@ -374,6 +374,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Введите имя пользователя`
+  String get input_user_name {
+    return Intl.message(
+      'Введите имя пользователя',
+      name: 'input_user_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите пароль`
+  String get input_pass {
+    return Intl.message(
+      'Введите пароль',
+      name: 'input_pass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добро Пожаловать!`
+  String get welcome {
+    return Intl.message(
+      'Добро Пожаловать!',
+      name: 'welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ВОЙТИ`
+  String get login {
+    return Intl.message(
+      'ВОЙТИ',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `РЕГИСТРАЦИЯ`
+  String get signin {
+    return Intl.message(
+      'РЕГИСТРАЦИЯ',
+      name: 'signin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Введите код`
+  String get confirm_code {
+    return Intl.message(
+      'Введите код',
+      name: 'confirm_code',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

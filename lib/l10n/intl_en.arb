@@ -32,5 +32,11 @@
     "evening" : "Вечерний приём",
     "current_password" : "Текущий пароль",
     "new_password" : "Новый пароль",
-    "repeat_password" : "Повторите пароль"
-}
+    "repeat_password" : "Повторите пароль",
+    "input_user_name" : "Введите имя пользователя",
+    "input_pass" : "Введите пароль",
+    "welcome" :"Добро Пожаловать!",
+    "login": "ВОЙТИ",
+    "signin" : "РЕГИСТРАЦИЯ",
+    "confirm_code" : "Введите код"
+} 

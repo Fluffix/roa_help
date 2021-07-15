@@ -1,19 +1,31 @@
+import 'dart:async';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/UI/Requests/Food/FoodRequest.dart';
+import 'package:roa_help/UI/Requests/Food/GetFood.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
+
+import '../../Style.dart';
 
 class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String text;
   final String findText;
   final bool isFeelings;
+  final bool isFood;
+  final Function onchange;
+
   final bool themeModeDark;
 
   const SecondAppBar({
     this.height = 150,
     this.isFeelings = false,
+    this.isFood = true,
     this.findText,
     @required this.text,
+    this.onchange,
     this.themeModeDark = false,
   });
   @override
@@ -22,7 +34,32 @@ class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(height);
 }
 
+class Debouncer {
+  final int milliseconds;
+  VoidCallback action;
+  Timer _timer;
+
+  Debouncer({this.milliseconds});
+
+  run(VoidCallback action) {
+    if (null != _timer) {
+      _timer.cancel();
+    }
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+}
+
 class _SecondAppBarState extends State<SecondAppBar> {
+  GetFood db;
+  TextEditingController searchController;
+  final debouncer = Debouncer(milliseconds: 500);
+
+  @override
+  void initState() {
+    searchController = TextEditingController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -81,6 +118,22 @@ class _SecondAppBarState extends State<SecondAppBar> {
                           child: Container(
                             width: MediaQuery.of(context).size.width - 116,
                             child: TextField(
+                              controller: searchController,
+                              onChanged: (sting) async {
+                                getFood(searchController.text.toLowerCase());
+                                debouncer.run(() {
+                                  setState(() async {
+                                    // db = await getFood(
+                                    //     searchController.text.toLowerCase());
+                                    widget.isFood
+                                        ? db = await getFood(
+                                            searchController.text.toLowerCase())
+                                        : null;
+
+                                    print(db.items[0].name);
+                                  });
+                                });
+                              },
                               decoration: InputDecoration(
                                 hintText: widget.findText,
                                 hintStyle: Theme.of(context)
@@ -96,7 +149,25 @@ class _SecondAppBarState extends State<SecondAppBar> {
                       ],
                     ),
                   ),
+                ),
+          db != null
+              ? ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  itemCount: db.items.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.symmetric(
+                                  vertical:
+                                      BorderSide(color: cWhite, width: 1))),
+                          width: MediaQuery.of(context).size.width,
+                          child: Text('${db.items[index].name}')),
+                    );
+                  },
                 )
+              : SizedBox()
         ],
       ),
     );

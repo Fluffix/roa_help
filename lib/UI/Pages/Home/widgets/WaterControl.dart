@@ -20,7 +20,7 @@ class _WaterConrolState extends State<WaterConrol> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        waterController.changeWaterHeight(0.3);
+        waterController.changeWaterHeight(1.0);
       },
       child: Container(
         width: MediaQuery.of(context).size.width - 64,
