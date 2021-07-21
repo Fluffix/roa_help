@@ -335,11 +335,41 @@ class S {
     );
   }
 
+  /// `Текущий пароль`
+  String get current_password {
+    return Intl.message(
+      'Текущий пароль',
+      name: 'current_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Новый пароль`
+  String get new_password {
+    return Intl.message(
+      'Новый пароль',
+      name: 'new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Повторите пароль`
+  String get repeat_password {
+    return Intl.message(
+      'Повторите пароль',
+      name: 'repeat_password',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Введите имя пользователя`
-  String get input_userName {
+  String get input_user_name {
     return Intl.message(
       'Введите имя пользователя',
-      name: 'input_userName',
+      name: 'input_user_name',
       desc: '',
       args: [],
     );
@@ -350,16 +380,6 @@ class S {
     return Intl.message(
       'Введите пароль',
       name: 'input_pass',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Повторите пароль`
-  String get confirm_pass {
-    return Intl.message(
-      'Повторите пароль',
-      name: 'confirm_pass',
       desc: '',
       args: [],
     );

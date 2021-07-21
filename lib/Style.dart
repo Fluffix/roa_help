@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final String fontFamilyMedium = "SanFrancisco";
+const String fontFamilyMedium = "SanFrancisco";
 
 const Color cWhite = Color.fromRGBO(246, 247, 251, 1);
 const Color cBlack = Color.fromRGBO(32, 35, 40, 1);

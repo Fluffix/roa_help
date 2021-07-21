@@ -38,4 +38,5 @@ class IconsSvg {
   static int get find => 34;
   static int get pencil => 35;
   static int get addGramms => 36;
+  static int get cancel => 37;
 }

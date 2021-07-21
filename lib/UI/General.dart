@@ -74,7 +74,7 @@ class _GeneralState extends State<General> {
             alignment: Alignment.bottomCenter,
             child: MainPanel(
               height: 82,
-              backgroundColor: Theme.of(context).cardColor.withOpacity(1.0),
+              backgroundColor: Theme.of(context).backgroundColor,
               currentIndex: currentIndex,
               onChange: (index) {
                 setPage(index);

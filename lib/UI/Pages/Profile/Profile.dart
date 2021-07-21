@@ -1,7 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/UI/Pages/Profile/SettingsMail.dart';
+import 'package:roa_help/UI/Pages/Profile/SettingsNotifications.dart';
+import 'package:roa_help/UI/Pages/Profile/SettingsPassword.dart';
+import 'package:roa_help/UI/Pages/Profile/SettingsWater.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/CardSettings.dart';
-import 'package:roa_help/UI/Pages/Profile/widgets/Settings.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -51,7 +54,7 @@ class _ProfileState extends State<Profile> {
             physics: BouncingScrollPhysics(),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 300 / 896,
+              height: MediaQuery.of(context).size.height * 340 / 896,
               child: PageView(
                   controller: pageControllerSettings,
                   physics: NeverScrollableScrollPhysics(),
@@ -94,11 +97,21 @@ class _ProfileState extends State<Profile> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Settings(
-                          numberPageSettings: numberPageSettings,
-                          onTap: () {
-                            setPage(0);
-                          }),
+                      child: numberPageSettings == 0
+                          ? SettingsNotifications(onTap: () {
+                              setPage(0);
+                            })
+                          : numberPageSettings == 1
+                              ? SettingsMail(onTap: () {
+                                  setPage(0);
+                                })
+                              : numberPageSettings == 2
+                                  ? SettingsPassword(onTap: () {
+                                      setPage(0);
+                                    })
+                                  : SettingsWater(onTap: () {
+                                      setPage(0);
+                                    }),
                     )
                   ]),
             )),
