@@ -42,34 +42,15 @@ class _MarketsState extends State<Markets> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      chooseDrug(context),
+                      _chooseDrug(context),
                       SizedBox(
                         height: 16,
                       ),
-                      findCity(context),
+                      _findCity(context),
                       SizedBox(
                         height: 16,
                       ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 138 / 414,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Theme.of(context).focusColor,
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 12.0),
-                              child: Text(
-                                '${S.of(context).find}',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                      _findButton(),
                     ],
                   ),
                 ),
@@ -79,7 +60,7 @@ class _MarketsState extends State<Markets> {
         ]));
   }
 
-  GestureDetector chooseDrug(BuildContext context) {
+  GestureDetector _chooseDrug(BuildContext context) {
     return GestureDetector(
       child: Container(
         width: MediaQuery.of(context).size.width * 272 / 414,
@@ -106,7 +87,7 @@ class _MarketsState extends State<Markets> {
     );
   }
 
-  Widget findCity(BuildContext context) {
+  Widget _findCity(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -131,6 +112,28 @@ class _MarketsState extends State<Markets> {
                 style: Theme.of(context).textTheme.headline4,
               )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _findButton() {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        width: MediaQuery.of(context).size.width * 138 / 414,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Theme.of(context).focusColor,
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Text(
+              '${S.of(context).find}',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
           ),
         ),
       ),

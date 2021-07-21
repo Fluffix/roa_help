@@ -1,26 +1,42 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
+import 'package:roa_help/UI/Pages/Home/widgets/WaveProgressBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
-import 'package:waveprogressbar_flutter/waveprogressbar_flutter.dart';
+import 'package:roa_help/models/WaterControlModel.dart';
 
 class WaterConrol extends StatefulWidget {
   final Function onChange;
-  WaterConrol({@required this.onChange});
+  final Function onRemove;
+
+  final WaterControlModel waterControll;
+  final WaterController waterController;
+  WaterConrol({
+    @required this.onChange,
+    @required this.onRemove,
+    @required this.waterController,
+    @required this.waterControll,
+  });
   @override
   _WaterConrolState createState() => _WaterConrolState();
 }
 
 class _WaterConrolState extends State<WaterConrol> {
   double waterHeight = 0.0;
-  WaterController waterController = WaterController();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        waterController.changeWaterHeight(1.0);
+        if (widget.onChange != null) {
+          widget.onChange();
+        }
+      },
+      onLongPress: () {
+        if (widget.onChange != null) {
+          widget.onRemove();
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width - 64,
@@ -61,7 +77,7 @@ class _WaterConrolState extends State<WaterConrol> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '2',
+                          '${widget.waterControll.wasDrinked.round()}',
                           style: TextStyle(
                               color: cSecondary,
                               fontFamily: fontFamilyMedium,
@@ -69,7 +85,7 @@ class _WaterConrolState extends State<WaterConrol> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          ' / 8 ${S.of(context).glasses}',
+                          ' / ${widget.waterControll.dayNorm.round()} ${S.of(context).glasses}',
                           style: Theme.of(context).textTheme.headline4,
                         ),
                       ],
@@ -82,7 +98,7 @@ class _WaterConrolState extends State<WaterConrol> {
                 flowSpeed: 0.5,
                 waveDistance: 45.0,
                 waterColor: cBlue,
-                heightController: waterController,
+                heightController: widget.waterController,
                 percentage: waterHeight,
                 size: Size(64, 64),
                 textStyle: Theme.of(context).textTheme.headline6,

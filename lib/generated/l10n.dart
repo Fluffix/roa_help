@@ -85,21 +85,11 @@ class S {
     );
   }
 
-  /// `1 прием`
-  String get first_peaunts {
+  /// `прием`
+  String get meal {
     return Intl.message(
-      '1 прием',
-      name: 'first_peaunts',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `2 прием`
-  String get second_peaunts {
-    return Intl.message(
-      '2 прием',
-      name: 'second_peaunts',
+      'прием',
+      name: 'meal',
       desc: '',
       args: [],
     );
@@ -410,6 +400,16 @@ class S {
     return Intl.message(
       'Введите код',
       name: 'confirm_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `гр.`
+  String get gramms {
+    return Intl.message(
+      'гр.',
+      name: 'gramms',
       desc: '',
       args: [],
     );

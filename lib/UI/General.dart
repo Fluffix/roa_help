@@ -6,6 +6,7 @@ import 'package:roa_help/UI/Pages/Markets/Markets.dart';
 import 'package:roa_help/UI/Pages/Profile/Profile.dart';
 import 'package:roa_help/UI/widgets/MainPanel.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
+import 'package:roa_help/models/WaterControlModel.dart';
 
 class General extends StatefulWidget {
   @override
@@ -61,7 +62,9 @@ class _GeneralState extends State<General> {
             physics: NeverScrollableScrollPhysics(),
             controller: pageControllerPage,
             children: [
-              Home(),
+              Home(
+                watercontroll: WaterControlModel(dayNorm: 8.0, wasDrinked: 0.0),
+              ),
               Articles(),
               Markets(),
               Profile(),

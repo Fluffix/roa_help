@@ -16,9 +16,9 @@ class _ChooseCityState extends State<ChooseCity> {
           child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: SecondAppBar(
-                text: S.of(context).choose_city,
-                isFood: false,
-                findText: S.of(context).choose_city),
+              text: S.of(context).choose_city,
+              isFood: false,
+            ),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
