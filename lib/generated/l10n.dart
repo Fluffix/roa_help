@@ -14,22 +14,23 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-  
+
   static S current;
-  
-  static const AppLocalizationDelegate delegate =
-    AppLocalizationDelegate();
+
+  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name); 
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-      
+
       return S.current;
     });
-  } 
+  }
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
@@ -85,21 +86,11 @@ class S {
     );
   }
 
-  /// `1 прием`
-  String get first_peaunts {
+  /// `прием`
+  String get meal {
     return Intl.message(
-      '1 прием',
-      name: 'first_peaunts',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `2 прием`
-  String get second_peaunts {
-    return Intl.message(
-      '2 прием',
-      name: 'second_peaunts',
+      'прием',
+      name: 'meal',
       desc: '',
       args: [],
     );
@@ -440,6 +431,16 @@ class S {
     return Intl.message(
       'Настало время приёма препарата',
       name: 'time_take_drug',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `гр`.
+  String get gramms {
+    return Intl.message(
+      'гр.',
+      name: 'gramms',
       desc: '',
       args: [],
     );

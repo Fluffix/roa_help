@@ -28,7 +28,8 @@ class _AuthState extends State<Auth> {
               height: 108,
               child: Column(
                 children: [
-                  authButton(context, cWhite, Colors.black, S.of(context).login,
+                  _authButton(
+                      context, cWhite, Colors.black, S.of(context).login,
                       onTap: () {
                     if (registration == false) {
                       Navigator.pushNamed(context, '/login');
@@ -41,7 +42,7 @@ class _AuthState extends State<Auth> {
                   SizedBox(
                     height: 8,
                   ),
-                  authButton(
+                  _authButton(
                       context, Colors.black, Colors.white, S.of(context).signin,
                       onTap: () {
                     if (registration == true) {
@@ -87,61 +88,21 @@ class _AuthState extends State<Auth> {
                           duration: Duration(milliseconds: 600),
                           child: Column(
                             children: [
-                              inputTextContainer(usernameController,
+                              _inputTextContainer(usernameController,
                                   S.of(context).input_user_name),
                               SizedBox(
                                 height: 16,
                               ),
-                              inputTextContainer(
+                              _inputTextContainer(
                                   passwordController, S.of(context).input_pass),
                               SizedBox(
                                 height: 16,
                               ),
-                              AnimatedOpacity(
-                                opacity: registration ? 1 : 0,
-                                duration: Duration(milliseconds: 400),
-                                child: FocusScope(
-                                  child: Focus(
-                                    onFocusChange: (focus) {
-                                      if (focus) {
-                                        scrollController.jumpTo(100);
-                                      }
-                                    },
-                                    child: inputTextContainer(
-                                        confirmPasswordController,
-                                        S.of(context).repeat_password),
-                                  ),
-                                ),
-                              ),
+                              _confirmPassword(registration),
                               SizedBox(
                                 height: 16,
                               ),
-                              AnimatedOpacity(
-                                opacity: registration ? 1 : 0,
-                                duration: Duration(milliseconds: 400),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/chooseCity');
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                        color: cWhite.withOpacity(0.25),
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    child: Center(
-                                        child: Text(
-                                      '${S.of(context).choose_city}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline2
-                                          .copyWith(
-                                              color: cWhite.withOpacity(0.55)),
-                                    )),
-                                  ),
-                                ),
-                              )
+                              _chooseCity(registration),
                             ],
                           ),
                         ),
@@ -166,7 +127,7 @@ class _AuthState extends State<Auth> {
                     children: [
                       Image.asset(
                         'assets/images/welcomeNew.png',
-                        width: 300,
+                        width: 255,
                       ),
                       Text(
                         '${S.of(context).welcome}',
@@ -178,61 +139,27 @@ class _AuthState extends State<Auth> {
                       SizedBox(
                         height: 32,
                       ),
-                      AnimatedContainer(
-                        curve: Curves.ease,
-                        duration: Duration(milliseconds: 600),
-                        child: Column(
-                          children: [
-                            inputTextContainer(usernameController,
-                                S.of(context).input_user_name),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            inputTextContainer(
-                                passwordController, S.of(context).input_pass),
-                            registration
-                                ? SizedBox(
-                                    height: 16,
-                                  )
-                                : SizedBox(),
-                            registration
-                                ? inputTextContainer(confirmPasswordController,
-                                    S.of(context).repeat_password)
-                                : SizedBox(),
-                            registration
-                                ? SizedBox(
-                                    height: 16,
-                                  )
-                                : SizedBox(),
-                            registration
-                                ? GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/chooseCity');
-                                    },
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                          color: cWhite.withOpacity(0.25),
-                                          borderRadius:
-                                              BorderRadius.circular(14)),
-                                      child: Center(
-                                          child: Text(
-                                        '${S.of(context).choose_city}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2
-                                            .copyWith(
-                                                color:
-                                                    cWhite.withOpacity(0.55)),
-                                      )),
-                                    ),
-                                  )
-                                : SizedBox(),
-                          ],
-                        ),
+                      _inputTextContainer(
+                          usernameController, S.of(context).input_user_name),
+                      SizedBox(
+                        height: 16,
                       ),
+                      _inputTextContainer(
+                          passwordController, S.of(context).input_pass),
+                      registration
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                _confirmPassword(registration),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                _chooseCity(registration)
+                              ],
+                            )
+                          : SizedBox(),
                       SizedBox(
                         height: 16,
                       ),
@@ -242,7 +169,7 @@ class _AuthState extends State<Auth> {
                         height: 108,
                         child: Column(
                           children: [
-                            authButton(context, cWhite, Colors.black,
+                            _authButton(context, cWhite, Colors.black,
                                 S.of(context).login, onTap: () {
                               print(registration);
                               if (registration == false) {
@@ -257,7 +184,7 @@ class _AuthState extends State<Auth> {
                             SizedBox(
                               height: 8,
                             ),
-                            authButton(context, Colors.black, Colors.white,
+                            _authButton(context, Colors.black, Colors.white,
                                 S.of(context).signin, onTap: () {
                               print(registration);
                               if (registration == true) {
@@ -279,7 +206,7 @@ class _AuthState extends State<Auth> {
           );
   }
 
-  Widget inputTextContainer(
+  Widget _inputTextContainer(
       TextEditingController textcontroller, String hintText) {
     return Container(
       width: double.infinity,
@@ -306,7 +233,7 @@ class _AuthState extends State<Auth> {
     );
   }
 
-  Widget authButton(
+  Widget _authButton(
       BuildContext context, Color color, Color textColor, String text,
       {Function onTap}) {
     return GestureDetector(
@@ -328,6 +255,51 @@ class _AuthState extends State<Auth> {
                 .headline2
                 .copyWith(color: textColor),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _confirmPassword(bool registration) {
+    return AnimatedOpacity(
+      opacity: registration ? 1 : 0,
+      duration: Duration(milliseconds: 400),
+      child: FocusScope(
+        child: Focus(
+          onFocusChange: (focus) {
+            if (focus) {
+              scrollController.jumpTo(100);
+            }
+          },
+          child: _inputTextContainer(
+              confirmPasswordController, S.of(context).repeat_password),
+        ),
+      ),
+    );
+  }
+
+  Widget _chooseCity(bool registration) {
+    return AnimatedOpacity(
+      opacity: registration ? 1 : 0,
+      duration: Duration(milliseconds: 400),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/chooseCity');
+        },
+        child: Container(
+          width: double.infinity,
+          height: 60,
+          decoration: BoxDecoration(
+              color: cWhite.withOpacity(0.25),
+              borderRadius: BorderRadius.circular(14)),
+          child: Center(
+              child: Text(
+            '${S.of(context).choose_city}',
+            style: Theme.of(context)
+                .textTheme
+                .headline2
+                .copyWith(color: cWhite.withOpacity(0.55)),
+          )),
         ),
       ),
     );

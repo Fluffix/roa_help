@@ -7,6 +7,7 @@ import 'package:roa_help/UI/Pages/Profile/Profile.dart';
 import 'package:roa_help/UI/widgets/KeepAlivePage.dart';
 import 'package:roa_help/UI/widgets/MainPanel.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
+import 'package:roa_help/models/WaterControlModel.dart';
 
 class General extends StatefulWidget {
   @override
@@ -27,7 +28,11 @@ class _GeneralState extends State<General> {
     currentIndex = 0;
     pageControllerPage = PageController(initialPage: 0);
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
-    pageHome = Home();
+    pageHome = Home(
+        watercontroll: WaterControlModel(
+      dayNorm: 8.0,
+      wasDrinked: 0.0,
+    ));
     pageArticles = Articles();
     pageMarkets = Markets();
     pageProfile = Profile();

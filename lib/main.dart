@@ -10,7 +10,8 @@ import 'package:flutter/services.dart';
 
 import 'UI/Pages/Auth/Auth.dart';
 
-const String apiURL = 'http://178.250.156.130/api/';
+const String apiURL =
+    'https://c3adf358-8854-476b-8a0d-0119a767c748.mock.pstmn.io';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));

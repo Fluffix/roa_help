@@ -5,18 +5,18 @@ import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
 import 'package:roa_help/main.dart';
 
 // ignore: missing_return
-Future<GetFood> getFood(String searchText) async {
+Future<List<Items>> getFood(String searchText) async {
   try {
-    final String url = '${apiURL}food/$searchText';
+    final String url = '$apiURL/food?query=$searchText';
 
     var response = await http.get(url);
     int statusCode = response.statusCode;
 
-    String jsonR = response.body;
-    Map<String, dynamic> jsonMap = json.decode(jsonR);
-    GetFood db = GetFood.fromJson(jsonMap);
-
-    return db;
+    if (statusCode == 200) {
+      Map<String, dynamic> jsonMap = json.decode(response.body);
+      GetFood db = GetFood.fromJson(jsonMap);
+      return db.items;
+    } else {}
   } catch (e) {
     print(e);
   }

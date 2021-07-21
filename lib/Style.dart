@@ -17,6 +17,8 @@ const Color cDoneButton = Color.fromRGBO(75, 171, 201, 1);
 const Color cLightAppBar = Color.fromRGBO(245, 225, 253, 1);
 const Color cShadow = Color.fromRGBO(201, 200, 205, 0.2);
 const Color cActiveColor = Color.fromRGBO(230, 197, 244, 0.5);
+const Color cFavoritesLightColor = Color.fromRGBO(182, 137, 176, 0.7);
+
 const Color cInactiveColorDark = Color.fromRGBO(136, 134, 145, 0.5);
 const Color cInactiveColorLight = Color.fromRGBO(201, 200, 205, 0.5);
 const Color cInactiveColorMark = Color.fromRGBO(196, 196, 196, 0.5);
@@ -33,11 +35,13 @@ final kDarkTheme = ThemeData.dark().copyWith(
         inactiveTickMarkColor: cInactiveColorMark),
     appBarTheme: AppBarTheme(color: cDarkAppBar),
     shadowColor: Colors.transparent,
+    dialogBackgroundColor: cInactiveColorDark,
     cardColor: cDarkCard,
     buttonColor: cText,
     backgroundColor: cBlack,
     focusColor: cDarkIcon,
     disabledColor: cSecondary,
+    dividerColor: cActiveColor,
     // Home Text Theme
     primaryTextTheme: TextTheme(
       headline1: TextStyle(
@@ -117,11 +121,14 @@ final kLightTheme = ThemeData.light().copyWith(
         inactiveTickMarkColor: cInactiveColorMark),
     appBarTheme: AppBarTheme(color: cLightAppBar),
     shadowColor: cIcon,
+    dialogBackgroundColor: cWhite,
     cardColor: cLightCard,
     buttonColor: cWhite,
     backgroundColor: cWhite,
     focusColor: cLightIcon,
     disabledColor: cSecondary,
+    dividerColor: cFavoritesLightColor,
+
     // Home Text Theme
     primaryTextTheme: TextTheme(
       headline1: TextStyle(
