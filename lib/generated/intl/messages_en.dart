@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
     "side_effects" : MessageLookupByLibrary.simpleMessage("Побочные эффекты"),
     "signin" : MessageLookupByLibrary.simpleMessage("РЕГИСТРАЦИЯ"),
+    "time_take_drug" : MessageLookupByLibrary.simpleMessage("Настало время приёма препарата"),
     "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды"),
     "water_norm" : MessageLookupByLibrary.simpleMessage("Дневная норма воды"),
     "welcome" : MessageLookupByLibrary.simpleMessage("Добро Пожаловать!")

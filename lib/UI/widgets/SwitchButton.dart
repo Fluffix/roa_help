@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SwitchButton extends StatefulWidget {
-  final Color activeColor;
-  final Color inactiveColor;
-  final Color activeCircleColor;
-  final Color inactiveCircleColor;
-  final double circleWidth;
-  final double circleHeight;
-  final Function onTap;
-
   const SwitchButton({
     @required this.activeColor,
     @required this.inactiveColor,
@@ -17,20 +9,46 @@ class SwitchButton extends StatefulWidget {
     this.circleWidth = 20.0,
     this.circleHeight = 20.0,
     @required this.onTap,
+    this.cancel,
+    this.isActive = false,
   });
+
+  final Color activeColor;
+  final Color inactiveColor;
+  final Color activeCircleColor;
+  final Color inactiveCircleColor;
+  final double circleWidth;
+  final double circleHeight;
+  final Function onTap;
+  final Function cancel;
+  final bool isActive;
+
   @override
-  _SwitchButtonState createState() => _SwitchButtonState();
+  _SwitchButtonState createState() => _SwitchButtonState(isActive: isActive);
 }
 
 class _SwitchButtonState extends State<SwitchButton> {
-  bool isActive = false;
+  _SwitchButtonState({this.isActive});
+
+  bool isActive;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        isActive = !isActive;
-        // ignore: unnecessary_statements
-        widget.onTap != null ? widget.onTap() : null;
+      onTap: () async {
+        if (isActive) {
+          widget.cancel();
+          isActive = !isActive;
+        } else {
+          if (widget.onTap != null) {
+            await widget.onTap((cancel) {
+              if (cancel) {
+                isActive = !isActive;
+              }
+            });
+          }
+          isActive = !isActive;
+        }
         setState(() {});
       },
       child: AnimatedContainer(

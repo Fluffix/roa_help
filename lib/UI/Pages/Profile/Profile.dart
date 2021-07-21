@@ -1,6 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:roa_help/UI/Pages/Profile/SettingsMail.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsNotifications.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsPassword.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsWater.dart';
@@ -23,7 +22,7 @@ class _ProfileState extends State<Profile> {
         duration: Duration(milliseconds: 400), curve: Curves.easeOut);
   }
 
-  setPageSettins(int pageSettings) {
+  setPageSettings(int pageSettings) {
     setState(() {
       numberPageSettings = pageSettings;
     });
@@ -69,25 +68,19 @@ class _ProfileState extends State<Profile> {
                               CardSettingsItem(
                                   text: S.of(context).notification,
                                   onTap: () {
-                                    setPageSettins(0);
-                                    setPage(1);
-                                  }),
-                              CardSettingsItem(
-                                  text: S.of(context).mail,
-                                  onTap: () {
-                                    setPageSettins(1);
+                                    setPageSettings(0);
                                     setPage(1);
                                   }),
                               CardSettingsItem(
                                   text: S.of(context).password,
                                   onTap: () {
-                                    setPageSettins(2);
+                                    setPageSettings(1);
                                     setPage(1);
                                   }),
                               CardSettingsItem(
                                   text: S.of(context).water_norm,
                                   onTap: () {
-                                    setPageSettins(3);
+                                    setPageSettings(2);
                                     setPage(1);
                                   }),
                             ],
@@ -96,23 +89,18 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: numberPageSettings == 0
-                          ? SettingsNotifications(onTap: () {
-                              setPage(0);
-                            })
-                          : numberPageSettings == 1
-                              ? SettingsMail(onTap: () {
-                                  setPage(0);
-                                })
-                              : numberPageSettings == 2
-                                  ? SettingsPassword(onTap: () {
-                                      setPage(0);
-                                    })
-                                  : SettingsWater(onTap: () {
-                                      setPage(0);
-                                    }),
-                    )
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: numberPageSettings == 0
+                            ? SettingsNotifications(onTap: () {
+                                setPage(0);
+                              })
+                            : numberPageSettings == 1
+                                ? SettingsPassword(onTap: () {
+                                    setPage(0);
+                                  })
+                                : SettingsWater(onTap: () {
+                                    setPage(0);
+                                  }))
                   ]),
             )),
       )),

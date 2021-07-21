@@ -71,12 +71,13 @@ class _SettingsPasswordState extends State<SettingsPassword> {
                       child: TextField(
                         controller: currentPasswordController,
                         // focusNode: focusNode,
+                        // textAlign: TextAlign.center,
                         cursorColor:
-                            Theme.of(context).textTheme.headline2.color,
+                            Theme.of(context).sliderTheme.activeTrackColor,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: S.of(context).current_password,
-                            hintStyle: Theme.of(context).textTheme.headline2),
+                            hintStyle: Theme.of(context).textTheme.headline3),
                         style: Theme.of(context).textTheme.headline2,
                       ),
                     )),
@@ -93,12 +94,13 @@ class _SettingsPasswordState extends State<SettingsPassword> {
                       child: TextField(
                         controller: newPasswordController,
                         // focusNode: focusNode,
+                        // textAlign: TextAlign.center,
                         cursorColor:
-                            Theme.of(context).textTheme.headline2.color,
+                            Theme.of(context).sliderTheme.activeTrackColor,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: S.of(context).new_password,
-                            hintStyle: Theme.of(context).textTheme.headline2),
+                            hintStyle: Theme.of(context).textTheme.headline3),
                         style: Theme.of(context).textTheme.headline2,
                       ),
                     )),
@@ -115,12 +117,13 @@ class _SettingsPasswordState extends State<SettingsPassword> {
                       child: TextField(
                         controller: repeatPasswordController,
                         // focusNode: focusNode,
+                        // textAlign: TextAlign.center,
                         cursorColor:
-                            Theme.of(context).textTheme.headline2.color,
+                            Theme.of(context).sliderTheme.activeTrackColor,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: S.of(context).repeat_password,
-                            hintStyle: Theme.of(context).textTheme.headline2),
+                            hintStyle: Theme.of(context).textTheme.headline3),
                         style: Theme.of(context).textTheme.headline2,
                       ),
                     )),

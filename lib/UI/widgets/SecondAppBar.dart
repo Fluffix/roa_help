@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/UI/Requests/Food/FoodRequest.dart';
 import 'package:roa_help/UI/Requests/Food/GetFood.dart';
@@ -104,7 +103,7 @@ class _SecondAppBarState extends State<SecondAppBar> {
                           : Theme.of(context).disabledColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(32)),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -116,7 +115,7 @@ class _SecondAppBarState extends State<SecondAppBar> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Container(
-                            width: MediaQuery.of(context).size.width - 116,
+                            width: MediaQuery.of(context).size.width - 128,
                             child: TextField(
                               controller: searchController,
                               onChanged: (sting) async {
@@ -125,11 +124,10 @@ class _SecondAppBarState extends State<SecondAppBar> {
                                   setState(() async {
                                     // db = await getFood(
                                     //     searchController.text.toLowerCase());
-                                    widget.isFood
-                                        ? db = await getFood(
-                                            searchController.text.toLowerCase())
-                                        : null;
-
+                                    if (widget.isFood) {
+                                      db = await getFood(
+                                          searchController.text.toLowerCase());
+                                    }
                                     print(db.items[0].name);
                                   });
                                 });

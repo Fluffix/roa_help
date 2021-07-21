@@ -15,7 +15,7 @@ Future<GetFood> getFood(String searchText) async {
     String jsonR = response.body;
     Map<String, dynamic> jsonMap = json.decode(jsonR);
     GetFood db = GetFood.fromJson(jsonMap);
-    ;
+
     return db;
   } catch (e) {
     print(e);

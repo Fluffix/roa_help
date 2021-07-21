@@ -1,9 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:roa_help/Style.dart';
+import 'package:roa_help/UI/General.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/ButtonSave.dart';
 import 'package:roa_help/UI/widgets/SwitchButton.dart';
 import 'package:roa_help/generated/l10n.dart';
+import 'package:roa_help/LocalNotifyManager.dart';
 
 class SettingsNotifications extends StatefulWidget {
   final Function onTap;
@@ -15,12 +18,33 @@ class SettingsNotifications extends StatefulWidget {
 }
 
 class _SettingsNotificationsState extends State<SettingsNotifications> {
+  DateTime timeNotification;
+
+  @override
+  void initState() {
+    super.initState();
+    localNotifyManager.setOnNotificationReceive(onNotificationReceive);
+    localNotifyManager.setOnNotificationClick(onNotificationClick);
+  }
+
+  onNotificationReceive(ReceiveNotification notification) {
+    print('Notification Received: ${notification.id}');
+  }
+
+  onNotificationClick(String payload) {
+    print('Payload $payload');
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return General();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // ignore: unnecessary_statements
-        widget.onTap != null ? widget.onTap() : null;
+        if (widget.onTap != null) {
+          widget.onTap();
+        }
       },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 32),
@@ -61,7 +85,49 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                             inactiveCircleColor: Theme.of(context)
                                 .sliderTheme
                                 .inactiveTickMarkColor,
-                            onTap: () {},
+                            onTap: (Function(bool cancelSwitching)
+                                callBack) async {
+                              await DatePicker.showTimePicker(context,
+                                  showSecondsColumn: false,
+                                  onConfirm: (confirmTime) {
+                                setState(() {
+                                  timeNotification = confirmTime;
+                                });
+                              }, onCancel: () {
+                                callBack(true);
+                              },
+                                  locale: LocaleType.ru,
+                                  currentTime: DateTime.now(),
+                                  theme: DatePickerTheme(
+                                    cancelStyle:
+                                        Theme.of(context).textTheme.headline2,
+                                    doneStyle: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline3,
+                                    itemStyle:
+                                        Theme.of(context).textTheme.headline2,
+                                    backgroundColor:
+                                        Theme.of(context).backgroundColor,
+                                    headerColor:
+                                        Theme.of(context).backgroundColor,
+                                  ));
+                              if (timeNotification != null) {
+                                await localNotifyManager.scheduleNotification(
+                                    time: DateTime(
+                                      DateTime.now().year,
+                                      DateTime.now().month,
+                                      DateTime.now().day,
+                                      timeNotification.hour,
+                                      timeNotification.minute,
+                                    ),
+                                    id: 0,
+                                    title: S.of(context).morning,
+                                    body: S.of(context).time_take_drug);
+                              }
+                            },
+                            cancel: () {
+                              localNotifyManager.cancelNotification(0);
+                            },
                           )
                         ],
                       ),
@@ -84,7 +150,49 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                             inactiveCircleColor: Theme.of(context)
                                 .sliderTheme
                                 .inactiveTickMarkColor,
-                            onTap: () {},
+                            onTap: (Function(bool cancelSwitching)
+                                callBack) async {
+                              await DatePicker.showTimePicker(context,
+                                  showSecondsColumn: false,
+                                  onConfirm: (confirmTime) {
+                                setState(() {
+                                  timeNotification = confirmTime;
+                                });
+                              }, onCancel: () {
+                                callBack(true);
+                              },
+                                  locale: LocaleType.ru,
+                                  currentTime: DateTime.now(),
+                                  theme: DatePickerTheme(
+                                    cancelStyle:
+                                        Theme.of(context).textTheme.headline2,
+                                    doneStyle: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline3,
+                                    itemStyle:
+                                        Theme.of(context).textTheme.headline2,
+                                    backgroundColor:
+                                        Theme.of(context).backgroundColor,
+                                    headerColor:
+                                        Theme.of(context).backgroundColor,
+                                  ));
+                              if (timeNotification != null) {
+                                await localNotifyManager.scheduleNotification(
+                                    time: DateTime(
+                                      DateTime.now().year,
+                                      DateTime.now().month,
+                                      DateTime.now().day,
+                                      timeNotification.hour,
+                                      timeNotification.minute,
+                                    ),
+                                    id: 1,
+                                    title: S.of(context).evening,
+                                    body: S.of(context).time_take_drug);
+                              }
+                            },
+                            cancel: () {
+                              localNotifyManager.cancelNotification(1);
+                            },
                           )
                         ],
                       ),

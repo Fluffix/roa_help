@@ -21,17 +21,15 @@ class _ArticlesState extends State<Articles> {
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
           child: Column(
-            children: [
-              CardArticles(),
-              CardArticles(),
-              CardArticles(),
-              CardArticles(),
-              CardArticles(),
-              CardArticles(),
-              SizedBox(
-                height: 120,
-              )
-            ],
+            children: List.generate(7, (index) {
+              if (index != 6) {
+                return CardArticles();
+              } else {
+                return SizedBox(
+                  height: 120,
+                );
+              }
+            }),
           ),
         ),
       )),

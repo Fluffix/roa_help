@@ -4,6 +4,7 @@ import 'package:roa_help/UI/Pages/Articles/Articles.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Markets/Markets.dart';
 import 'package:roa_help/UI/Pages/Profile/Profile.dart';
+import 'package:roa_help/UI/widgets/KeepAlivePage.dart';
 import 'package:roa_help/UI/widgets/MainPanel.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
@@ -13,10 +14,28 @@ class General extends StatefulWidget {
 }
 
 class _GeneralState extends State<General> {
-  int currentIndex = 0;
-  PageController pageControllerPage = PageController(initialPage: 0);
-  ScrollController pageControllerBackground = ScrollController();
+  int currentIndex;
+  PageController pageControllerPage;
+  ScrollController pageControllerBackground;
+  Widget pageHome;
+  Widget pageArticles;
+  Widget pageMarkets;
+  Widget pageProfile;
+
+  @override
+  void initState() {
+    currentIndex = 0;
+    pageControllerPage = PageController(initialPage: 0);
+    pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
+    pageHome = Home();
+    pageArticles = Articles();
+    pageMarkets = Markets();
+    pageProfile = Profile();
+    super.initState();
+  }
+
   setPage(int index) {
+    currentIndex = index;
     pageControllerPage.animateToPage(index,
         duration: Duration(milliseconds: 400), curve: Curves.easeOut);
     pageControllerBackground.animateTo(
@@ -28,31 +47,23 @@ class _GeneralState extends State<General> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Theme.of(context).backgroundColor,
       child: Stack(
         children: [
           SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             controller: pageControllerBackground,
             child: Row(
               children: [
-                Stack(
-                  children: [
-                    Container(
-                        color: Theme.of(context).backgroundColor,
-                        width: MediaQuery.of(context).size.width * 2.5,
-                        height: MediaQuery.of(context).size.height),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 2.5,
-                        child: AdaptiveTheme.of(context).theme ==
-                                AdaptiveTheme.of(context).darkTheme
-                            ? IconSvg(IconsSvg.backgroundDark)
-                            : IconSvg(IconsSvg.backgroundLight),
-                      ),
-                    )
-                  ],
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    child: AdaptiveTheme.of(context).theme ==
+                            AdaptiveTheme.of(context).darkTheme
+                        ? IconSvg(IconsSvg.backgroundDark)
+                        : IconSvg(IconsSvg.backgroundLight),
+                  ),
                 ),
               ],
             ),
@@ -61,10 +72,10 @@ class _GeneralState extends State<General> {
             physics: NeverScrollableScrollPhysics(),
             controller: pageControllerPage,
             children: [
-              Home(),
-              Articles(),
-              Markets(),
-              Profile(),
+              KeepAlivePage(child: pageHome),
+              KeepAlivePage(child: pageArticles),
+              KeepAlivePage(child: pageMarkets),
+              KeepAlivePage(child: pageProfile),
             ],
           ),
           Align(
@@ -74,9 +85,9 @@ class _GeneralState extends State<General> {
               backgroundColor: Theme.of(context).backgroundColor,
               currentIndex: currentIndex,
               onChange: (index) {
-                setPage(index);
-                currentIndex = index;
-                setState(() {});
+                setState(() {
+                  setPage(index);
+                });
               },
               items: [
                 ItemMainPanel(

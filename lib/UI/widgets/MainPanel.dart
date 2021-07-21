@@ -48,14 +48,12 @@ class _MainPanelState extends State<MainPanel> {
             children: List.generate(widget.items.length, (index) {
               return GestureDetector(
                 onTap: () {
-                  widget.items[index].onTap != null
-                      ? widget.items[index].onTap()
-                      // ignore: unnecessary_statements
-                      : null;
-                  widget.onChange != null
-                      ? widget.onChange(index)
-                      // ignore: unnecessary_statements
-                      : null;
+                  if (widget.items[index].onTap != null) {
+                    widget.items[index].onTap();
+                  }
+                  if (widget.onChange != null) {
+                    widget.onChange(index);
+                  }
                 },
                 child: index == 1
                     ? Padding(

@@ -36,10 +36,9 @@ class _CardSettingsState extends State<CardSettings> {
           return GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
-              widget.items[index].onTap != null
-                  ? widget.items[index].onTap()
-                  // ignore: unnecessary_statements
-                  : null;
+              if (widget.items[index].onTap != null) {
+                widget.items[index].onTap();
+              }
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

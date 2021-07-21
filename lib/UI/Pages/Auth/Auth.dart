@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:roa_help/Style.dart';
-import 'package:roa_help/UI/Pages/Home/Home.dart';
-import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class Auth extends StatefulWidget {

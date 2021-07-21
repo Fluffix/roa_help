@@ -434,6 +434,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Настало время приёма препарата`
+  String get time_take_drug {
+    return Intl.message(
+      'Настало время приёма препарата',
+      name: 'time_take_drug',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
