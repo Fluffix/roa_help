@@ -32,11 +32,12 @@ class IconsSvg {
   static int get add => 28;
   static int get done => 29;
   static int get remove => 30;
-  static int get star => 31;
+  static int get inactiveStar => 31;
   static int get darkMode => 32;
   static int get lightMode => 33;
   static int get find => 34;
   static int get pencil => 35;
   static int get addGramms => 36;
   static int get cancel => 37;
+  static int get activeStar => 38;
 }

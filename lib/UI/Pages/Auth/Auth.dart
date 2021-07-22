@@ -19,59 +19,121 @@ class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery.of(context).size.height > 795
-        ? Scaffold(
-            resizeToAvoidBottomInset: false,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              height: 108,
-              child: Column(
-                children: [
-                  _authButton(
-                      context, cWhite, Colors.black, S.of(context).login,
-                      onTap: () {
-                    if (registration == false) {
-                      Navigator.pushNamed(context, '/login');
-                    } else {
-                      registration = false;
-                    }
+        ? GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerFloat,
+              floatingActionButton: Container(
+                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                height: 108,
+                child: Column(
+                  children: [
+                    _authButton(
+                        context, cWhite, Colors.black, S.of(context).login,
+                        onTap: () {
+                      if (registration == false) {
+                        Navigator.pushNamed(context, '/login');
+                      } else {
+                        registration = false;
+                      }
 
-                    setState(() {});
-                  }),
-                  SizedBox(
-                    height: 8,
+                      setState(() {});
+                    }),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    _authButton(context, Colors.black, Colors.white,
+                        S.of(context).signin, onTap: () {
+                      if (registration == true) {
+                        Navigator.pushNamed(context, '/login');
+                      } else {
+                        registration = true;
+                      }
+
+                      setState(() {});
+                    }),
+                  ],
+                ),
+              ),
+              backgroundColor: Color.fromRGBO(214, 148, 242, 1),
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    scrollDirection: Axis.vertical,
+                    physics: BouncingScrollPhysics(),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            'assets/images/welcomeNew.png',
+                            width: 300,
+                          ),
+                          Text(
+                            '${S.of(context).welcome}',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .headline1
+                                .copyWith(fontSize: 30),
+                          ),
+                          SizedBox(
+                            height: 32,
+                          ),
+                          AnimatedContainer(
+                            curve: Curves.ease,
+                            duration: Duration(milliseconds: 600),
+                            child: Column(
+                              children: [
+                                _inputTextContainer(usernameController,
+                                    S.of(context).input_user_name),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                _inputTextContainer(passwordController,
+                                    S.of(context).input_pass),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                _confirmPassword(registration),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                _chooseCity(registration),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  _authButton(
-                      context, Colors.black, Colors.white, S.of(context).signin,
-                      onTap: () {
-                    if (registration == true) {
-                      Navigator.pushNamed(context, '/login');
-                    } else {
-                      registration = true;
-                    }
-
-                    setState(() {});
-                  }),
-                ],
+                ),
               ),
             ),
-            backgroundColor: Color.fromRGBO(214, 148, 242, 1),
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
+          )
+        //  Second Scaffold for small screens
+        : GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Scaffold(
+              backgroundColor: Color.fromRGBO(214, 148, 242, 1),
+              body: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    physics: BouncingScrollPhysics(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Image.asset(
                           'assets/images/welcomeNew.png',
-                          width: 300,
+                          width: 255,
                         ),
                         Text(
                           '${S.of(context).welcome}',
@@ -83,122 +145,67 @@ class _AuthState extends State<Auth> {
                         SizedBox(
                           height: 32,
                         ),
-                        AnimatedContainer(
-                          curve: Curves.ease,
-                          duration: Duration(milliseconds: 600),
+                        _inputTextContainer(
+                            usernameController, S.of(context).input_user_name),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        _inputTextContainer(
+                            passwordController, S.of(context).input_pass),
+                        registration
+                            ? Column(
+                                children: [
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                  _confirmPassword(registration),
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                  _chooseCity(registration)
+                                ],
+                              )
+                            : SizedBox(),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          height: 108,
                           child: Column(
                             children: [
-                              _inputTextContainer(usernameController,
-                                  S.of(context).input_user_name),
+                              _authButton(context, cWhite, Colors.black,
+                                  S.of(context).login, onTap: () {
+                                print(registration);
+                                if (registration == false) {
+                                  Navigator.pushNamed(context, '/login');
+                                } else {
+                                  print(MediaQuery.of(context).size.height);
+                                  registration = false;
+                                }
+
+                                setState(() {});
+                              }),
                               SizedBox(
-                                height: 16,
+                                height: 8,
                               ),
-                              _inputTextContainer(
-                                  passwordController, S.of(context).input_pass),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              _confirmPassword(registration),
-                              SizedBox(
-                                height: 16,
-                              ),
-                              _chooseCity(registration),
+                              _authButton(context, Colors.black, Colors.white,
+                                  S.of(context).signin, onTap: () {
+                                print(registration);
+                                if (registration == true) {
+                                  Navigator.pushNamed(context, '/login');
+                                } else {
+                                  registration = true;
+                                }
+
+                                setState(() {});
+                              }),
                             ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        //  Second Scaffold for small screens
-        : Scaffold(
-            backgroundColor: Color.fromRGBO(214, 148, 242, 1),
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/welcomeNew.png',
-                        width: 255,
-                      ),
-                      Text(
-                        '${S.of(context).welcome}',
-                        style: Theme.of(context)
-                            .primaryTextTheme
-                            .headline1
-                            .copyWith(fontSize: 30),
-                      ),
-                      SizedBox(
-                        height: 32,
-                      ),
-                      _inputTextContainer(
-                          usernameController, S.of(context).input_user_name),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      _inputTextContainer(
-                          passwordController, S.of(context).input_pass),
-                      registration
-                          ? Column(
-                              children: [
-                                SizedBox(
-                                  height: 16,
-                                ),
-                                _confirmPassword(registration),
-                                SizedBox(
-                                  height: 16,
-                                ),
-                                _chooseCity(registration)
-                              ],
-                            )
-                          : SizedBox(),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        height: 108,
-                        child: Column(
-                          children: [
-                            _authButton(context, cWhite, Colors.black,
-                                S.of(context).login, onTap: () {
-                              print(registration);
-                              if (registration == false) {
-                                Navigator.pushNamed(context, '/login');
-                              } else {
-                                print(MediaQuery.of(context).size.height);
-                                registration = false;
-                              }
-
-                              setState(() {});
-                            }),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            _authButton(context, Colors.black, Colors.white,
-                                S.of(context).signin, onTap: () {
-                              print(registration);
-                              if (registration == true) {
-                                Navigator.pushNamed(context, '/login');
-                              } else {
-                                registration = true;
-                              }
-
-                              setState(() {});
-                            }),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ),

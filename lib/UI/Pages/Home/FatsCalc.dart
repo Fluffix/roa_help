@@ -44,28 +44,32 @@ class _FatsCalcState extends State<FatsCalc> {
     return Material(
         color: Theme.of(context).backgroundColor,
         child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            appBar: SecondAppBar(
-              text: S.of(context).fats_calc,
-              onChange: () {
-                print(mealResult.foodWasEaten);
-                int result = 0;
-                chosenFoods.forEach((element) {
-                  result += element.fatsWasEaten;
-                });
-                if (result == 0) {
-                  mealResult = FatsCountInfo.empty();
-                  Navigator.pop(context, [mealResult, favoritesFoodResult]);
-                } else {
-                  mealResult = FatsCountInfo(
-                      fatsWasEaten: result, foodWasEaten: chosenFoods);
-                  controller.foodController.setState();
-                  Navigator.pop(context, [mealResult, favoritesFoodResult]);
-                }
-              },
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Scaffold(
+              backgroundColor: Theme.of(context).backgroundColor,
+              appBar: SecondAppBar(
+                text: S.of(context).fats_calc,
+                onChange: () {
+                  print(mealResult.foodWasEaten);
+                  int result = 0;
+                  chosenFoods.forEach((element) {
+                    result += element.fatsWasEaten;
+                  });
+                  if (result == 0) {
+                    mealResult = FatsCountInfo.empty();
+                    Navigator.pop(context, [mealResult, favoritesFoodResult]);
+                  } else {
+                    mealResult = FatsCountInfo(
+                        fatsWasEaten: result, foodWasEaten: chosenFoods);
+                    controller.foodController.setState();
+                    Navigator.pop(context, [mealResult, favoritesFoodResult]);
+                  }
+                },
+              ),
+              body: _content(),
             ),
-            body: _content(),
           ),
         ));
   }
@@ -240,13 +244,14 @@ class _FatsCalcState extends State<FatsCalc> {
   Future<int> _showBottomSheetFood(
       Items item, TextEditingController textController) {
     return showModalBottomSheet(
+        isScrollControlled: false,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(24.0),
               topRight: const Radius.circular(24.0)),
         ),
         context: context,
-        builder: (builder) {
+        builder: (BuildContext context) {
           return ContentFatsBottomSheet(
             item: item,
             // Add to Favorites

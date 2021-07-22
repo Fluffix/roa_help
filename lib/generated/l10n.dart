@@ -14,23 +14,22 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  
   static S current;
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-
+      
       return S.current;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
@@ -166,10 +165,10 @@ class S {
     );
   }
 
-  /// `Препарат`
+  /// `Выберите препарат`
   String get choose_drug {
     return Intl.message(
-      'Препарат',
+      'Выберите препарат',
       name: 'choose_drug',
       desc: '',
       args: [],
@@ -436,11 +435,61 @@ class S {
     );
   }
 
-  /// `гр`.
+  /// `гр.`
   String get gramms {
     return Intl.message(
       'гр.',
       name: 'gramms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Календарь`
+  String get calendar {
+    return Intl.message(
+      'Календарь',
+      name: 'calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Роаккутан капс. 10 мг.`
+  String get roa_10mg {
+    return Intl.message(
+      'Роаккутан капс. 10 мг.',
+      name: 'roa_10mg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Роаккутан капс. 20 мг.`
+  String get roa_20mg {
+    return Intl.message(
+      'Роаккутан капс. 20 мг.',
+      name: 'roa_20mg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Акнекутан капс. 8 мг.`
+  String get akne_8mg {
+    return Intl.message(
+      'Акнекутан капс. 8 мг.',
+      name: 'akne_8mg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Акнекутан капс. 16 мг.`
+  String get akne_16mg {
+    return Intl.message(
+      'Акнекутан капс. 16 мг.',
+      name: 'akne_16mg',
       desc: '',
       args: [],
     );

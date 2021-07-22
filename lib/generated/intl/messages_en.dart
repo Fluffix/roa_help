@@ -21,12 +21,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "akne_16mg" : MessageLookupByLibrary.simpleMessage("Акнекутан капс. 16 мг."),
+    "akne_8mg" : MessageLookupByLibrary.simpleMessage("Акнекутан капс. 8 мг."),
     "app_name" : MessageLookupByLibrary.simpleMessage("Roa Help"),
     "articles" : MessageLookupByLibrary.simpleMessage("Статьи"),
     "articles_body" : MessageLookupByLibrary.simpleMessage("Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы."),
     "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
+    "calendar" : MessageLookupByLibrary.simpleMessage("Календарь"),
     "choose_city" : MessageLookupByLibrary.simpleMessage("Город"),
-    "choose_drug" : MessageLookupByLibrary.simpleMessage("Препарат"),
+    "choose_drug" : MessageLookupByLibrary.simpleMessage("Выберите препарат"),
     "city" : MessageLookupByLibrary.simpleMessage("Город"),
     "city_find" : MessageLookupByLibrary.simpleMessage("Поиск города"),
     "confirm_code" : MessageLookupByLibrary.simpleMessage("Введите код"),
@@ -53,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "quantity_of_feelings" : MessageLookupByLibrary.simpleMessage("побочек"),
     "recieps" : MessageLookupByLibrary.simpleMessage("Рецепты"),
     "repeat_password" : MessageLookupByLibrary.simpleMessage("Повторите пароль"),
+    "roa_10mg" : MessageLookupByLibrary.simpleMessage("Роаккутан капс. 10 мг."),
+    "roa_20mg" : MessageLookupByLibrary.simpleMessage("Роаккутан капс. 20 мг."),
     "save" : MessageLookupByLibrary.simpleMessage("Сохранить"),
     "search_markets" : MessageLookupByLibrary.simpleMessage("Поиск препарата"),
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),

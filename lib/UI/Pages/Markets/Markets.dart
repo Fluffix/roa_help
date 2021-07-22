@@ -1,5 +1,8 @@
+import 'package:direct_select/direct_select.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
+import 'package:roa_help/UI/Pages/Markets/ChooseDrug.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -10,8 +13,18 @@ class Markets extends StatefulWidget {
 }
 
 class _MarketsState extends State<Markets> {
+  int selectedIndex = 1;
+  List<String> drugs;
+
   @override
   Widget build(BuildContext context) {
+    drugs = [
+      "${S.of(context).choose_drug}",
+      "${S.of(context).roa_10mg}",
+      "${S.of(context).roa_20mg}",
+      "${S.of(context).akne_8mg}",
+      "${S.of(context).akne_16mg}",
+    ];
     return Material(
         color: Colors.transparent,
         child: Stack(children: [
@@ -30,10 +43,6 @@ class _MarketsState extends State<Markets> {
           SafeArea(
             child: Scaffold(
               backgroundColor: Colors.transparent,
-              appBar: CustomAppBar(
-                title: S.of(context).search_markets,
-                colorIsBlack: true,
-              ),
               body: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
@@ -42,6 +51,13 @@ class _MarketsState extends State<Markets> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 16,
+                      ),
+                      _labelText(context),
+                      SizedBox(
+                        height: 24,
+                      ),
                       _chooseDrug(context),
                       SizedBox(
                         height: 16,
@@ -60,30 +76,26 @@ class _MarketsState extends State<Markets> {
         ]));
   }
 
-  GestureDetector _chooseDrug(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 272 / 414,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Theme.of(context).focusColor,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16),
-          child: Row(
-            children: [
-              IconSvg(IconsSvg.chooseDrug, width: 16),
-              SizedBox(
-                width: 16,
-              ),
-              Text(
-                '${S.of(context).choose_drug}',
-                style: Theme.of(context).textTheme.headline4,
-              )
-            ],
-          ),
-        ),
+  Text _labelText(BuildContext context) {
+    return Text('${S.of(context).search_markets}',
+        style: Theme.of(context).textTheme.headline1.copyWith(color: cBlack));
+  }
+
+  Widget _chooseDrug(BuildContext context) {
+    return DirectSelect(
+      items: _buildItem(),
+      onSelectedItemChanged: (index) {
+        setState(() {
+          index == 0 ? selectedIndex = 1 : selectedIndex = index;
+        });
+      },
+      itemExtent: 60,
+      child: Selectable(
+        title: drugs[selectedIndex],
+        isForList: false,
       ),
+      backgroundColor: Theme.of(context).backgroundColor,
+      mode: DirectSelectMode.tap,
     );
   }
 
@@ -138,5 +150,13 @@ class _MarketsState extends State<Markets> {
         ),
       ),
     );
+  }
+
+  List _buildItem() {
+    return drugs
+        .map((e) => Selectable(
+              title: e,
+            ))
+        .toList();
   }
 }

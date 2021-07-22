@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
+import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
 import 'package:roa_help/UI/Pages/Home/Feelings.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
@@ -110,8 +111,8 @@ class _HomeState extends State<Home> {
       title: S.of(context).app_name,
       icon: IconsSvg.calendar,
       onTap: () {
-        print(favoritesFood.favorites.length);
-        print(meals[0].foodWasEaten);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CalendarScreen()));
       },
     );
   }

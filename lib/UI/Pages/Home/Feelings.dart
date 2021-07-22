@@ -16,8 +16,10 @@ class _FeelingsState extends State<Feelings> {
           child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: SecondAppBar(
-              isFeelings: true,
               text: S.of(context).side_effects,
+              onChange: () {
+                Navigator.pop(context);
+              },
             ),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,

@@ -6,14 +6,10 @@ import 'package:roa_help/generated/l10n.dart';
 class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String text;
-  final bool isFeelings;
-  final bool isFood;
   final Function onChange;
 
   const SecondAppBar({
     this.height = 60,
-    this.isFeelings = false,
-    this.isFood = true,
     @required this.text,
     this.onChange,
   });
