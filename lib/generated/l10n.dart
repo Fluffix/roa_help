@@ -106,10 +106,10 @@ class S {
   }
 
   /// `Рецепты`
-  String get recieps {
+  String get reciepes {
     return Intl.message(
       'Рецепты',
-      name: 'recieps',
+      name: 'reciepes',
       desc: '',
       args: [],
     );
@@ -490,6 +490,76 @@ class S {
     return Intl.message(
       'Акнекутан капс. 16 мг.',
       name: 'akne_16mg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Другое`
+  String get other {
+    return Intl.message(
+      'Другое',
+      name: 'other',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `грамм`
+  String get food_gramms {
+    return Intl.message(
+      'грамм',
+      name: 'food_gramms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Белки`
+  String get protein {
+    return Intl.message(
+      'Белки',
+      name: 'protein',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Жиры`
+  String get fat {
+    return Intl.message(
+      'Жиры',
+      name: 'fat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Углеводы`
+  String get carbo {
+    return Intl.message(
+      'Углеводы',
+      name: 'carbo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ингредиенты`
+  String get ingredients {
+    return Intl.message(
+      'Ингредиенты',
+      name: 'ingredients',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Приготовление`
+  String get cooking {
+    return Intl.message(
+      'Приготовление',
+      name: 'cooking',
       desc: '',
       args: [],
     );

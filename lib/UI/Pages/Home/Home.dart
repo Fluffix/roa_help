@@ -3,6 +3,7 @@ import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
 import 'package:roa_help/UI/Pages/Home/Feelings.dart';
+import 'package:roa_help/UI/Pages/Reciepes/Reciepes.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaveProgressBar.dart';
@@ -10,6 +11,7 @@ import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/ChosenFoodModel.dart';
+import 'package:roa_help/models/FeelingsCategoryModel.dart';
 import 'package:roa_help/models/WaterControlModel.dart';
 
 class FatsCountInfo {
@@ -197,14 +199,14 @@ class _HomeState extends State<Home> {
 
   Widget _reciepes() {
     return SmallCardWidget(
-      onTap: () async {
-        // db = await getFood('Яйцо');
-        print(db.items[1].name);
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Reciepes()));
       },
       quantity: widget.recipes,
       subtitlte: S.of(context).pieces,
       icon: IconSvg(IconsSvg.recipes, width: 20),
-      text: '${S.of(context).recieps}',
+      text: '${S.of(context).reciepes}',
     );
   }
 }

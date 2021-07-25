@@ -86,7 +86,7 @@ class _MarketsState extends State<Markets> {
       items: _buildItem(),
       onSelectedItemChanged: (index) {
         setState(() {
-          index == 0 ? selectedIndex = 1 : selectedIndex = index;
+          index == 0 ? null : selectedIndex = index;
         });
       },
       itemExtent: 60,

@@ -41,6 +41,8 @@ dependencies:
   flutter_local_notifications: ^5.0.0+4
   table_calendar: ^3.0.1
   direct_select: ^2.0.0
+  swipedetector: ^1.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

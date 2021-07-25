@@ -85,7 +85,8 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                             inactiveCircleColor: Theme.of(context)
                                 .sliderTheme
                                 .inactiveTickMarkColor,
-                            onTap: (Function(bool cancelSwitching)
+                            turnOnWithWaitAndCancel: (Function(
+                                    bool cancelSwitching)
                                 callBack) async {
                               await DatePicker.showTimePicker(context,
                                   showSecondsColumn: false,
@@ -125,7 +126,7 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                                     body: S.of(context).time_take_drug);
                               }
                             },
-                            cancel: () {
+                            turnOff: () {
                               localNotifyManager.cancelNotification(0);
                             },
                           )
@@ -150,8 +151,9 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                             inactiveCircleColor: Theme.of(context)
                                 .sliderTheme
                                 .inactiveTickMarkColor,
-                            onTap: (Function(bool cancelSwitching)
-                                callBack) async {
+                            turnOnWithWaitAndCancel: (Function(
+                                    bool cancelSwitching)
+                                callback) async {
                               await DatePicker.showTimePicker(context,
                                   showSecondsColumn: false,
                                   onConfirm: (confirmTime) {
@@ -159,7 +161,7 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                                   timeNotification = confirmTime;
                                 });
                               }, onCancel: () {
-                                callBack(true);
+                                callback(true);
                               },
                                   locale: LocaleType.ru,
                                   currentTime: DateTime.now(),
@@ -190,7 +192,7 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                                     body: S.of(context).time_take_drug);
                               }
                             },
-                            cancel: () {
+                            turnOff: () {
                               localNotifyManager.cancelNotification(1);
                             },
                           )
