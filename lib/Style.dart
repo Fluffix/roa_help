@@ -43,6 +43,7 @@ final kDarkTheme = ThemeData.dark().copyWith(
     focusColor: cDarkIcon,
     disabledColor: cSecondary,
     dividerColor: cActiveColor,
+    selectedRowColor: cWhite,
     // Home Text Theme
     primaryTextTheme: TextTheme(
       headline1: TextStyle(
@@ -59,6 +60,16 @@ final kDarkTheme = ThemeData.dark().copyWith(
           color: cBlue,
           fontFamily: fontFamilyMedium,
           fontSize: 18,
+          fontWeight: FontWeight.w500),
+      headline4: TextStyle(
+          color: cWhite,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
+          fontWeight: FontWeight.w500),
+      bodyText1: TextStyle(
+          color: cSecondary,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
           fontWeight: FontWeight.w500),
     ),
     // Main Text Theme
@@ -130,6 +141,7 @@ final kLightTheme = ThemeData.light().copyWith(
     focusColor: cLightIcon,
     disabledColor: cSecondary,
     dividerColor: cFavoritesLightColor,
+    selectedRowColor: cText,
 
     // Home Text Theme
     primaryTextTheme: TextTheme(
@@ -147,6 +159,16 @@ final kLightTheme = ThemeData.light().copyWith(
           color: cDoneButton,
           fontFamily: fontFamilyMedium,
           fontSize: 18,
+          fontWeight: FontWeight.w500),
+      headline4: TextStyle(
+          color: cText,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
+          fontWeight: FontWeight.w500),
+      bodyText1: TextStyle(
+          color: cSecondary,
+          fontFamily: fontFamilyMedium,
+          fontSize: 16,
           fontWeight: FontWeight.w500),
     ),
     // Main Text Theme

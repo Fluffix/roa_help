@@ -42,4 +42,7 @@ class IconsSvg {
   static int get activeStar => 38;
   static int get leftArrow => 39;
   static int get rightArrow => 40;
+  static int get timer => 41;
+  static int get ccal => 42;
+  static int get backArrow => 43;
 }

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Controllers/SettingsController.dart';
-import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
+import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
 import 'package:roa_help/UI/Pages/Home/Feelings.dart';
+import 'package:roa_help/UI/Pages/Reciepes/Reciepes.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaveProgressBar.dart';
@@ -26,7 +27,7 @@ class FatsCountInfo {
 }
 
 class FavoritesFood {
-  List<Items> favorites;
+  List<Food> favorites;
   FavoritesFood({this.favorites});
   FavoritesFood.empty() {
     favorites = [];
@@ -58,7 +59,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  GetFood db;
+  FoodList db;
   WaterController waterController = WaterController();
 
   @override
@@ -80,8 +81,9 @@ class _HomeState extends State<Home> {
               scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32),
+                padding: MediaQuery.of(context).size.width > 795
+                    ? const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32)
+                    : const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
                 child: Column(
                   children: [
                     _waterControl(controller),
@@ -199,14 +201,14 @@ class _HomeState extends State<Home> {
 
   Widget _reciepes() {
     return SmallCardWidget(
-      onTap: () async {
-        // db = await getFood('Яйцо');
-        print(db.items[1].name);
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Reciepes()));
       },
       quantity: widget.recipes,
       subtitlte: S.of(context).pieces,
       icon: IconSvg(IconsSvg.recipes, width: 20),
-      text: '${S.of(context).recieps}',
+      text: '${S.of(context).reciepes}',
     );
   }
 }

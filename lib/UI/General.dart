@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/UI/Pages/Articles/Articles.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Markets/Markets.dart';
@@ -12,6 +13,9 @@ import 'package:roa_help/models/ArticlesModel.dart';
 import 'package:roa_help/models/WaterControlModel.dart';
 
 class General extends StatefulWidget {
+  final StatsSerialise db;
+
+  General({Key key, this.db}) : super(key: key);
   @override
   _GeneralState createState() => _GeneralState();
 }

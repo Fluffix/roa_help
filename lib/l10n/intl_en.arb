@@ -6,7 +6,7 @@
     "water_control":"Потребление воды",
     "meal" : "прием",
     "feeling" : "Здоровье",
-    "recieps" :  "Рецепты",
+    "reciepes" :  "Рецепты",
     "gramms_eating":"г. съедено",
     "pieces":"шт.",
     "glass" : "станкан",
@@ -50,5 +50,14 @@
     "akne_16mg" : "Акнекутан капс. 16 мг.",
     "back" : "Назад",
     "your_norm" : "Ваша норма:",
-    "in_the_day" : "в день"
-} 
+    "in_the_day" : "в день",
+    "other" : "Другое",
+    "food_gramms" : "грамм",
+    "protein" : "Белки",
+    "fat" : "Жиры",
+    "carbo" : "Углеводы",
+    "ingredients" : "Ингредиенты",
+    "cooking" : "Приготовление"
+}
+
+    

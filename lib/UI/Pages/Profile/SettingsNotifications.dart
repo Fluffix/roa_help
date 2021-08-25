@@ -121,9 +121,11 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
                                   id: 0,
                                   title: S.of(context).morning,
                                   body: S.of(context).time_take_drug);
+                              print(controller.data.morningNotification);
                               controller.saveNotifications(
                                   key: KeysCache.morningNotification,
                                   currentPosition: true);
+                              print(controller.data.morningNotification);
                             } else if (cancelIsPressed == false) {
                               callBack(true);
                             }

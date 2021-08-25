@@ -14,22 +14,23 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-  
+
   static S current;
-  
-  static const AppLocalizationDelegate delegate =
-    AppLocalizationDelegate();
+
+  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name); 
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-      
+
       return S.current;
     });
-  } 
+  }
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
@@ -106,10 +107,10 @@ class S {
   }
 
   /// `Рецепты`
-  String get recieps {
+  String get reciepes {
     return Intl.message(
       'Рецепты',
-      name: 'recieps',
+      name: 'reciepes',
       desc: '',
       args: [],
     );
@@ -530,6 +531,14 @@ class S {
     return Intl.message(
       'Назад',
       name: 'back',
+    );
+  }
+
+  /// `Другое`
+  String get other {
+    return Intl.message(
+      'Другое',
+      name: 'other',
       desc: '',
       args: [],
     );
@@ -540,6 +549,14 @@ class S {
     return Intl.message(
       'Ваша норма:',
       name: 'your_norm',
+    );
+  }
+
+  /// `грамм`
+  String get food_gramms {
+    return Intl.message(
+      'грамм',
+      name: 'food_gramms',
       desc: '',
       args: [],
     );
@@ -550,6 +567,54 @@ class S {
     return Intl.message(
       'в день',
       name: 'in_the_day',
+    );
+  }
+
+  /// `Белки`
+  String get protein {
+    return Intl.message(
+      'Белки',
+      name: 'protein',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Жиры`
+  String get fat {
+    return Intl.message(
+      'Жиры',
+      name: 'fat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Углеводы`
+  String get carbo {
+    return Intl.message(
+      'Углеводы',
+      name: 'carbo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ингредиенты`
+  String get ingredients {
+    return Intl.message(
+      'Ингредиенты',
+      name: 'ingredients',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Приготовление`
+  String get cooking {
+    return Intl.message(
+      'Приготовление',
+      name: 'cooking',
       desc: '',
       args: [],
     );

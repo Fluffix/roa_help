@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
+import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
 
 class ChosenFoodModel {
-  final Items item;
+  final Food item;
   final int fatsWasEaten;
 
   ChosenFoodModel({@required this.item, @required this.fatsWasEaten});
