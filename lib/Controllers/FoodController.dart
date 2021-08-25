@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
+import 'package:roa_help/Requests/Food/FatsCounter.dart';
+import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
 import 'package:rxdart/rxdart.dart';
 
 class FoodState {
   final bool loading;
-  final List<Items> foods;
+  final FoodList db;
 
-  FoodState({this.loading, this.foods});
+  FoodState({this.loading, this.db});
 }
 
 class FoodController {
   final GlobalKey<NavigatorState> navigatorKeyFoods;
   bool _loading;
-  List<Items> _foods;
+  FoodList _db;
 
   BehaviorSubject<FoodState> _controllerFoods = BehaviorSubject();
   get streamFoods => _controllerFoods.stream;
 
   FoodController({@required this.navigatorKeyFoods}) {
-    _foods = [];
+    _db = FoodList();
     _loading = false;
     setState();
   }
 
   search(String text) async {
-    _foods = [
-      Items(id: 1, name: 'Яйцо', fat: 100, inFavorites: false),
-      Items(id: 2, name: 'Гречневая крупа', fat: 200, inFavorites: true),
-    ];
-    // _foods = await getFood(text);
+    _db = FoodList();
+    _db = await getFood(text);
     _loading = false;
     setState();
   }
@@ -36,7 +34,7 @@ class FoodController {
   setState() {
     FoodState state = FoodState(
       loading: _loading,
-      foods: _foods,
+      db: _db,
     );
     _controllerFoods.sink.add(state);
   }

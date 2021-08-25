@@ -59,25 +59,28 @@ class _ReciepesItemPageState extends State<ReciepesItemPage> {
                     ),
                   ),
                   SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _foodBJU(
-                        context,
-                        name: S.of(context).protein,
-                        quantity: widget.item.protein,
-                      ),
-                      _foodBJU(
-                        context,
-                        name: S.of(context).fat,
-                        quantity: widget.item.fat,
-                      ),
-                      _foodBJU(
-                        context,
-                        name: S.of(context).carbo,
-                        quantity: widget.item.carbo,
-                      ),
-                    ],
+                  Container(
+                    width: MediaQuery.of(context).size.width - 64,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _foodBJU(
+                          context,
+                          name: S.of(context).protein,
+                          quantity: widget.item.protein,
+                        ),
+                        _foodBJU(
+                          context,
+                          name: S.of(context).fat,
+                          quantity: widget.item.fat,
+                        ),
+                        _foodBJU(
+                          context,
+                          name: S.of(context).carbo,
+                          quantity: widget.item.carbo,
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 24.0),
                   Align(
@@ -160,14 +163,21 @@ class _ReciepesItemPageState extends State<ReciepesItemPage> {
         borderRadius: BorderRadius.circular(90),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
         child: Row(
           children: [
-            IconSvg(icon, width: 20, color: Theme.of(context).disabledColor),
+            IconSvg(icon,
+                width: MediaQuery.of(context).size.width > 400 ? 20 : 16,
+                color: Theme.of(context).disabledColor),
             SizedBox(width: 8),
             Text(
               '$text',
-              style: Theme.of(context).primaryTextTheme.bodyText1,
+              style: MediaQuery.of(context).size.width > 400
+                  ? Theme.of(context).primaryTextTheme.bodyText1
+                  : Theme.of(context)
+                      .primaryTextTheme
+                      .bodyText1
+                      .copyWith(fontSize: 14),
             ),
           ],
         ),
@@ -197,29 +207,44 @@ class _ReciepesItemPageState extends State<ReciepesItemPage> {
               child: Center(
                 child: Text(
                   '$quantity',
-                  style: Theme.of(context)
-                      .primaryTextTheme
-                      .headline4
-                      .copyWith(fontSize: 14),
+                  style: MediaQuery.of(context).size.width > 400
+                      ? Theme.of(context)
+                          .primaryTextTheme
+                          .headline4
+                          .copyWith(fontSize: 14)
+                      : Theme.of(context)
+                          .primaryTextTheme
+                          .headline4
+                          .copyWith(fontSize: 12),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, right: 4.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('$name',
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .headline4
-                          .copyWith(fontSize: 14)),
+                      style: MediaQuery.of(context).size.width > 400
+                          ? Theme.of(context)
+                              .primaryTextTheme
+                              .headline4
+                              .copyWith(fontSize: 14)
+                          : Theme.of(context)
+                              .primaryTextTheme
+                              .headline4
+                              .copyWith(fontSize: 12)),
                   Text(
                     '${S.of(context).food_gramms}',
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .bodyText1
-                        .copyWith(fontSize: 12),
+                    style: MediaQuery.of(context).size.width > 400
+                        ? Theme.of(context)
+                            .primaryTextTheme
+                            .bodyText1
+                            .copyWith(fontSize: 12)
+                        : Theme.of(context)
+                            .primaryTextTheme
+                            .bodyText1
+                            .copyWith(fontSize: 10),
                   )
                 ],
               ),

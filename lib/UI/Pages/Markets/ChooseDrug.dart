@@ -15,7 +15,7 @@ class Selectable extends StatelessWidget {
         child: isForList
             ? _buildItem(context, isForList: true)
             : Container(
-                width: MediaQuery.of(context).size.width * 235 / 414,
+                width: MediaQuery.of(context).size.width * 2035 / 414,
                 decoration: BoxDecoration(
                     color: Theme.of(context).focusColor,
                     borderRadius: BorderRadius.circular(15)),
@@ -38,6 +38,7 @@ class Selectable extends StatelessWidget {
                 : EdgeInsets.all(0.0),
             child: Text(
               '$title',
+              overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.headline4,
             ),
           ),

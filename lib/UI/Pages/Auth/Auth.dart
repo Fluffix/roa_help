@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Auth/Auth.dart';
+import 'package:roa_help/Requests/Stats/Stats.dart';
+import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
+import 'package:roa_help/Routes.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/generated/l10n.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Auth extends StatefulWidget {
   const Auth({Key key}) : super(key: key);
@@ -35,8 +40,10 @@ class _AuthState extends State<Auth> {
                         context, cWhite, Colors.black, S.of(context).login,
                         onTap: () {
                       if (registration == false) {
-                        Navigator.pushNamed(context, '/login');
+                        authLogic(isLogin: true);
                       } else {
+                        usernameController.clear();
+                        passwordController.clear();
                         registration = false;
                       }
 
@@ -46,10 +53,13 @@ class _AuthState extends State<Auth> {
                       height: 8,
                     ),
                     _authButton(context, Colors.black, Colors.white,
-                        S.of(context).signin, onTap: () {
+                        S.of(context).signin, onTap: () async {
                       if (registration == true) {
-                        Navigator.pushNamed(context, '/login');
+                        authLogic(isLogin: false);
                       } else {
+                        usernameController.clear();
+                        passwordController.clear();
+                        confirmPasswordController.clear();
                         registration = true;
                       }
 
@@ -96,11 +106,14 @@ class _AuthState extends State<Auth> {
                                   height: 16,
                                 ),
                                 _inputTextContainer(passwordController,
-                                    S.of(context).input_pass),
+                                    S.of(context).input_pass,
+                                    isPass: true),
                                 SizedBox(
                                   height: 16,
                                 ),
-                                _confirmPassword(registration),
+                                _confirmPassword(
+                                  registration,
+                                ),
                                 SizedBox(
                                   height: 16,
                                 ),
@@ -214,7 +227,8 @@ class _AuthState extends State<Auth> {
   }
 
   Widget _inputTextContainer(
-      TextEditingController textcontroller, String hintText) {
+      TextEditingController textcontroller, String hintText,
+      {bool isPass = false}) {
     return Container(
       width: double.infinity,
       height: 60,
@@ -224,6 +238,7 @@ class _AuthState extends State<Auth> {
       child: Center(
           child: TextField(
         controller: textcontroller,
+        obscureText: isPass,
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme
@@ -279,7 +294,8 @@ class _AuthState extends State<Auth> {
             }
           },
           child: _inputTextContainer(
-              confirmPasswordController, S.of(context).repeat_password),
+              confirmPasswordController, S.of(context).repeat_password,
+              isPass: true),
         ),
       ),
     );
@@ -310,5 +326,63 @@ class _AuthState extends State<Auth> {
         ),
       ),
     );
+  }
+
+  authLogic({@required bool isLogin}) async {
+    if (isLogin) {
+      int statusCode = await authRequest(
+        auth: "auth",
+        userName: usernameController.text,
+        password: passwordController.text,
+      );
+      print(statusCode);
+      switch (statusCode) {
+        case 201:
+          // StatsSerialise db = await getStats();
+          // print("AAAAA ${db.water}");
+          Navigator.pushNamed(
+            context, Routes.home,
+            // arguments: <StatsSerialise>{db}
+          );
+          break;
+        case 403:
+          exceptionToast('Username or password not correct');
+          break;
+      }
+    } else {
+      if (usernameController.text.isEmpty) {
+        exceptionToast('empty username');
+      } else if (passwordController.text.length < 8) {
+        exceptionToast('password unsafe');
+      } else if (passwordController.text != confirmPasswordController.text) {
+        exceptionToast('passwords differ');
+      } else {
+        int statusCode = await authRequest(
+          auth: "register",
+          userName: usernameController.text,
+          password: passwordController.text,
+        );
+        print(statusCode);
+        switch (statusCode) {
+          case 200:
+            Navigator.pushNamed(context, '/home');
+            break;
+          case 422:
+            exceptionToast('The username has already been taken');
+            break;
+        }
+      }
+    }
+  }
+
+  Future<bool> exceptionToast(String toastText) {
+    return Fluttertoast.showToast(
+        msg: "$toastText",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        textColor: Colors.red,
+        backgroundColor: Colors.green,
+        fontSize: 16.0);
   }
 }

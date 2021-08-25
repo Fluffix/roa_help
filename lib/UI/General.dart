@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/UI/Pages/Articles/Articles.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Markets/Markets.dart';
@@ -10,6 +11,9 @@ import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/models/WaterControlModel.dart';
 
 class General extends StatefulWidget {
+  final StatsSerialise db;
+
+  General({Key key, this.db}) : super(key: key);
   @override
   _GeneralState createState() => _GeneralState();
 }
@@ -29,10 +33,9 @@ class _GeneralState extends State<General> {
     pageControllerPage = PageController(initialPage: 0);
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
     pageHome = Home(
-        watercontroll: WaterControlModel(
-      dayNorm: 8.0,
-      wasDrinked: 0.0,
-    ));
+        watercontroll: WaterControlModel(dayNorm: 8.0, wasDrinked: 0.0
+            // wasDrinked: widget.db.water.toDouble(),
+            ));
     pageArticles = Articles();
     pageMarkets = Markets();
     pageProfile = Profile();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roa_help/Controllers/FoodController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
+import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/BottomSheet.dart';
@@ -168,14 +168,15 @@ class _FatsCalcState extends State<FatsCalc> {
           return SizedBox();
         }
       } else {
-        if (state.foods.isEmpty) {
+        if (state.db.foods.isEmpty) {
           return SizedBox();
         } else {
           //  When Find is not empty
+          print(state.db);
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 24.0),
             child: Column(
-                children: List.generate(state.foods.length, (index) {
+                children: List.generate(state.db.foods.length, (index) {
               return Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
@@ -194,7 +195,7 @@ class _FatsCalcState extends State<FatsCalc> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('${state.foods[index].name}',
+                      Text('${state.db.foods[index].name}',
                           style: Theme.of(context)
                               .primaryTextTheme
                               .headline1
@@ -203,28 +204,30 @@ class _FatsCalcState extends State<FatsCalc> {
                               )),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
-                        onTap: _isChosenFood(state.foods[index])
+                        onTap: _isChosenFood(state.db.foods[index])
                             ? () {
                                 print(1);
                                 chosenFoods.removeWhere((element) =>
-                                    element.item.id == state.foods[index].id);
+                                    element.item.id ==
+                                    state.db.foods[index].id);
                                 setState(() {});
                               }
                             : () async {
                                 int result = await _showBottomSheetFood(
-                                    state.foods[index], foodTextController);
+                                    state.db.foods[index], foodTextController);
                                 if (result != null) {
                                   // Add chosen food to reciepes and counting fats
                                   int fatsWasEaten =
-                                      ((result * state.foods[index].fat) / 100)
+                                      ((result * state.db.foods[index].fat) /
+                                              100)
                                           .round();
                                   chosenFoods.add(ChosenFoodModel(
-                                      item: state.foods[index],
+                                      item: state.db.foods[index],
                                       fatsWasEaten: fatsWasEaten));
                                 }
                               },
                         child: IconSvg(
-                            _isChosenFood(state.foods[index])
+                            _isChosenFood(state.db.foods[index])
                                 ? IconsSvg.remove
                                 : IconsSvg.add,
                             color: cInactiveColorDark.withOpacity(1.0),
@@ -242,7 +245,7 @@ class _FatsCalcState extends State<FatsCalc> {
   }
 
   Future<int> _showBottomSheetFood(
-      Items item, TextEditingController textController) {
+      Food item, TextEditingController textController) {
     return showModalBottomSheet(
         isScrollControlled: false,
         shape: RoundedRectangleBorder(
@@ -268,7 +271,7 @@ class _FatsCalcState extends State<FatsCalc> {
         });
   }
 
-  bool _isChosenFood(Items currentItem) {
+  bool _isChosenFood(Food currentItem) {
     bool result = false;
     chosenFoods.forEach((element) {
       if (element.item.id == currentItem.id) result = true;

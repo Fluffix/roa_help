@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
+import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
 import 'package:roa_help/UI/Pages/Home/Feelings.dart';
@@ -25,7 +25,7 @@ class FatsCountInfo {
 }
 
 class FavoritesFood {
-  List<Items> favorites;
+  List<Food> favorites;
   FavoritesFood({this.favorites});
   FavoritesFood.empty() {
     favorites = [];
@@ -57,7 +57,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  GetFood db;
+  FoodList db;
   WaterController waterController = WaterController();
 
   @override
@@ -78,8 +78,9 @@ class _HomeState extends State<Home> {
               scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32),
+                padding: MediaQuery.of(context).size.width > 795
+                    ? const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32)
+                    : const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
                 child: Column(
                   children: [
                     _waterControl(),

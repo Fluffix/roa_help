@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
+import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class ContentFatsBottomSheet extends StatefulWidget {
-  final Items item;
+  final Food item;
   final Function onTap;
   const ContentFatsBottomSheet(
       {Key key, @required this.item, @required this.onTap})
