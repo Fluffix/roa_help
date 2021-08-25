@@ -1,6 +1,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Routes.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/General.dart';
@@ -19,34 +21,41 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final GeneralController controller = GeneralController();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    return AdaptiveTheme(
-      light: kLightTheme,
-      dark: kDarkTheme,
-      initial: AdaptiveThemeMode.dark,
-      builder: (light, dark) => Builder(
-        builder: (context) => MaterialApp(
-          localizationsDelegates: [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          debugShowCheckedModeBanner: false,
-          theme: light,
-          darkTheme: dark,
-          initialRoute: Routes.home,
-          routes: <String, WidgetBuilder>{
-            Routes.home: (BuildContext context) => General(),
-            Routes.welcomeNew: (BuildContext context) => Auth(),
-            Routes.chooseCity: (BuildContext context) => ChooseCity(),
-          },
+    controller.settingsController.getSavedNotifications();
+    controller.settingsController.getSavedDayNorm();
+    return Provider<GeneralController>(
+      create: (_) => controller,
+      builder: (context, child) => child,
+      child: AdaptiveTheme(
+        light: kLightTheme,
+        dark: kDarkTheme,
+        initial: AdaptiveThemeMode.dark,
+        builder: (light, dark) => Builder(
+          builder: (context) => MaterialApp(
+            localizationsDelegates: [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            debugShowCheckedModeBanner: false,
+            theme: light,
+            darkTheme: dark,
+            initialRoute: Routes.home,
+            routes: <String, WidgetBuilder>{
+              Routes.home: (BuildContext context) => General(),
+              Routes.welcomeNew: (BuildContext context) => Auth(),
+              Routes.chooseCity: (BuildContext context) => ChooseCity(),
+            },
+          ),
         ),
       ),
     );

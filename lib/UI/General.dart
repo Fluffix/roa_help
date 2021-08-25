@@ -7,6 +7,8 @@ import 'package:roa_help/UI/Pages/Profile/Profile.dart';
 import 'package:roa_help/UI/widgets/KeepAlivePage.dart';
 import 'package:roa_help/UI/widgets/MainPanel.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
+import 'package:roa_help/generated/l10n.dart';
+import 'package:roa_help/models/ArticlesModel.dart';
 import 'package:roa_help/models/WaterControlModel.dart';
 
 class General extends StatefulWidget {
@@ -18,25 +20,13 @@ class _GeneralState extends State<General> {
   int currentIndex;
   PageController pageControllerPage;
   ScrollController pageControllerBackground;
-  Widget pageHome;
-  Widget pageArticles;
-  Widget pageMarkets;
-  Widget pageProfile;
 
   @override
   void initState() {
+    super.initState();
     currentIndex = 0;
     pageControllerPage = PageController(initialPage: 0);
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
-    pageHome = Home(
-        watercontroll: WaterControlModel(
-      dayNorm: 8.0,
-      wasDrinked: 0.0,
-    ));
-    pageArticles = Articles();
-    pageMarkets = Markets();
-    pageProfile = Profile();
-    super.initState();
   }
 
   setPage(int index) {
@@ -77,10 +67,44 @@ class _GeneralState extends State<General> {
             physics: NeverScrollableScrollPhysics(),
             controller: pageControllerPage,
             children: [
-              KeepAlivePage(child: pageHome),
-              KeepAlivePage(child: pageArticles),
-              KeepAlivePage(child: pageMarkets),
-              KeepAlivePage(child: pageProfile),
+              KeepAlivePage(
+                  child: Home(
+                watercontroll: WaterControlModel(
+                  wasDrinked: 0,
+                ),
+              )),
+              KeepAlivePage(
+                  child: Articles(
+                items: [
+                  AriclesItem(
+                      icon: IconsSvg.calendar,
+                      title: S.of(context).articles_head,
+                      body: S.of(context).articles_body,
+                      onTap: null),
+                  AriclesItem(
+                      icon: IconsSvg.calendar,
+                      title: S.of(context).articles_head,
+                      body: S.of(context).articles_body,
+                      onTap: null),
+                  AriclesItem(
+                      icon: IconsSvg.calendar,
+                      title: S.of(context).articles_head,
+                      body: S.of(context).articles_body,
+                      onTap: null),
+                  AriclesItem(
+                      icon: IconsSvg.calendar,
+                      title: S.of(context).articles_head,
+                      body: S.of(context).articles_body,
+                      onTap: null),
+                  AriclesItem(
+                      icon: IconsSvg.calendar,
+                      title: S.of(context).articles_head,
+                      body: S.of(context).articles_body,
+                      onTap: null),
+                ],
+              )),
+              KeepAlivePage(child: Markets()),
+              KeepAlivePage(child: Profile()),
             ],
           ),
           Align(

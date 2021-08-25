@@ -37,7 +37,9 @@ class IconsSvg {
   static int get lightMode => 33;
   static int get find => 34;
   static int get pencil => 35;
-  static int get addGramms => 36;
+  static int get checkMark => 36;
   static int get cancel => 37;
   static int get activeStar => 38;
+  static int get leftArrow => 39;
+  static int get rightArrow => 40;
 }

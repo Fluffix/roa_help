@@ -2,12 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
-
-class CardSettingsItem {
-  final String text;
-  final Function onTap;
-  CardSettingsItem({this.text, this.onTap});
-}
+import 'package:roa_help/models/CardSettingsModel.dart';
 
 class CardSettings extends StatefulWidget {
   final List<CardSettingsItem> items;

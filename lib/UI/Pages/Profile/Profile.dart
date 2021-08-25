@@ -7,6 +7,7 @@ import 'package:roa_help/UI/Pages/Profile/widgets/CardSettings.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
+import 'package:roa_help/models/CardSettingsModel.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -95,12 +96,14 @@ class _ProfileState extends State<Profile> {
                                 setPage(0);
                               })
                             : numberPageSettings == 1
-                                ? SettingsPassword(onTap: () {
+                                ? SettingsPassword(onTapBack: () {
                                     setPage(0);
                                   })
-                                : SettingsWater(onTap: () {
-                                    setPage(0);
-                                  }))
+                                : SettingsWater(
+                                    onTapBack: () {
+                                      setPage(0);
+                                    },
+                                  ))
                   ]),
             )),
       )),

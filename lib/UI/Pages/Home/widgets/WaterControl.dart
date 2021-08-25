@@ -1,5 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaveProgressBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -27,6 +29,7 @@ class _WaterConrolState extends State<WaterConrol> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context).settingsController;
     return GestureDetector(
       onTap: () {
         if (widget.onChange != null) {
@@ -85,7 +88,7 @@ class _WaterConrolState extends State<WaterConrol> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          ' / ${widget.waterControll.dayNorm.round()} ${S.of(context).glasses}',
+                          ' / ${controller.data.waterNormDay} ${S.of(context).glass_3}',
                           style: Theme.of(context).textTheme.headline4,
                         ),
                       ],

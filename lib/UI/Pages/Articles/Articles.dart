@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:roa_help/UI/Pages/Articles/widgets/CardArticles.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/generated/l10n.dart';
+import 'package:roa_help/models/ArticlesModel.dart';
 
 class Articles extends StatefulWidget {
+  const Articles({Key key, @required this.items}) : super(key: key);
+
+  final List<AriclesItem> items;
   @override
   _ArticlesState createState() => _ArticlesState();
 }
@@ -21,15 +25,18 @@ class _ArticlesState extends State<Articles> {
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
           child: Column(
-            children: List.generate(7, (index) {
-              if (index != 6) {
-                return CardArticles();
-              } else {
-                return SizedBox(
-                  height: 120,
-                );
-              }
-            }),
+            children: [
+              Column(
+                children: List.generate(
+                    widget.items.length,
+                    (index) => CardArticles(
+                          item: widget.items[index],
+                        )),
+              ),
+              SizedBox(
+                height: 120,
+              ),
+            ],
           ),
         ),
       )),

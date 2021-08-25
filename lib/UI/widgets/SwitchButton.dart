@@ -8,8 +8,10 @@ class SwitchButton extends StatefulWidget {
     @required this.inactiveCircleColor,
     this.circleWidth = 20.0,
     this.circleHeight = 20.0,
-    @required this.onTap,
-    this.cancel,
+    this.turnOn,
+    this.turnOnWithWait,
+    this.turnOnWithWaitAndCancel,
+    this.turnOff,
     this.isActive = false,
   });
 
@@ -19,8 +21,10 @@ class SwitchButton extends StatefulWidget {
   final Color inactiveCircleColor;
   final double circleWidth;
   final double circleHeight;
-  final Function onTap;
-  final Function cancel;
+  final Function turnOn;
+  final Function turnOnWithWait;
+  final Function turnOnWithWaitAndCancel;
+  final Function turnOff;
   final bool isActive;
 
   @override
@@ -37,11 +41,19 @@ class _SwitchButtonState extends State<SwitchButton> {
     return GestureDetector(
       onTap: () async {
         if (isActive) {
-          widget.cancel();
+          if (widget.turnOff != null) {
+            await widget.turnOff();
+          }
           isActive = !isActive;
         } else {
-          if (widget.onTap != null) {
-            await widget.onTap((cancel) {
+          if (widget.turnOn != null) {
+            await widget.turnOn();
+          }
+          if (widget.turnOnWithWait != null) {
+            await widget.turnOnWithWait();
+          }
+          if (widget.turnOnWithWaitAndCancel != null) {
+            await widget.turnOnWithWaitAndCancel((cancel) {
               if (cancel) {
                 isActive = !isActive;
               }

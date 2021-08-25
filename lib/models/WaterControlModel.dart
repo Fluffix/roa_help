@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
-
 class WaterControlModel {
-  final double dayNorm;
-  double wasDrinked;
+  int wasDrinked;
 
-  WaterControlModel({@required this.dayNorm, this.wasDrinked});
+  WaterControlModel({this.wasDrinked});
 }

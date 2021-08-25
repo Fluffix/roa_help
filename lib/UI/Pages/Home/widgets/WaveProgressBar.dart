@@ -59,10 +59,7 @@ class WaveProgressBarState extends State<WaveProgressBar>
     super.dispose();
   }
 
-  @override
-  double getPercentage() {
-    return _percentage;
-  }
+  double get getPercentage => _percentage;
 
   @override
   void initState() {

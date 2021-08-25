@@ -135,11 +135,31 @@ class S {
     );
   }
 
+  /// `станкан`
+  String get glass {
+    return Intl.message(
+      'станкан',
+      name: 'glass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `станкана`
+  String get glass_2 {
+    return Intl.message(
+      'станкана',
+      name: 'glass_2',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `стаканов`
-  String get glasses {
+  String get glass_3 {
     return Intl.message(
       'стаканов',
-      name: 'glasses',
+      name: 'glass_3',
       desc: '',
       args: [],
     );
@@ -190,6 +210,16 @@ class S {
     return Intl.message(
       'Поставить напоминание',
       name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Изменить`
+  String get to_change {
+    return Intl.message(
+      'Изменить',
+      name: 'to_change',
       desc: '',
       args: [],
     );
@@ -490,6 +520,36 @@ class S {
     return Intl.message(
       'Акнекутан капс. 16 мг.',
       name: 'akne_16mg',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Назад`
+  String get back {
+    return Intl.message(
+      'Назад',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ваша норма:`
+  String get your_norm {
+    return Intl.message(
+      'Ваша норма:',
+      name: 'your_norm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `в день`
+  String get in_the_day {
+    return Intl.message(
+      'в день',
+      name: 'in_the_day',
       desc: '',
       args: [],
     );

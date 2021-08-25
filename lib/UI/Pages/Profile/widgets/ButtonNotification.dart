@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/generated/l10n.dart';
 
-class ButtonSave extends StatefulWidget {
+class ButtonNotification extends StatefulWidget {
+  final String titleButton;
   final Function onChance;
   final Function onTap;
   final bool delayed;
 
-  const ButtonSave({this.onChance, @required this.onTap, this.delayed = false});
+  const ButtonNotification({
+    @required this.titleButton,
+    this.onChance,
+    this.onTap,
+    this.delayed = false,
+  });
   @override
-  _ButtonSaveState createState() => _ButtonSaveState();
+  _ButtonNotificationState createState() => _ButtonNotificationState();
 }
 
-class _ButtonSaveState extends State<ButtonSave> {
+class _ButtonNotificationState extends State<ButtonNotification> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
         if (widget.onChance != null) widget.onChance();
+        
         if (widget.delayed)
           await Future.delayed(const Duration(milliseconds: 400));
         if (widget.onTap != null) widget.onTap();
@@ -31,7 +37,7 @@ class _ButtonSaveState extends State<ButtonSave> {
             SizedBox(height: 10),
             Align(
               alignment: Alignment.center,
-              child: Text(S.of(context).save,
+              child: Text(widget.titleButton,
                   style: Theme.of(context).textTheme.button),
             ),
             SizedBox(height: 10),

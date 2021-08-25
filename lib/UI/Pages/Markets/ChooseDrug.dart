@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
-import 'package:roa_help/generated/l10n.dart';
 
 class Selectable extends StatelessWidget {
   final String title;

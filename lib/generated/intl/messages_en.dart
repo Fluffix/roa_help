@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "articles" : MessageLookupByLibrary.simpleMessage("Статьи"),
     "articles_body" : MessageLookupByLibrary.simpleMessage("Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы."),
     "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
+    "back" : MessageLookupByLibrary.simpleMessage("Назад"),
     "calendar" : MessageLookupByLibrary.simpleMessage("Календарь"),
     "choose_city" : MessageLookupByLibrary.simpleMessage("Город"),
     "choose_drug" : MessageLookupByLibrary.simpleMessage("Выберите препарат"),
@@ -40,9 +41,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "feeling" : MessageLookupByLibrary.simpleMessage("Здоровье"),
     "find" : MessageLookupByLibrary.simpleMessage("ПОИСК"),
     "food_find" : MessageLookupByLibrary.simpleMessage("Поиск блюда"),
-    "glasses" : MessageLookupByLibrary.simpleMessage("стаканов"),
+    "glass" : MessageLookupByLibrary.simpleMessage("станкан"),
+    "glass_2" : MessageLookupByLibrary.simpleMessage("станкана"),
+    "glass_3" : MessageLookupByLibrary.simpleMessage("стаканов"),
     "gramms" : MessageLookupByLibrary.simpleMessage("гр."),
     "gramms_eating" : MessageLookupByLibrary.simpleMessage("г. съедено"),
+    "in_the_day" : MessageLookupByLibrary.simpleMessage("в день"),
     "input_pass" : MessageLookupByLibrary.simpleMessage("Введите пароль"),
     "input_user_name" : MessageLookupByLibrary.simpleMessage("Введите имя пользователя"),
     "login" : MessageLookupByLibrary.simpleMessage("ВОЙТИ"),
@@ -64,8 +68,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "side_effects" : MessageLookupByLibrary.simpleMessage("Побочные эффекты"),
     "signin" : MessageLookupByLibrary.simpleMessage("РЕГИСТРАЦИЯ"),
     "time_take_drug" : MessageLookupByLibrary.simpleMessage("Настало время приёма препарата"),
+    "to_change" : MessageLookupByLibrary.simpleMessage("Изменить"),
     "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды"),
     "water_norm" : MessageLookupByLibrary.simpleMessage("Дневная норма воды"),
-    "welcome" : MessageLookupByLibrary.simpleMessage("Добро Пожаловать!")
+    "welcome" : MessageLookupByLibrary.simpleMessage("Добро Пожаловать!"),
+    "your_norm" : MessageLookupByLibrary.simpleMessage("Ваша норма:")
   };
 }

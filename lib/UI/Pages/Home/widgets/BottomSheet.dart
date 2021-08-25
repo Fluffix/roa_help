@@ -148,7 +148,7 @@ class ContentFatsBottomSheetState extends State<ContentFatsBottomSheet> {
                               padding: const EdgeInsets.all(16.0),
                               child: Center(
                                   child: IconSvg(
-                                IconsSvg.addGramms,
+                                IconsSvg.checkMark,
                                 color: cWhite,
                               )),
                             ),

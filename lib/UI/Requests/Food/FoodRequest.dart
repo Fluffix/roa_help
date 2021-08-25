@@ -11,6 +11,7 @@ Future<GetFood> getFood(String searchText) async {
 
     var response = await http.get(url);
     int statusCode = response.statusCode;
+    print(statusCode);
 
     String jsonR = response.body;
     Map<String, dynamic> jsonMap = json.decode(jsonR);

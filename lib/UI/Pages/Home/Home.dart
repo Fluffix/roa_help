@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Controllers/SettingsController.dart';
 import 'package:roa_help/Requests/Food/FoodRequestSerialise.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
@@ -66,6 +69,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context).settingsController;
     return Material(
         color: Colors.transparent,
         child: SafeArea(
@@ -80,7 +84,7 @@ class _HomeState extends State<Home> {
                     const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32),
                 child: Column(
                   children: [
-                    _waterControl(),
+                    _waterControl(controller),
                     SizedBox(
                       height: 24,
                     ),
@@ -117,34 +121,32 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _waterControl() {
+  Widget _waterControl(SettingsController controller) {
     return WaterConrol(
       waterControll: widget.watercontroll,
       waterController: waterController,
       onChange: () {
-        if (widget.watercontroll.wasDrinked != widget.watercontroll.dayNorm) {
-          // print();
-          if (waterController.bezierCurveState.getPercentage() ==
-              widget.watercontroll.wasDrinked / widget.watercontroll.dayNorm) {
+        if (widget.watercontroll.wasDrinked != controller.data.waterNormDay) {
+          if (waterController.bezierCurveState.getPercentage ==
+              widget.watercontroll.wasDrinked / controller.data.waterNormDay) {
             setState(() {
-              widget.watercontroll.wasDrinked += 1.0;
+              widget.watercontroll.wasDrinked += 1;
               waterController.changeWaterHeight(
                   widget.watercontroll.wasDrinked /
-                      widget.watercontroll.dayNorm);
+                      controller.data.waterNormDay);
             });
           }
         }
       },
       onRemove: () {
         if (widget.watercontroll.wasDrinked > 0) {
-          // print();
-          if (waterController.bezierCurveState.getPercentage() ==
-              widget.watercontroll.wasDrinked / widget.watercontroll.dayNorm) {
+          if (waterController.bezierCurveState.getPercentage ==
+              widget.watercontroll.wasDrinked / controller.data.waterNormDay) {
             setState(() {
-              widget.watercontroll.wasDrinked -= 1.0;
+              widget.watercontroll.wasDrinked -= 1;
               waterController.changeWaterHeight(
                   widget.watercontroll.wasDrinked /
-                      widget.watercontroll.dayNorm);
+                      controller.data.waterNormDay);
             });
           }
         }
