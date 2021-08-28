@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Controllers/SettingsController.dart';
+import 'package:roa_help/Controllers/WaterController.dart';
 import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
+import 'package:roa_help/Requests/Home/GetFeelings.dart';
+import 'package:roa_help/Requests/Home/Water.dart';
+import 'package:roa_help/Requests/Profile/Profile.dart';
+import 'package:roa_help/Routes.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
-import 'package:roa_help/UI/Pages/Home/Feelings.dart';
 import 'package:roa_help/UI/Pages/Reciepes/Reciepes.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
-import 'package:roa_help/UI/Pages/Home/widgets/WaveProgressBar.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/ChosenFoodModel.dart';
-import 'package:roa_help/models/WaterControlModel.dart';
 
 class FatsCountInfo {
   int fatsWasEaten;
@@ -41,14 +42,12 @@ List<FatsCountInfo> meals = [
 FavoritesFood favoritesFood = FavoritesFood.empty();
 
 class Home extends StatefulWidget {
-  final WaterControlModel watercontroll;
   final int firstFats;
   final int secondFats;
   final int feeling;
   final int recipes;
 
   Home({
-    @required this.watercontroll,
     this.firstFats,
     this.secondFats,
     this.feeling,
@@ -60,7 +59,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   FoodList db;
-  WaterController waterController = WaterController();
 
   @override
   void initState() {
@@ -70,7 +68,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).settingsController;
+    var controller = Provider.of<GeneralController>(context).waterController;
     return Material(
         color: Colors.transparent,
         child: SafeArea(
@@ -123,32 +121,26 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _waterControl(SettingsController controller) {
+  Widget _waterControl(WaterController controller) {
     return WaterConrol(
-      waterControll: widget.watercontroll,
-      waterController: waterController,
-      onChange: () {
-        if (widget.watercontroll.wasDrinked != controller.data.waterNormDay) {
-          if (waterController.bezierCurveState.getPercentage ==
-              widget.watercontroll.wasDrinked / controller.data.waterNormDay) {
+      onChange: () async {
+        if (controller.data.wasDrinked != controller.data.waterNormDay) {
+          if (controller.animationController.bezierCurveState.getPercentage ==
+              controller.data.wasDrinked / controller.data.waterNormDay) {
+            await waterRequest(wasDrinked: 1.0);
             setState(() {
-              widget.watercontroll.wasDrinked += 1;
-              waterController.changeWaterHeight(
-                  widget.watercontroll.wasDrinked /
-                      controller.data.waterNormDay);
+              controller.changeWasDrinkedWater(quantity: 1);
             });
           }
         }
       },
-      onRemove: () {
-        if (widget.watercontroll.wasDrinked > 0) {
-          if (waterController.bezierCurveState.getPercentage ==
-              widget.watercontroll.wasDrinked / controller.data.waterNormDay) {
+      onRemove: () async {
+        if (controller.data.wasDrinked > 0) {
+          if (controller.animationController.bezierCurveState.getPercentage ==
+              controller.data.wasDrinked / controller.data.waterNormDay) {
+            await waterRequest(wasDrinked: -1.0);
             setState(() {
-              widget.watercontroll.wasDrinked -= 1;
-              waterController.changeWaterHeight(
-                  widget.watercontroll.wasDrinked /
-                      controller.data.waterNormDay);
+              controller.changeWasDrinkedWater(quantity: -1);
             });
           }
         }
@@ -189,9 +181,10 @@ class _HomeState extends State<Home> {
 
   Widget _health() {
     return SmallCardWidget(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Feelings()));
+      onTap: () async {
+        var sideEffects = await getSideEffects();
+        Navigator.pushNamed(context, Routes.sideEffects,
+            arguments: sideEffects);
       },
       subtitlte: S.of(context).quantity_of_feelings,
       icon: IconSvg(IconsSvg.feeling, width: 20),
@@ -201,7 +194,8 @@ class _HomeState extends State<Home> {
 
   Widget _reciepes() {
     return SmallCardWidget(
-      onTap: () {
+      onTap: () async {
+        var profileInfo = await getProfile();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Reciepes()));
       },

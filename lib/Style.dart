@@ -28,6 +28,7 @@ const List<BoxShadow> shadow = [
 ];
 
 final kDarkTheme = ThemeData.dark().copyWith(
+    brightness: Brightness.dark,
     primaryColorBrightness: Brightness.dark,
     sliderTheme: SliderThemeData(
         activeTrackColor: cActiveColor,
@@ -126,6 +127,7 @@ final kDarkTheme = ThemeData.dark().copyWith(
             fontWeight: FontWeight.w500)));
 
 final kLightTheme = ThemeData.light().copyWith(
+    brightness: Brightness.light,
     primaryColorBrightness: Brightness.light,
     sliderTheme: SliderThemeData(
         activeTrackColor: cActiveColor,

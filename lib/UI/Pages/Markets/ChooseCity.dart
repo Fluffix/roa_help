@@ -1,40 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/widgets/Search.dart';
 import 'package:roa_help/UI/widgets/SecondAppBar.dart';
 import 'package:roa_help/generated/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-List<String> cities = [
-  'Москва',
-  'Санкт-Петербург',
-  'Саратов',
-  'Краснодар',
-  'Армовир',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-  'Махачкала',
-];
+String chosenCity;
 
 class ChooseCity extends StatefulWidget {
   @override
@@ -43,9 +16,26 @@ class ChooseCity extends StatefulWidget {
 
 class _ChooseCityState extends State<ChooseCity> {
   TextEditingController searchCityController = TextEditingController();
+  bool loading = true;
+  @override
+  void initState() {
+    load();
+    super.initState();
+    setState(() {});
+  }
+
+  void load() async {
+    loading = true;
+    setState(() {});
+    chosenCity = await getCity();
+    log(chosenCity);
+    loading = false;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+    final List<dynamic> cities = ModalRoute.of(context).settings.arguments;
     return Material(
         color: Theme.of(context).backgroundColor,
         child: SafeArea(
@@ -56,8 +46,11 @@ class _ChooseCityState extends State<ChooseCity> {
               backgroundColor: Theme.of(context).backgroundColor,
               appBar: SecondAppBar(
                 text: S.of(context).choose_city,
-                onChange: () {
-                  Navigator.pop(context);
+                onChange: () async {
+                  if (chosenCity != null) {
+                    _saveCity(chosenCity);
+                  }
+                  Navigator.pop(context, chosenCity);
                 },
               ),
               body: SingleChildScrollView(
@@ -65,11 +58,64 @@ class _ChooseCityState extends State<ChooseCity> {
                 physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    _search(),
-                    SizedBox(height: 32),
                     Column(
                       children: List.generate(cities.length, (index) {
-                        return _cityItem(index, context);
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              chosenCity = cities[index].toString();
+                            });
+                          },
+                          behavior: HitTestBehavior.translucent,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: (index + 1) != cities.length
+                                    ? Border(
+                                        bottom: BorderSide(
+                                            color: cInactiveColorDark
+                                                .withOpacity(1.0),
+                                            width: 0.5))
+                                    : null),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12.0, horizontal: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('${cities[index]}',
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline1
+                                          .copyWith(fontSize: 16)),
+                                  Container(
+                                      width: 22,
+                                      height: 22,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 2, color: cSecondary),
+                                        borderRadius: BorderRadius.circular(90),
+                                      ),
+                                      child: cities[index].toString() ==
+                                              chosenCity
+                                          ? Center(
+                                              child: Container(
+                                                width: 12,
+                                                height: 12,
+                                                decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .focusColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(90),
+                                                ),
+                                              ),
+                                            )
+                                          : SizedBox())
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
                       }),
                     ),
                     SizedBox(
@@ -83,41 +129,19 @@ class _ChooseCityState extends State<ChooseCity> {
         ));
   }
 
-  Container _cityItem(int index, BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: (index + 1) != cities.length
-              ? Border(
-                  bottom: BorderSide(
-                      color: cInactiveColorDark.withOpacity(1.0), width: 0.5))
-              : null),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('${cities[index]}',
-                style: Theme.of(context)
-                    .primaryTextTheme
-                    .headline1
-                    .copyWith(fontSize: 16)),
-            Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                border: Border.all(width: 2, color: cSecondary),
-                borderRadius: BorderRadius.circular(90),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _search() {
     return Search(
         controllerText: searchCityController,
         findHint: "${S.of(context).city_find}");
   }
+
+  Future<void> _saveCity(String city) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('city', city);
+  }
+}
+
+Future<String> getCity() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  return sharedPreferences.getString('city');
 }

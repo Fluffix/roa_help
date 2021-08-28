@@ -1,4 +1,4 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +6,7 @@ import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Routes.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/General.dart';
+import 'package:roa_help/UI/Pages/Home/Feelings.dart';
 import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:flutter/services.dart';
@@ -29,35 +30,34 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
     ]);
     controller.settingsController.getSavedNotifications();
-    controller.settingsController.getSavedDayNorm();
-    return Provider<GeneralController>(
-      create: (_) => controller,
-      builder: (context, child) => child,
-      child: AdaptiveTheme(
-        light: kLightTheme,
-        dark: kDarkTheme,
-        initial: AdaptiveThemeMode.dark,
-        builder: (light, dark) => Builder(
-          builder: (context) => MaterialApp(
-            localizationsDelegates: [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: S.delegate.supportedLocales,
-            debugShowCheckedModeBanner: false,
-            theme: light,
-            darkTheme: dark,
-            initialRoute: Routes.home,
-            routes: <String, WidgetBuilder>{
-              Routes.home: (BuildContext context) => General(),
-              Routes.welcomeNew: (BuildContext context) => Auth(),
-              Routes.chooseCity: (BuildContext context) => ChooseCity(),
-            },
-          ),
-        ),
-      ),
+    controller.waterController.getWaterDayNorm;
+    return ThemeProvider(
+      duration: Duration(milliseconds: 500),
+      initTheme: kDarkTheme,
+      builder: (context, myTheme) {
+        return Provider<GeneralController>(
+            create: (_) => controller,
+            builder: (context, child) => child,
+            child: MaterialApp(
+              title: 'Roa Help',
+              theme: myTheme,
+              localizationsDelegates: [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
+              debugShowCheckedModeBanner: false,
+              initialRoute: Routes.welcomeNew,
+              routes: <String, WidgetBuilder>{
+                Routes.home: (BuildContext context) => General(),
+                Routes.welcomeNew: (BuildContext context) => Auth(),
+                Routes.chooseCity: (BuildContext context) => ChooseCity(),
+                Routes.sideEffects: (BuildContext context) => Feelings(),
+              },
+            ));
+      },
     );
   }
 }

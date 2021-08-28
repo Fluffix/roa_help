@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -36,8 +35,7 @@ class _SmallCardWidgetState extends State<SmallCardWidget> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: Theme.of(context).cardColor,
-              boxShadow: AdaptiveTheme.of(context).theme !=
-                      AdaptiveTheme.of(context).darkTheme
+              boxShadow: Theme.of(context).brightness != Brightness.dark
                   ? shadow
                   : null),
           child: Padding(

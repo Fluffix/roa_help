@@ -4,23 +4,21 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StateSettings {
-  StateSettings(
-      {@required this.morningNotification,
-      @required this.eveningNotification,
-      @required this.waterNormDay});
+  StateSettings({
+    @required this.morningNotification,
+    @required this.eveningNotification,
+  });
 
   final bool morningNotification;
   final bool eveningNotification;
-  final int waterNormDay;
 }
 
 class SettingsController {
   SettingsController({@required this.navigatorKeySettings});
-
   final GlobalKey<NavigatorState> navigatorKeySettings;
+
   bool _morningNotification;
   bool _eveningNotification;
-  int _waterNormDay;
 
   BehaviorSubject<StateSettings> _controllerNotifications = BehaviorSubject();
   ValueStream<StateSettings> get stream => _controllerNotifications.stream;
@@ -62,34 +60,12 @@ class SettingsController {
     setState();
   }
 
-  //WATERCONTROLL
-  void saveDayNorm({@required String key, @required int waterNormDay}) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(key, waterNormDay);
-
-    _waterNormDay = waterNormDay;
-
-    setState();
-  }
-
-  void getSavedDayNorm() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    if (prefs.getInt(KeysCache.waterNormDay) != null) {
-      _waterNormDay = prefs.getInt(KeysCache.waterNormDay);
-    } else {
-      _waterNormDay = 8;
-    }
-
-    setState();
-  }
-
   //GENERAL
   setState() {
     StateSettings state = StateSettings(
-        morningNotification: _morningNotification,
-        eveningNotification: _eveningNotification,
-        waterNormDay: _waterNormDay);
+      morningNotification: _morningNotification,
+      eveningNotification: _eveningNotification,
+    );
     _controllerNotifications.sink.add(state);
   }
 

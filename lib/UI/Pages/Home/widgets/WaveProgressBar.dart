@@ -18,7 +18,7 @@ class WaveProgressBar extends StatefulWidget {
   final Color waterColor;
   final Color strokeCircleColor;
   final double circleStrokeWidth;
-  final WaterController heightController;
+  final WaterAnimationController heightController;
 
   WaveProgressBar({
     @required this.size,
@@ -298,7 +298,7 @@ class BezierCurvePainter extends CustomPainter {
   }
 }
 
-class WaterController {
+class WaterAnimationController {
   WaveProgressBarState bezierCurveState;
 
   void changeWaterHeight(double h) {

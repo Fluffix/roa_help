@@ -1,17 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Home/GetFeelingsSerialise.dart';
+import 'package:roa_help/Requests/Home/PostFeelings.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/widgets/SwitchButton.dart';
 import 'package:roa_help/generated/l10n.dart';
-import 'package:roa_help/models/FeelingsCategoryModel.dart';
-
-class ChosenFeeling extends FeelingItem {
-  final int categoryId;
-
-  ChosenFeeling({@required this.categoryId, name, isChosen})
-      : super(name: name, isChosen: isChosen);
-}
+import 'package:roa_help/models/ChosenFeelingsModel.dart';
 
 class Feelings extends StatefulWidget {
   @override
@@ -26,7 +21,7 @@ class _FeelingsState extends State<Feelings> {
       _loading = true;
     });
     // Request func in this place
-    await Future.delayed(Duration(seconds: 3));
+    await sendSideEffectsRequest(chosenfeelings);
 
     setState(() {
       _loading = false;
@@ -35,137 +30,10 @@ class _FeelingsState extends State<Feelings> {
 
   List<ChosenFeeling> chosenfeelings = [];
 
-  List<FeelingsCategoryModel> allCats = [
-    FeelingsCategoryModel(
-        categoryId: 1,
-        categoryName: 'Гипервитаминоз',
-        categoryColor: Color.fromRGBO(235, 61, 55, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: true),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: true),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 2,
-        categoryName: 'Кожа и ее придатки',
-        categoryColor: Color.fromRGBO(16, 68, 129, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 3,
-        categoryName: 'Костно-мышечная система',
-        categoryColor: Color.fromRGBO(252, 118, 6, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 4,
-        categoryName: 'Нервная система',
-        categoryColor: Color.fromRGBO(74, 182, 161, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 5,
-        categoryName: 'Органы чувств',
-        categoryColor: Color.fromRGBO(252, 190, 44, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 6,
-        categoryName: 'Желудочно-кишечный тракт',
-        categoryColor: Color.fromRGBO(124, 149, 180, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 7,
-        categoryName: 'Органы дыхания',
-        categoryColor: Color.fromRGBO(251, 199, 155, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 8,
-        categoryName: 'Иммунная система',
-        categoryColor: Color.fromRGBO(222, 122, 206, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ]),
-    FeelingsCategoryModel(
-        categoryId: 9,
-        categoryName: 'Лабораторные показатели',
-        categoryColor: Color.fromRGBO(168, 118, 82, 1.0),
-        elements: [
-          FeelingItem(name: 'Побочка 1', isChosen: false),
-          FeelingItem(name: 'Побочка 2', isChosen: false),
-          FeelingItem(name: 'Побочка 3', isChosen: false),
-          FeelingItem(name: 'Побочка 4', isChosen: false),
-          FeelingItem(name: 'Побочка 5', isChosen: false),
-          FeelingItem(name: 'Побочка 6', isChosen: false),
-          FeelingItem(name: 'Побочка 7', isChosen: false),
-          FeelingItem(name: 'Побочка 8', isChosen: false),
-        ])
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final SideEffectsCategoryiesList allCats =
+        ModalRoute.of(context).settings.arguments;
     return Material(
         color: Theme.of(context).backgroundColor,
         child: Stack(children: [
@@ -176,7 +44,9 @@ class _FeelingsState extends State<Feelings> {
                 text: S.of(context).side_effects,
                 onChange: () async {
                   // ignore: await_only_futures
-                  await load();
+                  if (chosenfeelings.isNotEmpty) {
+                    load();
+                  }
                   Navigator.pop(context);
                 },
               ),
@@ -188,8 +58,8 @@ class _FeelingsState extends State<Feelings> {
                   child: Column(
                     children: [
                       Column(
-                        children: List.generate(allCats.length, (index) {
-                          return _buildCategory(context, allCats[index]);
+                        children: List.generate(allCats.items.length, (index) {
+                          return _buildCategory(context, allCats.items[index]);
                         }),
                       ),
                       SizedBox(
@@ -225,7 +95,7 @@ class _FeelingsState extends State<Feelings> {
         ]));
   }
 
-  Widget _buildCategory(BuildContext context, FeelingsCategoryModel category) {
+  Widget _buildCategory(BuildContext context, CategoryItem category) {
     return Column(
       children: [
         Container(
@@ -234,17 +104,17 @@ class _FeelingsState extends State<Feelings> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 3),
             child: Center(
-              child: Text('${category.categoryName}',
+              child: Text('${category.name}',
                   style: Theme.of(context).textTheme.headline6.copyWith(
                       fontSize: 16, color: Theme.of(context).selectedRowColor)),
             ),
           ),
         ),
         Column(
-          children: List.generate(category.elements.length, (index) {
+          children: List.generate(category.items.length, (index) {
             return Container(
               decoration: BoxDecoration(
-                  border: (index + 1) != category.elements.length
+                  border: (index + 1) != category.items.length
                       ? Border(
                           bottom: BorderSide(
                               color: cInactiveColorDark.withOpacity(1.0),
@@ -262,13 +132,13 @@ class _FeelingsState extends State<Feelings> {
                           width: 15,
                           height: 15,
                           decoration: BoxDecoration(
-                              color: category.categoryColor,
+                              color: Color(int.parse(category.color)),
                               shape: BoxShape.circle),
                         ),
                         SizedBox(
                           width: 16,
                         ),
-                        Text('${category.elements[index].name}',
+                        Text('${category.items[index].description}',
                             style: Theme.of(context)
                                 .primaryTextTheme
                                 .headline1
@@ -276,7 +146,7 @@ class _FeelingsState extends State<Feelings> {
                       ],
                     ),
                     SwitchButton(
-                      isActive: category.elements[index].isChosen,
+                      isActive: category.items[index].isAdded,
                       activeColor:
                           Theme.of(context).sliderTheme.activeTrackColor,
                       inactiveColor:
@@ -287,68 +157,65 @@ class _FeelingsState extends State<Feelings> {
                           Theme.of(context).sliderTheme.inactiveTickMarkColor,
                       turnOn: () {
                         ChosenFeeling removingElement = ChosenFeeling(
-                            name: 'removingElement',
-                            isChosen: false,
-                            categoryId: 000);
+                          id: 000,
+                          isAdded: false,
+                        );
 
                         //  If chosen list is empty
                         if (chosenfeelings.isEmpty) {
                           chosenfeelings.add(ChosenFeeling(
-                              name: category.elements[index].name,
-                              isChosen: true,
-                              categoryId: category.categoryId));
+                              isAdded: true, id: category.items[index].id));
                         } else {
                           //  If user tap on switchButton 2 times
                           chosenfeelings.removeWhere((element) {
-                            if ((element.name != null) &&
-                                (element.name ==
-                                    category.elements[index].name)) {
+                            if (element.id != null &&
+                                element.id == category.items[index].id) {
                               removingElement = element;
                             }
                             return _isNeedToRemoveWhenOn(
-                                element, category.elements[index]);
+                              currentItem: category.items[index],
+                              listItem: element,
+                            );
                           });
 
                           // If list isn`t empty and chosen item isn`t in list
-                          if (category.elements[index].name !=
-                              removingElement.name) {
+                          if (category.items[index].id != removingElement.id) {
                             chosenfeelings.add(ChosenFeeling(
-                                name: category.elements[index].name,
-                                isChosen: true,
-                                categoryId: category.categoryId));
+                              id: category.items[index].id,
+                              isAdded: true,
+                            ));
                           }
                         }
                       },
                       turnOff: () {
                         ChosenFeeling removingElement = ChosenFeeling(
-                            name: 'removingElement',
-                            isChosen: false,
-                            categoryId: 000);
+                          id: 000,
+                          isAdded: false,
+                        );
 
                         if (chosenfeelings.isEmpty) {
                           chosenfeelings.add(ChosenFeeling(
-                              name: category.elements[index].name,
-                              isChosen: false,
-                              categoryId: category.categoryId));
+                            id: category.items[index].id,
+                            isAdded: false,
+                          ));
                         } else {
                           //  If user tap on switchButton 2 times
                           chosenfeelings.removeWhere((element) {
-                            if ((element.name != null) &
-                                (element.name ==
-                                    category.elements[index].name)) {
+                            if (element.id != null &&
+                                element.id == category.items[index].id) {
                               removingElement = element;
                             }
                             return _isNeedToRemoveWhenOff(
-                                element, category.elements[index]);
+                              currentItem: category.items[index],
+                              listItem: element,
+                            );
                           });
                           // If list isn`t empty and chosen item isn`t in list
-                          if (category.elements[index].name !=
-                              removingElement.name) {
+                          if (category.items[index].id != removingElement.id) {
                             chosenfeelings.add(ChosenFeeling(
-                                name: category.elements[index].name,
-                                isChosen: false,
-                                categoryId: category.categoryId));
-                            print(chosenfeelings.last.name);
+                              id: category.items[index].id,
+                              isAdded: false,
+                            ));
                           }
                         }
                       },
@@ -364,9 +231,8 @@ class _FeelingsState extends State<Feelings> {
   }
 
   bool _isNeedToRemoveWhenOn(
-      ChosenFeeling chosenItem, FeelingItem generalListItem) {
-    if ((chosenItem.name == generalListItem.name) &&
-        (chosenItem.isChosen == false)) {
+      {@required Item currentItem, @required ChosenFeeling listItem}) {
+    if (currentItem.id == listItem.id && listItem.isAdded == false) {
       return true;
     } else {
       return false;
@@ -374,9 +240,8 @@ class _FeelingsState extends State<Feelings> {
   }
 
   bool _isNeedToRemoveWhenOff(
-      ChosenFeeling chosenItem, FeelingItem generalListItem) {
-    if ((chosenItem.name == generalListItem.name) &&
-        (chosenItem.isChosen == true)) {
+      {@required Item currentItem, @required ChosenFeeling listItem}) {
+    if (currentItem.id == listItem.id && listItem.isAdded == true) {
       return true;
     } else {
       return false;

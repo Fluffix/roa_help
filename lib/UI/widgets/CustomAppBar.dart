@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -43,15 +44,29 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       : Theme.of(context).textTheme.headline1)),
           widget.icon == null
               ? SizedBox(width: 28)
-              : GestureDetector(
-                  onTap: () {
-                    // ignore: unnecessary_statements
-                    widget.onTap != null ? widget.onTap() : null;
+              : ThemeSwitcher(
+                  clipper: ThemeSwitcherBoxClipper(),
+                  builder: (context) {
+                    return GestureDetector(
+                      onTap: () {
+                        ThemeSwitcher.of(context).changeTheme(
+                          theme: ThemeProvider.of(context).brightness ==
+                                  Brightness.light
+                              ? kDarkTheme
+                              : kLightTheme,
+                          reverseAnimation:
+                              ThemeProvider.of(context).brightness ==
+                                      Brightness.dark
+                                  ? true
+                                  : false,
+                        );
+                      },
+                      child: IconSvg(widget.icon,
+                          height: 28,
+                          width: 28,
+                          color: Theme.of(context).textTheme.headline5.color),
+                    );
                   },
-                  child: IconSvg(widget.icon,
-                      height: 28,
-                      width: 28,
-                      color: Theme.of(context).textTheme.headline5.color),
                 )
         ],
       ),

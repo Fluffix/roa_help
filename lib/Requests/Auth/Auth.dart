@@ -1,16 +1,18 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:roa_help/Requests/Auth/AuthSerialise.dart';
 import 'package:roa_help/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<int> authRequest(
-    {String userName,
-    String password,
-    Map<String, dynamic> extra,
-    String auth}) async {
+Future<int> authRequest({
+  String userName,
+  String password,
+  Map<String, dynamic> extra,
+  String auth,
+}) async {
   try {
     final String url = '$apiURL/$auth';
     Map<String, String> headers = HashMap();
@@ -28,9 +30,10 @@ Future<int> authRequest(
       case 200:
         Map<String, dynamic> jsonMap = jsonDecode(response.body);
         RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
+
         _saveUser(db.token);
     }
-    print(response.body);
+    log(response.body);
     return response.statusCode;
   } catch (e) {
     print(e);
@@ -40,4 +43,9 @@ Future<int> authRequest(
 Future<void> _saveUser(String token) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   await sharedPreferences.setString('token', token);
+}
+
+Future<String> getToken() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  return sharedPreferences.getString('token');
 }

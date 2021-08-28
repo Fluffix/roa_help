@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +50,7 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
           decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(10),
-              boxShadow: AdaptiveTheme.of(context).theme !=
-                      AdaptiveTheme.of(context).darkTheme
+              boxShadow: Theme.of(context).brightness != Brightness.dark
                   ? shadow
                   : null),
           child: Stack(

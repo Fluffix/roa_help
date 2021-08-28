@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/ButtonNotification.dart';
@@ -48,8 +47,7 @@ class _SettingsPasswordState extends State<SettingsPassword> {
         decoration: BoxDecoration(
             color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: AdaptiveTheme.of(context).theme !=
-                    AdaptiveTheme.of(context).darkTheme
+            boxShadow: Theme.of(context).brightness != Brightness.dark
                 ? shadow
                 : null),
         child: Column(

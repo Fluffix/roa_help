@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
@@ -31,7 +30,7 @@ class _SettingsWaterState extends State<SettingsWater> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).settingsController;
+    var controller = Provider.of<GeneralController>(context).waterController;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 32),
       child: Padding(
@@ -41,8 +40,7 @@ class _SettingsWaterState extends State<SettingsWater> {
           decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(10),
-              boxShadow: AdaptiveTheme.of(context).theme !=
-                      AdaptiveTheme.of(context).darkTheme
+              boxShadow: Theme.of(context).brightness != Brightness.dark
                   ? shadow
                   : null),
           child: Column(
@@ -87,8 +85,8 @@ class _SettingsWaterState extends State<SettingsWater> {
                         },
                       );
                       setState(() {});
-                      controller.saveDayNorm(
-                          key: 'waterNormDay', waterNormDay: waterNormDay);
+                      controller.setDayNorm(dayNorm: waterNormDay);
+                      controller.startAnimation();
                     },
                   ),
                 ],
