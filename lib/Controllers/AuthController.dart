@@ -9,7 +9,6 @@ import 'package:roa_help/Requests/Profile/Profile.dart';
 import 'package:roa_help/Requests/Profile/ProfileSetialise.dart';
 import 'package:roa_help/Requests/Stats/Stats.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
-import 'package:roa_help/UI/Pages/Auth/Auth.dart';
 
 import '../Routes.dart';
 
@@ -24,9 +23,7 @@ class AuthController {
       @required TextEditingController usernameController,
       @required TextEditingController passwordController}) async {
     int statusCode = await authRequest(
-        auth: "auth",
-        userName: usernameController.text,
-        password: passwordController.text);
+        userName: usernameController.text, password: passwordController.text);
     log("$statusCode");
     switch (statusCode) {
       case 201:
@@ -57,8 +54,7 @@ class AuthController {
     } else if (passwordController.text != confirmPasswordController.text) {
       exceptionToast('passwords differ');
     } else {
-      int statusCode = await authRequest(
-        auth: "register",
+      int statusCode = await regRequest(
         userName: usernameController.text,
         password: passwordController.text,
         extra: chosenCity != null

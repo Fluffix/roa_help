@@ -1,15 +1,23 @@
-import 'package:flutter/cupertino.dart';
-
 class SideEffectsCategoryiesList {
   List<CategoryItem> items;
+
   SideEffectsCategoryiesList({this.items});
 
-  factory SideEffectsCategoryiesList.fromJson(List<dynamic> json) {
-    return SideEffectsCategoryiesList(
-        items: json
-            .map((e) => CategoryItem.fromJson(e))
-            .toList()
-            .cast<CategoryItem>());
+  SideEffectsCategoryiesList.fromJson(Map<String, dynamic> json) {
+    if (json['items'] != null) {
+      items = [];
+      json['items'].forEach((v) {
+        items.add(CategoryItem.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.items != null) {
+      data['items'] = this.items.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
@@ -17,7 +25,7 @@ class CategoryItem {
   int id;
   String name;
   String color;
-  List<Item> items;
+  List<SideEffectItem> items;
 
   CategoryItem({this.id, this.name, this.color, this.items});
 
@@ -28,7 +36,7 @@ class CategoryItem {
     if (json['items'] != null) {
       items = [];
       json['items'].forEach((v) {
-        items.add(new Item.fromJson(v));
+        items.add(SideEffectItem.fromJson(v));
       });
     }
   }
@@ -45,15 +53,15 @@ class CategoryItem {
   }
 }
 
-class Item {
+class SideEffectItem {
   int id;
   String description;
   int categoryId;
   bool isAdded;
 
-  Item({this.id, this.description, this.categoryId});
+  SideEffectItem({this.id, this.description, this.categoryId, this.isAdded});
 
-  Item.fromJson(Map<String, dynamic> json) {
+  SideEffectItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     description = json['description'];
     categoryId = json['category_id'];
@@ -65,6 +73,7 @@ class Item {
     data['id'] = this.id;
     data['description'] = this.description;
     data['category_id'] = this.categoryId;
+    data['is_added'] = this.isAdded;
     return data;
   }
 }

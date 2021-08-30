@@ -114,6 +114,12 @@ class _GeneralState extends State<General> {
                   setPage(index);
                 });
               },
+              onDrugTap: () async {
+                // var a = await getStats();
+                // if(meals[1].fatsWasEaten != null){
+
+                // } else if(meals[0].fatsWasEaten)
+              },
               items: [
                 ItemMainPanel(
                   iconActive: IconSvg(IconsSvg.home,

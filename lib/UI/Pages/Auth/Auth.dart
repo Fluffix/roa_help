@@ -1,22 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/AuthController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Controllers/SettingsController.dart';
-import 'package:roa_help/Controllers/WaterController.dart';
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Cities/Cities.dart';
-import 'package:roa_help/Requests/Profile/Profile.dart';
-import 'package:roa_help/Requests/Profile/ProfileSetialise.dart';
-import 'package:roa_help/Requests/Stats/Stats.dart';
-import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/Routes.dart';
 import 'package:roa_help/Style.dart';
-import 'package:roa_help/UI/Pages/Profile/Profile.dart';
 import 'package:roa_help/generated/l10n.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Auth extends StatefulWidget {
   const Auth({Key key}) : super(key: key);

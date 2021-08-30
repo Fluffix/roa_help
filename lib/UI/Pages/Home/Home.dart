@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Controllers/WaterController.dart';
-import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
-import 'package:roa_help/Requests/Home/GetFeelings.dart';
+import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
+import 'package:roa_help/Requests/Home/Feelings/GetFeelings.dart';
 import 'package:roa_help/Requests/Home/Water.dart';
-import 'package:roa_help/Requests/Profile/Profile.dart';
 import 'package:roa_help/Routes.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
@@ -15,30 +14,13 @@ import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
 import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
-import 'package:roa_help/models/ChosenFoodModel.dart';
-
-class FatsCountInfo {
-  int fatsWasEaten;
-  List<ChosenFoodModel> foodWasEaten;
-  FatsCountInfo({this.fatsWasEaten, this.foodWasEaten});
-  FatsCountInfo.empty() {
-    fatsWasEaten = null;
-    foodWasEaten = [];
-  }
-}
-
-class FavoritesFood {
-  List<Food> favorites;
-  FavoritesFood({this.favorites});
-  FavoritesFood.empty() {
-    favorites = [];
-  }
-}
+import 'package:roa_help/models/FatsCountModel.dart';
 
 List<FatsCountInfo> meals = [
   FatsCountInfo.empty(),
   FatsCountInfo.empty(),
 ];
+
 FavoritesFood favoritesFood = FavoritesFood.empty();
 
 class Home extends StatefulWidget {
@@ -58,7 +40,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  FoodList db;
+  List<FoodItem> db;
 
   @override
   void initState() {
@@ -195,7 +177,6 @@ class _HomeState extends State<Home> {
   Widget _reciepes() {
     return SmallCardWidget(
       onTap: () async {
-        var profileInfo = await getProfile();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Reciepes()));
       },

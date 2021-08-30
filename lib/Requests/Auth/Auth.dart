@@ -7,14 +7,41 @@ import 'package:roa_help/Requests/Auth/AuthSerialise.dart';
 import 'package:roa_help/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<int> authRequest({
+// ignore: missing_return
+Future<int> authRequest({String userName, String password}) async {
+  try {
+    final String url = '$apiURL/auth';
+    Map<String, String> headers = HashMap();
+    headers['Content-type'] = 'application/json';
+
+    Response response = await http.post(url,
+        headers: headers,
+        body: jsonEncode(<String, dynamic>{
+          'username': userName,
+          'password': password,
+        }));
+
+    switch (response.statusCode) {
+      case 201:
+        Map<String, dynamic> jsonMap = jsonDecode(response.body);
+        RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
+        _saveUser(db.token);
+    }
+    log(response.body);
+    return response.statusCode;
+  } catch (e) {
+    print(e);
+  }
+}
+
+// ignore: missing_return
+Future<int> regRequest({
   String userName,
   String password,
   Map<String, dynamic> extra,
-  String auth,
 }) async {
   try {
-    final String url = '$apiURL/$auth';
+    final String url = '$apiURL/register';
     Map<String, String> headers = HashMap();
     headers['Content-type'] = 'application/json';
 
@@ -30,7 +57,6 @@ Future<int> authRequest({
       case 200:
         Map<String, dynamic> jsonMap = jsonDecode(response.body);
         RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
-
         _saveUser(db.token);
     }
     log(response.body);

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:roa_help/Requests/Home/GetFeelingsSerialise.dart';
-import 'package:roa_help/Requests/Home/PostFeelings.dart';
+import 'package:roa_help/Requests/Home/Feelings/GetFeelingsSerialise.dart';
+import 'package:roa_help/Requests/Home/Feelings/PostFeelings.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/widgets/SwitchButton.dart';
@@ -231,7 +231,8 @@ class _FeelingsState extends State<Feelings> {
   }
 
   bool _isNeedToRemoveWhenOn(
-      {@required Item currentItem, @required ChosenFeeling listItem}) {
+      {@required SideEffectItem currentItem,
+      @required ChosenFeeling listItem}) {
     if (currentItem.id == listItem.id && listItem.isAdded == false) {
       return true;
     } else {
@@ -240,7 +241,8 @@ class _FeelingsState extends State<Feelings> {
   }
 
   bool _isNeedToRemoveWhenOff(
-      {@required Item currentItem, @required ChosenFeeling listItem}) {
+      {@required SideEffectItem currentItem,
+      @required ChosenFeeling listItem}) {
     if (currentItem.id == listItem.id && listItem.isAdded == true) {
       return true;
     } else {

@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsNotifications.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsPassword.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsWater.dart';
@@ -40,6 +37,7 @@ class _ProfileState extends State<Profile> {
         backgroundColor: Colors.transparent,
         appBar: CustomAppBar(
           title: S.of(context).settings,
+          isChangeTheme: true,
           icon: Theme.of(context).brightness == Brightness.dark
               ? IconsSvg.lightMode
               : IconsSvg.darkMode,

@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:roa_help/Requests/Home/GetFeelingsSerialise.dart';
+import 'package:roa_help/Requests/Home/Feelings/GetFeelingsSerialise.dart';
 
 class StatsSerialise {
   int water;

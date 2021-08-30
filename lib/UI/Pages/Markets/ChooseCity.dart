@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:roa_help/Style.dart';
-import 'package:roa_help/UI/widgets/Search.dart';
 import 'package:roa_help/UI/widgets/SecondAppBar.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -129,11 +128,11 @@ class _ChooseCityState extends State<ChooseCity> {
         ));
   }
 
-  Widget _search() {
-    return Search(
-        controllerText: searchCityController,
-        findHint: "${S.of(context).city_find}");
-  }
+  // Widget _search() {
+  //   return Search(
+  //       controllerText: searchCityController,
+  //       findHint: "${S.of(context).city_find}");
+  // }
 
   Future<void> _saveCity(String city) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

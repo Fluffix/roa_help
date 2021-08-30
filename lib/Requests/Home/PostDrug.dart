@@ -4,12 +4,11 @@ import 'package:http/http.dart' as http;
 
 import 'package:http/http.dart';
 import 'package:roa_help/Requests/Auth/Auth.dart';
+import 'package:roa_help/main.dart';
 
-import '../../main.dart';
-
-Future<void> waterRequest({double wasDrinked}) async {
+Future<void> postFavFood({int fat}) async {
   try {
-    final String url = '$apiURL/water';
+    final String url = '$apiURL/drug';
     String token = await getToken();
     Response response = await http.post(url,
         headers: {
@@ -17,15 +16,9 @@ Future<void> waterRequest({double wasDrinked}) async {
           'Authorization': "Bearer $token",
         },
         body: jsonEncode(<String, dynamic>{
-          'water': wasDrinked,
+          'fat': fat,
         }));
-
-    switch (response.statusCode) {
-      case 200:
-        log(token);
-        log(response.body);
-    }
-    print(response.body);
+    log(response.body);
   } catch (e) {
     print(e);
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
+import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class ContentFatsBottomSheet extends StatefulWidget {
-  final Food item;
+  final FoodItem item;
   final Function onTap;
   const ContentFatsBottomSheet(
       {Key key, @required this.item, @required this.onTap})
@@ -28,7 +28,7 @@ class ContentFatsBottomSheetState extends State<ContentFatsBottomSheet> {
         behavior: HitTestBehavior.translucent,
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
-          height: MediaQuery.of(context).size.height / 3.75 +
+          height: MediaQuery.of(context).size.height / 3.2 +
               MediaQuery.of(context).viewInsets.bottom,
           decoration: BoxDecoration(
               color: Theme.of(context).dialogBackgroundColor,
@@ -46,9 +46,15 @@ class ContentFatsBottomSheetState extends State<ContentFatsBottomSheet> {
                     SizedBox(
                       width: 25,
                     ),
-                    Text(
-                      '${widget.item.name}',
-                      style: Theme.of(context).primaryTextTheme.headline1,
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Text(
+                        '${widget.item.name}',
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).primaryTextTheme.headline1,
+                      ),
                     ),
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,

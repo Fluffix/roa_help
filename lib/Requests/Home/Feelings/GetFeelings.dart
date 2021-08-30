@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:http/http.dart' as http;
 import 'package:roa_help/Requests/Auth/Auth.dart';
-import 'package:roa_help/Requests/Home/GetFeelingsSerialise.dart';
+import 'package:roa_help/Requests/Home/Feelings/GetFeelingsSerialise.dart';
 import 'dart:convert';
 
 import 'package:roa_help/main.dart';
@@ -16,9 +14,9 @@ Future<SideEffectsCategoryiesList> getSideEffects() async {
       'Content-Type': "application/json",
       'Authorization': "Bearer $token",
     });
-    List<dynamic> jsonList = json.decode(response.body);
+    Map<String, dynamic> jsonMap = json.decode(response.body);
     SideEffectsCategoryiesList db =
-        SideEffectsCategoryiesList.fromJson(jsonList);
+        SideEffectsCategoryiesList.fromJson(jsonMap);
     // log("$jsonList");
     return db;
   } catch (e) {

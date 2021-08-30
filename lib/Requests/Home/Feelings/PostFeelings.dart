@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
@@ -7,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/models/ChosenFeelingsModel.dart';
 
-import '../../main.dart';
+import '../../../main.dart';
 
 Future<void> sideEffectsPost(List<Map<String, dynamic>> body) async {
   try {
@@ -25,7 +24,6 @@ Future<void> sideEffectsPost(List<Map<String, dynamic>> body) async {
       case 200:
         print(response.body);
     }
-    print(response.body);
   } catch (e) {
     print(e);
   }
