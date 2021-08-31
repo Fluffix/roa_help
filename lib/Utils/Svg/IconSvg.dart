@@ -6,7 +6,6 @@ part 'IconData.dart';
 // ignore: non_constant_identifier_names
 Widget IconSvg(int id,
     {Color color, double width, double height, bool nullColor}) {
-  // ignore: unused_element
   String icon(String name, {bool active, bool check}) {
     String path = "assets/images/";
     if (active != null) path = "lib/assets/images/active/";
@@ -17,7 +16,7 @@ Widget IconSvg(int id,
 
   String iconName;
 
-  int count = 44;
+  int count = 45;
   if (id < 0 || id >= count) id = 0;
   switch (id) {
     case 0:
@@ -151,6 +150,9 @@ Widget IconSvg(int id,
       break;
     case 43:
       iconName = icon('backArrow');
+      break;
+    case 44:
+      iconName = icon('appIcon');
       break;
   }
 

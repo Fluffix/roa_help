@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SwitchButton extends StatefulWidget {
+  final Color activeColor;
+  final Color inactiveColor;
+  final Color activeCircleColor;
+  final Color inactiveCircleColor;
+  final double circleWidth;
+  final double circleHeight;
+  final Function turnOn;
+  final Function turnOnWithWait;
+  final Function turnOnWithWaitAndCancel;
+  final Function turnOff;
+  final bool isActive;
+
   const SwitchButton({
     @required this.activeColor,
     @required this.inactiveColor,
@@ -15,26 +27,18 @@ class SwitchButton extends StatefulWidget {
     this.isActive = false,
   });
 
-  final Color activeColor;
-  final Color inactiveColor;
-  final Color activeCircleColor;
-  final Color inactiveCircleColor;
-  final double circleWidth;
-  final double circleHeight;
-  final Function turnOn;
-  final Function turnOnWithWait;
-  final Function turnOnWithWaitAndCancel;
-  final Function turnOff;
-  final bool isActive;
-
   @override
-  _SwitchButtonState createState() => _SwitchButtonState(isActive: isActive);
+  _SwitchButtonState createState() => _SwitchButtonState();
 }
 
 class _SwitchButtonState extends State<SwitchButton> {
-  _SwitchButtonState({this.isActive});
-
   bool isActive;
+
+  @override
+  void initState() {
+    super.initState();
+    isActive = widget.isActive;
+  }
 
   @override
   Widget build(BuildContext context) {

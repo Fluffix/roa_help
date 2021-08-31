@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:roa_help/Controllers/FoodController.dart';
-import 'package:roa_help/Controllers/SettingsController.dart';
+import 'package:roa_help/Controllers/NotificationsController.dart';
 
 class GeneralController {
   final navigatorKeyFoods = GlobalKey<NavigatorState>();
-  final navigatorKeySettings = GlobalKey<NavigatorState>();
+  final navigatorKeyNotifications = GlobalKey<NavigatorState>();
 
   // Fats, Calc
   FoodController foodController;
 
   // Notification, WaterControll
-  SettingsController settingsController;
+  NotificationsController notificationsController;
 
   GeneralController() {
     foodController = FoodController(navigatorKeyFoods: navigatorKeyFoods);
-    settingsController =
-        SettingsController(navigatorKeySettings: navigatorKeySettings);
+    notificationsController = NotificationsController(
+        navigatorKeyNotifications: navigatorKeyNotifications);
   }
 }

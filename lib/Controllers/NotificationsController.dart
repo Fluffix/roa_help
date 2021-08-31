@@ -3,8 +3,8 @@ import 'package:roa_help/Utils/Cache/Keys.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StateSettings {
-  StateSettings(
+class StateNotifications {
+  StateNotifications(
       {@required this.morningNotification,
       @required this.eveningNotification,
       @required this.waterNormDay});
@@ -14,17 +14,18 @@ class StateSettings {
   final int waterNormDay;
 }
 
-class SettingsController {
-  SettingsController({@required this.navigatorKeySettings});
+class NotificationsController {
+  NotificationsController({@required this.navigatorKeyNotifications});
 
-  final GlobalKey<NavigatorState> navigatorKeySettings;
+  final GlobalKey<NavigatorState> navigatorKeyNotifications;
   bool _morningNotification;
   bool _eveningNotification;
   int _waterNormDay;
 
-  BehaviorSubject<StateSettings> _controllerNotifications = BehaviorSubject();
-  ValueStream<StateSettings> get stream => _controllerNotifications.stream;
-  StateSettings get data => _controllerNotifications.valueOrNull;
+  BehaviorSubject<StateNotifications> _controllerNotifications =
+      BehaviorSubject();
+  ValueStream<StateNotifications> get stream => _controllerNotifications.stream;
+  StateNotifications get data => _controllerNotifications.valueOrNull;
 
   //NOTIFICATIONS
   void saveNotifications(
@@ -44,7 +45,7 @@ class SettingsController {
     setState();
   }
 
-  void getSavedNotifications() async {
+  Future<void> getSavedNotifications() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (prefs.getBool(KeysCache.morningNotification) != null) {
@@ -72,7 +73,7 @@ class SettingsController {
     setState();
   }
 
-  void getSavedDayNorm() async {
+  Future<void> getSavedDayNorm() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (prefs.getInt(KeysCache.waterNormDay) != null) {
@@ -86,7 +87,7 @@ class SettingsController {
 
   //GENERAL
   setState() {
-    StateSettings state = StateSettings(
+    StateNotifications state = StateNotifications(
         morningNotification: _morningNotification,
         eveningNotification: _eveningNotification,
         waterNormDay: _waterNormDay);

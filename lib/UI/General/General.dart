@@ -1,15 +1,13 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
+import 'package:roa_help/UI/General/widgets/KeepAlivePage.dart';
+import 'package:roa_help/UI/General/widgets/MainPanel.dart';
 import 'package:roa_help/UI/Pages/Articles/Articles.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Markets/Markets.dart';
 import 'package:roa_help/UI/Pages/Profile/Profile.dart';
-import 'package:roa_help/UI/widgets/KeepAlivePage.dart';
-import 'package:roa_help/UI/widgets/MainPanel.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
-import 'package:roa_help/generated/l10n.dart';
-import 'package:roa_help/models/ArticlesModel.dart';
 import 'package:roa_help/models/WaterControlModel.dart';
 
 class General extends StatefulWidget {
@@ -77,36 +75,7 @@ class _GeneralState extends State<General> {
                   wasDrinked: 0,
                 ),
               )),
-              KeepAlivePage(
-                  child: Articles(
-                items: [
-                  AriclesItem(
-                      icon: IconsSvg.calendar,
-                      title: S.of(context).articles_head,
-                      body: S.of(context).articles_body,
-                      onTap: null),
-                  AriclesItem(
-                      icon: IconsSvg.calendar,
-                      title: S.of(context).articles_head,
-                      body: S.of(context).articles_body,
-                      onTap: null),
-                  AriclesItem(
-                      icon: IconsSvg.calendar,
-                      title: S.of(context).articles_head,
-                      body: S.of(context).articles_body,
-                      onTap: null),
-                  AriclesItem(
-                      icon: IconsSvg.calendar,
-                      title: S.of(context).articles_head,
-                      body: S.of(context).articles_body,
-                      onTap: null),
-                  AriclesItem(
-                      icon: IconsSvg.calendar,
-                      title: S.of(context).articles_head,
-                      body: S.of(context).articles_body,
-                      onTap: null),
-                ],
-              )),
+              KeepAlivePage(child: Articles()),
               KeepAlivePage(child: Markets()),
               KeepAlivePage(child: Profile()),
             ],

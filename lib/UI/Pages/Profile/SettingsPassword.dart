@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/ButtonNotification.dart';
 import 'package:roa_help/generated/l10n.dart';
 
@@ -41,20 +41,19 @@ class _SettingsPasswordState extends State<SettingsPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 32),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: AdaptiveTheme.of(context).theme !=
-                    AdaptiveTheme.of(context).darkTheme
-                ? shadow
-                : null),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: AdaptiveTheme.of(context).theme !=
+                  AdaptiveTheme.of(context).darkTheme
+              ? Style.shadowCard
+              : null),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               width: MediaQuery.of(context).size.width * 0.55,
@@ -79,6 +78,9 @@ class _SettingsPasswordState extends State<SettingsPassword> {
                     ),
                   )),
             ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               width: MediaQuery.of(context).size.width * 0.55,
               decoration: BoxDecoration(
@@ -101,6 +103,9 @@ class _SettingsPasswordState extends State<SettingsPassword> {
                       style: Theme.of(context).textTheme.headline2,
                     ),
                   )),
+            ),
+            SizedBox(
+              height: 10,
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.55,
@@ -125,9 +130,9 @@ class _SettingsPasswordState extends State<SettingsPassword> {
                     ),
                   )),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ButtonNotification(
                     titleButton: S.of(context).back, onTap: widget.onTapBack),

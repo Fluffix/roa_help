@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Controllers/SettingsController.dart';
+import 'package:roa_help/Controllers/NotificationsController.dart';
 import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
+import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
 import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
 import 'package:roa_help/UI/Pages/Home/Feelings.dart';
@@ -10,7 +11,6 @@ import 'package:roa_help/UI/Pages/Reciepes/Reciepes.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaveProgressBar.dart';
-import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/ChosenFoodModel.dart';
@@ -70,7 +70,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).settingsController;
+    var controller =
+        Provider.of<GeneralController>(context).notificationsController;
     return Material(
         color: Colors.transparent,
         child: SafeArea(
@@ -123,7 +124,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _waterControl(SettingsController controller) {
+  Widget _waterControl(NotificationsController controller) {
     return WaterConrol(
       waterControll: widget.watercontroll,
       waterController: waterController,

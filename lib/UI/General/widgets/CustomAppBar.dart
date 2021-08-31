@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -39,7 +39,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       ? Theme.of(context)
                           .textTheme
                           .headline1
-                          .copyWith(color: cBlack)
+                          .copyWith(color: Style.black)
                       : Theme.of(context).textTheme.headline1)),
           widget.icon == null
               ? SizedBox(width: 28)

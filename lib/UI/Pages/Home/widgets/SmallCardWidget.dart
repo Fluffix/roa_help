@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
 class SmallCardWidget extends StatefulWidget {
@@ -38,7 +38,7 @@ class _SmallCardWidgetState extends State<SmallCardWidget> {
               color: Theme.of(context).cardColor,
               boxShadow: AdaptiveTheme.of(context).theme !=
                       AdaptiveTheme.of(context).darkTheme
-                  ? shadow
+                  ? Style.shadowCard
                   : null),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),

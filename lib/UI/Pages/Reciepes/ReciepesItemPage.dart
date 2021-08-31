@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/UI/Pages/Reciepes/Reciepes.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -203,7 +203,7 @@ class _ReciepesItemPageState extends State<ReciepesItemPage> {
               height: 32,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(90),
-                  color: cInactiveColorMark.withOpacity(0.3)),
+                  color: Style.inactiveColorMark.withOpacity(0.3)),
               child: Center(
                 child: Text(
                   '$quantity',

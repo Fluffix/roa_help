@@ -1,6 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/models/CardSettingsModel.dart';
 
@@ -22,7 +22,7 @@ class _CardSettingsState extends State<CardSettings> {
           borderRadius: BorderRadius.circular(10),
           boxShadow: AdaptiveTheme.of(context).theme !=
                   AdaptiveTheme.of(context).darkTheme
-              ? shadow
+              ? Style.shadowCard
               : null),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

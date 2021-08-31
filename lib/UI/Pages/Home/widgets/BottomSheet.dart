@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
@@ -82,7 +82,7 @@ class ContentFatsBottomSheetState extends State<ContentFatsBottomSheet> {
                         Container(
                           width: 120,
                           decoration: BoxDecoration(
-                              color: cInactiveColorMark,
+                              color: Style.inactiveColorMark,
                               borderRadius: BorderRadius.circular(14)),
                           child: Center(
                               child: Padding(
@@ -149,7 +149,7 @@ class ContentFatsBottomSheetState extends State<ContentFatsBottomSheet> {
                               child: Center(
                                   child: IconSvg(
                                 IconsSvg.checkMark,
-                                color: cWhite,
+                                color: Style.white,
                               )),
                             ),
                           ),

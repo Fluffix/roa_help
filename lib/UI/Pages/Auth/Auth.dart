@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roa_help/Requests/Auth/Auth.dart';
-import 'package:roa_help/Routes.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Routes/Routes.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -35,7 +35,7 @@ class _AuthState extends State<Auth> {
                 child: Column(
                   children: [
                     _authButton(
-                        context, cWhite, Colors.black, S.of(context).login,
+                        context, Style.white, Colors.black, S.of(context).login,
                         onTap: () {
                       if (registration == false) {
                         authLogic(isLogin: true);
@@ -186,7 +186,7 @@ class _AuthState extends State<Auth> {
                           height: 108,
                           child: Column(
                             children: [
-                              _authButton(context, cWhite, Colors.black,
+                              _authButton(context, Style.white, Colors.black,
                                   S.of(context).login, onTap: () {
                                 print(registration);
                                 if (registration == false) {
@@ -231,7 +231,7 @@ class _AuthState extends State<Auth> {
       width: double.infinity,
       height: 60,
       decoration: BoxDecoration(
-          color: cWhite.withOpacity(0.25),
+          color: Style.white.withOpacity(0.25),
           borderRadius: BorderRadius.circular(14)),
       child: Center(
           child: TextField(
@@ -241,13 +241,13 @@ class _AuthState extends State<Auth> {
         style: Theme.of(context)
             .textTheme
             .headline2
-            .copyWith(color: cWhite.withOpacity(0.55)),
+            .copyWith(color: Style.white.withOpacity(0.55)),
         decoration: InputDecoration(
             hintText: '$hintText',
             hintStyle: Theme.of(context)
                 .textTheme
                 .headline2
-                .copyWith(color: cWhite.withOpacity(0.55)),
+                .copyWith(color: Style.white.withOpacity(0.55)),
             border: InputBorder.none),
       )),
     );
@@ -311,7 +311,7 @@ class _AuthState extends State<Auth> {
           width: double.infinity,
           height: 60,
           decoration: BoxDecoration(
-              color: cWhite.withOpacity(0.25),
+              color: Style.white.withOpacity(0.25),
               borderRadius: BorderRadius.circular(14)),
           child: Center(
               child: Text(
@@ -319,7 +319,7 @@ class _AuthState extends State<Auth> {
             style: Theme.of(context)
                 .textTheme
                 .headline2
-                .copyWith(color: cWhite.withOpacity(0.55)),
+                .copyWith(color: Style.white.withOpacity(0.55)),
           )),
         ),
       ),

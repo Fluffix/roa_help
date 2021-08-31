@@ -46,6 +46,7 @@ dependencies:
   shimmer: ^2.0.0
   transparent_image: ^2.0.0
   fluttertoast: ^8.0.8
+  syncfusion_flutter_sliders: ^19.2.57
 
 dev_dependencies:
   flutter_test:

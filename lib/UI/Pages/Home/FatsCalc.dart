@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:roa_help/Controllers/FoodController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Requests/Food/FatsCounterSerialise.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/UI/General/widgets/Search.dart';
+import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/BottomSheet.dart';
-import 'package:roa_help/UI/widgets/Search.dart';
-import 'package:roa_help/UI/widgets/SecondAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/ChosenFoodModel.dart';
@@ -127,11 +127,12 @@ class _FatsCalcState extends State<FatsCalc> {
                         border: Border(
                             top: index == 0
                                 ? BorderSide(
-                                    color: cInactiveColorDark.withOpacity(1.0),
+                                    color: Style.inactiveColorDark
+                                        .withOpacity(1.0),
                                     width: 0.5)
                                 : BorderSide.none,
                             bottom: BorderSide(
-                                color: cInactiveColorDark.withOpacity(1.0),
+                                color: Style.inactiveColorDark.withOpacity(1.0),
                                 width: 0.5))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -153,7 +154,7 @@ class _FatsCalcState extends State<FatsCalc> {
                               setState(() {});
                             },
                             child: IconSvg(IconsSvg.remove,
-                                color: cInactiveColorDark.withOpacity(1.0),
+                                color: Style.inactiveColorDark.withOpacity(1.0),
                                 width: 26),
                           )
                         ],
@@ -183,11 +184,11 @@ class _FatsCalcState extends State<FatsCalc> {
                     border: Border(
                         top: index == 0
                             ? BorderSide(
-                                color: cInactiveColorDark.withOpacity(1.0),
+                                color: Style.inactiveColorDark.withOpacity(1.0),
                                 width: 0.5)
                             : BorderSide.none,
                         bottom: BorderSide(
-                            color: cInactiveColorDark.withOpacity(1.0),
+                            color: Style.inactiveColorDark.withOpacity(1.0),
                             width: 0.5))),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -230,7 +231,7 @@ class _FatsCalcState extends State<FatsCalc> {
                             _isChosenFood(state.db.foods[index])
                                 ? IconsSvg.remove
                                 : IconsSvg.add,
-                            color: cInactiveColorDark.withOpacity(1.0),
+                            color: Style.inactiveColorDark.withOpacity(1.0),
                             width: 26),
                       )
                     ],

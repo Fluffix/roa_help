@@ -14,23 +14,22 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
+  
   static S current;
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       S.current = S();
-
+      
       return S.current;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
@@ -531,6 +530,28 @@ class S {
     return Intl.message(
       'Назад',
       name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ваша норма:`
+  String get your_norm {
+    return Intl.message(
+      'Ваша норма:',
+      name: 'your_norm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `в день`
+  String get in_the_day {
+    return Intl.message(
+      'в день',
+      name: 'in_the_day',
+      desc: '',
+      args: [],
     );
   }
 
@@ -544,14 +565,6 @@ class S {
     );
   }
 
-  /// `Ваша норма:`
-  String get your_norm {
-    return Intl.message(
-      'Ваша норма:',
-      name: 'your_norm',
-    );
-  }
-
   /// `грамм`
   String get food_gramms {
     return Intl.message(
@@ -559,14 +572,6 @@ class S {
       name: 'food_gramms',
       desc: '',
       args: [],
-    );
-  }
-
-  /// `в день`
-  String get in_the_day {
-    return Intl.message(
-      'в день',
-      name: 'in_the_day',
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
-import 'package:roa_help/UI/widgets/Search.dart';
-import 'package:roa_help/UI/widgets/SecondAppBar.dart';
+import 'package:roa_help/UI/General/widgets/Search.dart';
+import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 List<String> cities = [
@@ -89,7 +89,8 @@ class _ChooseCityState extends State<ChooseCity> {
           border: (index + 1) != cities.length
               ? Border(
                   bottom: BorderSide(
-                      color: cInactiveColorDark.withOpacity(1.0), width: 0.5))
+                      color: Style.inactiveColorDark.withOpacity(1.0),
+                      width: 0.5))
               : null),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24),
@@ -105,7 +106,7 @@ class _ChooseCityState extends State<ChooseCity> {
               width: 22,
               height: 22,
               decoration: BoxDecoration(
-                border: Border.all(width: 2, color: cSecondary),
+                border: Border.all(width: 2, color: Style.secondary),
                 borderRadius: BorderRadius.circular(90),
               ),
             )

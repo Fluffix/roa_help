@@ -1,13 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
-import 'package:roa_help/Utils/Svg/IconSvg.dart';
-import 'package:roa_help/models/ArticlesModel.dart';
+import 'package:roa_help/Requests/Articles/ArticlesSerialise.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 
 class CardArticles extends StatefulWidget {
-  const CardArticles({Key key, this.item}) : super(key: key);
+  const CardArticles({Key key, this.article}) : super(key: key);
 
-  final AriclesItem item;
+  final Article article;
   @override
   _CardArticlesState createState() => _CardArticlesState();
 }
@@ -17,8 +16,8 @@ class _CardArticlesState extends State<CardArticles> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (widget.item.onTap != null) {
-          widget.item.onTap();
+        if (widget.article.link != null) {
+          // Переход на статью
         }
       },
       child: Padding(
@@ -35,7 +34,7 @@ class _CardArticlesState extends State<CardArticles> {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: AdaptiveTheme.of(context).theme !=
                           AdaptiveTheme.of(context).darkTheme
-                      ? shadow
+                      ? Style.shadowCard
                       : null),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -48,8 +47,12 @@ class _CardArticlesState extends State<CardArticles> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IconSvg(widget.item.icon,
-                            height: 90, width: 90, color: cWhite),
+                        // Container(
+                        //   height: 90,
+                        //   width: 90,
+                        // ),
+                        Image.network(widget.article.thumbnail,
+                            height: 90, width: 90, color: Style.white),
                         Padding(
                           padding: EdgeInsets.only(left: 8.0),
                           child: Column(
@@ -58,7 +61,7 @@ class _CardArticlesState extends State<CardArticles> {
                               SizedBox(
                                 width:
                                     (MediaQuery.of(context).size.width - 194),
-                                child: Text(widget.item.title,
+                                child: Text(widget.article.header,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style:
@@ -70,7 +73,7 @@ class _CardArticlesState extends State<CardArticles> {
                               SizedBox(
                                 width:
                                     (MediaQuery.of(context).size.width - 194),
-                                child: Text(widget.item.body,
+                                child: Text(widget.article.summary,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 5,
                                     style:

@@ -2,7 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaveProgressBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -29,7 +29,8 @@ class _WaterConrolState extends State<WaterConrol> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).settingsController;
+    var controller =
+        Provider.of<GeneralController>(context).notificationsController;
     return GestureDetector(
       onTap: () {
         if (widget.onChange != null) {
@@ -48,7 +49,7 @@ class _WaterConrolState extends State<WaterConrol> {
             color: Theme.of(context).cardColor,
             boxShadow: AdaptiveTheme.of(context).theme !=
                     AdaptiveTheme.of(context).darkTheme
-                ? shadow
+                ? Style.shadowCard
                 : null),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
@@ -82,8 +83,8 @@ class _WaterConrolState extends State<WaterConrol> {
                         Text(
                           '${widget.waterControll.wasDrinked.round()}',
                           style: TextStyle(
-                              color: cSecondary,
-                              fontFamily: fontFamilyMedium,
+                              color: Style.secondary,
+                              fontFamily: Style.fontFamilyMedium,
                               fontSize: 18,
                               fontWeight: FontWeight.w700),
                         ),
@@ -100,7 +101,7 @@ class _WaterConrolState extends State<WaterConrol> {
                 strokeCircleColor: Theme.of(context).disabledColor,
                 flowSpeed: 0.5,
                 waveDistance: 45.0,
-                waterColor: cBlue,
+                waterColor: Style.blue,
                 heightController: widget.waterController,
                 percentage: waterHeight,
                 size: Size(64, 64),

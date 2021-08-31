@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
-import 'package:roa_help/UI/widgets/SecondAppBar.dart';
-import 'package:roa_help/UI/widgets/SwitchButton.dart';
+import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
+import 'package:roa_help/UI/General/widgets/SwitchButton.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/FeelingsCategoryModel.dart';
 
@@ -247,7 +247,7 @@ class _FeelingsState extends State<Feelings> {
                   border: (index + 1) != category.elements.length
                       ? Border(
                           bottom: BorderSide(
-                              color: cInactiveColorDark.withOpacity(1.0),
+                              color: Style.inactiveColorDark.withOpacity(1.0),
                               width: 0.5))
                       : null),
               child: Padding(

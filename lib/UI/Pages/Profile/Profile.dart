@@ -1,10 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsNotifications.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsPassword.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsWater.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/CardSettings.dart';
-import 'package:roa_help/UI/widgets/CustomAppBar.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/CardSettingsModel.dart';
@@ -31,6 +33,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    var controller =
+        Provider.of<GeneralController>(context).notificationsController;
     return Material(
       color: Colors.transparent,
       child: SafeArea(
@@ -49,49 +53,51 @@ class _ProfileState extends State<Profile> {
                 : AdaptiveTheme.of(context).setDark();
           },
         ),
-        body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            physics: BouncingScrollPhysics(),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 340 / 896,
-              child: PageView(
-                  controller: pageControllerSettings,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 32),
-                          CardSettings(
-                            items: [
-                              CardSettingsItem(
-                                  text: S.of(context).notification,
-                                  onTap: () {
-                                    setPageSettings(0);
-                                    setPage(1);
-                                  }),
-                              CardSettingsItem(
-                                  text: S.of(context).password,
-                                  onTap: () {
-                                    setPageSettings(1);
-                                    setPage(1);
-                                  }),
-                              CardSettingsItem(
-                                  text: S.of(context).water_norm,
-                                  onTap: () {
-                                    setPageSettings(2);
-                                    setPage(1);
-                                  }),
-                            ],
-                          ),
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.longestSide,
+          child: PageView(
+              controller: pageControllerSettings,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 32),
+                      CardSettings(
+                        items: [
+                          CardSettingsItem(
+                              text: S.of(context).notification,
+                              onTap: () {
+                                setPageSettings(0);
+                                setPage(1);
+                              }),
+                          CardSettingsItem(
+                              text: S.of(context).password,
+                              onTap: () {
+                                setPageSettings(1);
+                                setPage(1);
+                              }),
+                          CardSettingsItem(
+                              text: S.of(context).water_norm,
+                              onTap: () {
+                                setPageSettings(2);
+                                setPage(1);
+                              }),
                         ],
                       ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: numberPageSettings == 0
+                    ],
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 32,
+                        ),
+                        numberPageSettings == 0
                             ? SettingsNotifications(onTap: () {
                                 setPage(0);
                               })
@@ -103,9 +109,12 @@ class _ProfileState extends State<Profile> {
                                     onTapBack: () {
                                       setPage(0);
                                     },
-                                  ))
-                  ]),
-            )),
+                                    waterNormDay: controller.data.waterNormDay,
+                                  )
+                      ],
+                    ))
+              ]),
+        ),
       )),
     );
   }

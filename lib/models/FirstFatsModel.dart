@@ -1,1 +1,3 @@
-class FirstFatsModel {}
+// class FirstFatsModel {
+//   final int something;
+// }

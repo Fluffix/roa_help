@@ -1,6 +1,6 @@
 import 'package:direct_select/direct_select.dart';
 import 'package:flutter/material.dart';
-import 'package:roa_help/Style.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
 import 'package:roa_help/UI/Pages/Markets/ChooseDrug.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -77,7 +77,8 @@ class _MarketsState extends State<Markets> {
 
   Text _labelText(BuildContext context) {
     return Text('${S.of(context).search_markets}',
-        style: Theme.of(context).textTheme.headline1.copyWith(color: cBlack));
+        style:
+            Theme.of(context).textTheme.headline1.copyWith(color: Style.black));
   }
 
   Widget _chooseDrug(BuildContext context) {
