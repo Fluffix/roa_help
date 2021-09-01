@@ -1,5 +1,5 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/UI/General/widgets/KeepAlivePage.dart';
 import 'package:roa_help/UI/General/widgets/MainPanel.dart';
@@ -8,7 +8,6 @@ import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Markets/Markets.dart';
 import 'package:roa_help/UI/Pages/Profile/Profile.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
-import 'package:roa_help/models/WaterControlModel.dart';
 
 class General extends StatefulWidget {
   final StatsSerialise db;
@@ -56,8 +55,7 @@ class _GeneralState extends State<General> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    child: AdaptiveTheme.of(context).theme ==
-                            AdaptiveTheme.of(context).darkTheme
+                    child: Theme.of(context).brightness == Brightness.dark
                         ? IconSvg(IconsSvg.backgroundDark)
                         : IconSvg(IconsSvg.backgroundLight),
                   ),
@@ -69,12 +67,7 @@ class _GeneralState extends State<General> {
             physics: NeverScrollableScrollPhysics(),
             controller: pageControllerPage,
             children: [
-              KeepAlivePage(
-                  child: Home(
-                watercontroll: WaterControlModel(
-                  wasDrinked: 0,
-                ),
-              )),
+              KeepAlivePage(child: Home()),
               KeepAlivePage(child: Articles()),
               KeepAlivePage(child: Markets()),
               KeepAlivePage(child: Profile()),
@@ -90,6 +83,11 @@ class _GeneralState extends State<General> {
                 setState(() {
                   setPage(index);
                 });
+              },
+              onDrugTap: () async {
+                // var a = await getStats();
+                // if(meals[1].fatsWasEaten != null){
+                // } else if(meals[0].fatsWasEaten)
               },
               items: [
                 ItemMainPanel(

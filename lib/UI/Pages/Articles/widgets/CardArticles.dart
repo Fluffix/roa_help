@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Requests/Articles/ArticlesSerialise.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
@@ -32,8 +31,7 @@ class _CardArticlesState extends State<CardArticles> {
               decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(24),
-                  boxShadow: AdaptiveTheme.of(context).theme !=
-                          AdaptiveTheme.of(context).darkTheme
+                  boxShadow: Theme.of(context).brightness != Brightness.dark
                       ? Style.shadowCard
                       : null),
               child: Padding(

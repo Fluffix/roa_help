@@ -1,7 +1,6 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
-import 'package:roa_help/UI/Pages/Profile/widgets/ButtonNotification.dart';
+import 'package:roa_help/UI/Pages/Profile/widgets/ButtonSettings.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class SettingsPassword extends StatefulWidget {
@@ -46,8 +45,7 @@ class _SettingsPasswordState extends State<SettingsPassword> {
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: AdaptiveTheme.of(context).theme !=
-                  AdaptiveTheme.of(context).darkTheme
+          boxShadow: Theme.of(context).brightness != Brightness.dark
               ? Style.shadowCard
               : null),
       child: Padding(
@@ -134,12 +132,12 @@ class _SettingsPasswordState extends State<SettingsPassword> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ButtonNotification(
+                ButtonSettings(
                     titleButton: S.of(context).back, onTap: widget.onTapBack),
-                ButtonNotification(
+                ButtonSettings(
                   titleButton: S.of(context).save,
                   onTap: widget.onTapSave,
-                  onChance: () {},
+                  onChange: () {},
                 ),
               ],
             )

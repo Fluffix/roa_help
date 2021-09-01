@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 
-class ButtonNotification extends StatefulWidget {
+class ButtonSettings extends StatefulWidget {
   final String titleButton;
-  final Function onChance;
+  final Function onChange;
   final Function onTap;
   final bool delayed;
 
-  const ButtonNotification({
+  const ButtonSettings({
     @required this.titleButton,
-    this.onChance,
+    this.onChange,
     this.onTap,
     this.delayed = false,
   });
   @override
-  _ButtonNotificationState createState() => _ButtonNotificationState();
+  _ButtonSettingsState createState() => _ButtonSettingsState();
 }
 
-class _ButtonNotificationState extends State<ButtonNotification> {
+class _ButtonSettingsState extends State<ButtonSettings> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (widget.onChance != null) widget.onChance();
-        
+        if (widget.onChange != null) widget.onChange();
+
         if (widget.delayed)
           await Future.delayed(const Duration(milliseconds: 400));
         if (widget.onTap != null) widget.onTap();

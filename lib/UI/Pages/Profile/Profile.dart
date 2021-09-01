@@ -1,8 +1,8 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
+import 'package:roa_help/UI/Pages/Profile/Loguot.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsNotifications.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsPassword.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsWater.dart';
@@ -18,23 +18,22 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   PageController pageControllerSettings = PageController(initialPage: 0);
-  int numberPageSettings;
+  int _numberPageSettings;
 
   setPage(int index) {
     pageControllerSettings.animateToPage(index,
         duration: Duration(milliseconds: 400), curve: Curves.easeOut);
   }
 
-  setPageSettings(int pageSettings) {
+  setNumberPageSettings(int numberPageSettings) {
     setState(() {
-      numberPageSettings = pageSettings;
+      _numberPageSettings = numberPageSettings;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var controller =
-        Provider.of<GeneralController>(context).notificationsController;
+    var controller = Provider.of<GeneralController>(context).waterController;
     return Material(
       color: Colors.transparent,
       child: SafeArea(
@@ -42,16 +41,10 @@ class _ProfileState extends State<Profile> {
         backgroundColor: Colors.transparent,
         appBar: CustomAppBar(
           title: S.of(context).settings,
-          icon: AdaptiveTheme.of(context).theme ==
-                  AdaptiveTheme.of(context).darkTheme
+          isChangeTheme: true,
+          icon: Theme.of(context).brightness == Brightness.dark
               ? IconsSvg.lightMode
               : IconsSvg.darkMode,
-          onTap: () {
-            AdaptiveTheme.of(context).theme ==
-                    AdaptiveTheme.of(context).darkTheme
-                ? AdaptiveTheme.of(context).setLight()
-                : AdaptiveTheme.of(context).setDark();
-          },
         ),
         body: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -70,20 +63,31 @@ class _ProfileState extends State<Profile> {
                           CardSettingsItem(
                               text: S.of(context).notification,
                               onTap: () {
-                                setPageSettings(0);
+                                setNumberPageSettings(0);
                                 setPage(1);
                               }),
                           CardSettingsItem(
                               text: S.of(context).password,
                               onTap: () {
-                                setPageSettings(1);
+                                setNumberPageSettings(1);
                                 setPage(1);
                               }),
                           CardSettingsItem(
                               text: S.of(context).water_norm,
                               onTap: () {
-                                setPageSettings(2);
+                                setNumberPageSettings(2);
                                 setPage(1);
+                              }),
+                          CardSettingsItem(
+                              text: S.of(context).log_out_of_account,
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Logout();
+                                  },
+                                );
+                                setNumberPageSettings(3);
                               }),
                         ],
                       ),
@@ -97,11 +101,11 @@ class _ProfileState extends State<Profile> {
                         SizedBox(
                           height: 32,
                         ),
-                        numberPageSettings == 0
+                        _numberPageSettings == 0
                             ? SettingsNotifications(onTap: () {
                                 setPage(0);
                               })
-                            : numberPageSettings == 1
+                            : _numberPageSettings == 1
                                 ? SettingsPassword(onTapBack: () {
                                     setPage(0);
                                   })
@@ -109,7 +113,7 @@ class _ProfileState extends State<Profile> {
                                     onTapBack: () {
                                       setPage(0);
                                     },
-                                    waterNormDay: controller.data.waterNormDay,
+                                    waterDayNorm: controller.data.waterDayNorm,
                                   )
                       ],
                     ))

@@ -1,19 +1,20 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Requests/Home/Water.dart';
+import 'package:roa_help/Requests/Profile/Profile.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
-import 'package:roa_help/UI/Pages/Profile/widgets/ButtonNotification.dart';
+import 'package:roa_help/UI/Pages/Profile/widgets/ButtonSettings.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class SettingsWater extends StatefulWidget {
   final Function onTapBack;
   final Function onTapChange;
-  final int waterNormDay;
+  final int waterDayNorm;
 
   const SettingsWater(
-      {Key key, this.onTapBack, this.onTapChange, @required this.waterNormDay})
+      {Key key, this.onTapBack, this.onTapChange, @required this.waterDayNorm})
       : super(key: key);
 
   @override
@@ -21,12 +22,12 @@ class SettingsWater extends StatefulWidget {
 }
 
 class _SettingsWaterState extends State<SettingsWater> {
-  int _waterNormDay;
+  int _waterDayNorm;
 
   @override
   void initState() {
     super.initState();
-    _waterNormDay = widget.waterNormDay;
+    _waterDayNorm = widget.waterDayNorm;
   }
 
   String chooseEnding(int dayNorm) {
@@ -41,15 +42,13 @@ class _SettingsWaterState extends State<SettingsWater> {
 
   @override
   Widget build(BuildContext context) {
-    var controller =
-        Provider.of<GeneralController>(context).notificationsController;
+    var controller = Provider.of<GeneralController>(context).waterController;
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: AdaptiveTheme.of(context).theme !=
-                  AdaptiveTheme.of(context).darkTheme
+          boxShadow: Theme.of(context).brightness != Brightness.dark
               ? Style.shadowCard
               : null),
       child: Padding(
@@ -64,8 +63,8 @@ class _SettingsWaterState extends State<SettingsWater> {
               height: 10,
             ),
             Text(
-              '$_waterNormDay '
-              '${chooseEnding(_waterNormDay)}  '
+              '$_waterDayNorm '
+              '${chooseEnding(_waterDayNorm)}  '
               '${S.of(context).in_the_day}',
               style: Theme.of(context).textTheme.headline2,
             ),
@@ -75,24 +74,33 @@ class _SettingsWaterState extends State<SettingsWater> {
             SfSlider(
                 min: 1,
                 max: 14,
-                value: _waterNormDay,
+                value: _waterDayNorm,
                 interval: 1,
                 inactiveColor: Theme.of(context).sliderTheme.inactiveTrackColor,
                 activeColor: Theme.of(context).sliderTheme.activeTrackColor,
-                onChanged: (dynamic value) {
+                onChanged: (dynamic waterDayNorm) {
                   setState(() {
-                    _waterNormDay = value.round();
+                    _waterDayNorm = waterDayNorm.round();
                   });
                 }),
             SizedBox(height: 10),
-            ButtonNotification(
-              titleButton: S.of(context).back,
+            ButtonSettings(
+              titleButton: S.of(context).save,
               onTap: widget.onTapBack,
-              onChance: () async {
-                setState(() {
-                  controller.saveDayNorm(
-                      key: 'waterNormDay', waterNormDay: _waterNormDay);
-                });
+              onChange: () async {
+                if (controller.data.wasDrinked > _waterDayNorm) {
+                  double difference =
+                      (_waterDayNorm - controller.data.wasDrinked).toDouble();
+                  await changeWaterDayNorm(waterDayNorm: _waterDayNorm);
+                  await waterRequest(wasDrinked: difference);
+                  await controller.setDayNorm(
+                      waterDayNorm: _waterDayNorm, startAnimation: false);
+                  await controller.setWasDrinked(wasDrinked: _waterDayNorm);
+                } else {
+                  await changeWaterDayNorm(waterDayNorm: _waterDayNorm);
+                  await controller.setDayNorm(
+                      waterDayNorm: _waterDayNorm, startAnimation: true);
+                }
               },
             )
           ],

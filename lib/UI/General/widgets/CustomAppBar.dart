@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -8,13 +9,15 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final int icon;
   final Function onTap;
   final bool colorIsBlack;
+  final bool isChangeTheme;
 
   const CustomAppBar(
       {this.height = 100,
       @required this.title,
       this.icon,
       this.onTap,
-      this.colorIsBlack = false});
+      this.colorIsBlack = false,
+      this.isChangeTheme = false});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -43,16 +46,45 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       : Theme.of(context).textTheme.headline1)),
           widget.icon == null
               ? SizedBox(width: 28)
-              : GestureDetector(
-                  onTap: () {
-                    // ignore: unnecessary_statements
-                    widget.onTap != null ? widget.onTap() : null;
-                  },
-                  child: IconSvg(widget.icon,
-                      height: 28,
-                      width: 28,
-                      color: Theme.of(context).textTheme.headline5.color),
-                )
+              : widget.isChangeTheme
+                  ? ThemeSwitcher(
+                      clipper: ThemeSwitcherBoxClipper(),
+                      builder: (context) {
+                        return GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            ThemeSwitcher.of(context).changeTheme(
+                              theme: ThemeProvider.of(context).brightness ==
+                                      Brightness.light
+                                  ? Style.darkTheme
+                                  : Style.lightTheme,
+                              reverseAnimation:
+                                  ThemeProvider.of(context).brightness ==
+                                          Brightness.dark
+                                      ? true
+                                      : false,
+                            );
+                          },
+                          child: IconSvg(widget.icon,
+                              height: 28,
+                              width: 28,
+                              color:
+                                  Theme.of(context).textTheme.headline5.color),
+                        );
+                      },
+                    )
+                  : GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        if (widget.onTap != null) {
+                          widget.onTap();
+                        }
+                      },
+                      child: IconSvg(widget.icon,
+                          height: 28,
+                          width: 28,
+                          color: Theme.of(context).textTheme.headline5.color),
+                    ),
         ],
       ),
     );

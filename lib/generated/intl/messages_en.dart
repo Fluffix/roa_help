@@ -29,12 +29,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "articles_head" : MessageLookupByLibrary.simpleMessage("Как избавиться от сухости глаз?"),
     "back" : MessageLookupByLibrary.simpleMessage("Назад"),
     "calendar" : MessageLookupByLibrary.simpleMessage("Календарь"),
+    "cancel" : MessageLookupByLibrary.simpleMessage("Отмена"),
     "carbo" : MessageLookupByLibrary.simpleMessage("Углеводы"),
     "choose_city" : MessageLookupByLibrary.simpleMessage("Город"),
     "choose_drug" : MessageLookupByLibrary.simpleMessage("Выберите препарат"),
     "city" : MessageLookupByLibrary.simpleMessage("Город"),
     "city_find" : MessageLookupByLibrary.simpleMessage("Поиск города"),
     "confirm_code" : MessageLookupByLibrary.simpleMessage("Введите код"),
+    "confirmation" : MessageLookupByLibrary.simpleMessage("Вы уверены?"),
+    "confirmation_description" : MessageLookupByLibrary.simpleMessage("В случае выхода, все данные аккаунта, кроме уведомлений, сохраняются."),
     "cooking" : MessageLookupByLibrary.simpleMessage("Приготовление"),
     "current_password" : MessageLookupByLibrary.simpleMessage("Текущий пароль"),
     "done" : MessageLookupByLibrary.simpleMessage("Готово"),
@@ -54,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "ingredients" : MessageLookupByLibrary.simpleMessage("Ингредиенты"),
     "input_pass" : MessageLookupByLibrary.simpleMessage("Введите пароль"),
     "input_user_name" : MessageLookupByLibrary.simpleMessage("Введите имя пользователя"),
+    "log_out" : MessageLookupByLibrary.simpleMessage("Выйти"),
+    "log_out_of_account" : MessageLookupByLibrary.simpleMessage("Выйти из аккаунта"),
     "login" : MessageLookupByLibrary.simpleMessage("ВОЙТИ"),
     "mail" : MessageLookupByLibrary.simpleMessage("Изменить почту"),
     "meal" : MessageLookupByLibrary.simpleMessage("прием"),
@@ -79,6 +84,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды"),
     "water_norm" : MessageLookupByLibrary.simpleMessage("Дневная норма воды"),
     "welcome" : MessageLookupByLibrary.simpleMessage("Добро Пожаловать!"),
-    "your_norm" : MessageLookupByLibrary.simpleMessage("Ваша норма:")
+    "your_norm" : MessageLookupByLibrary.simpleMessage("Ваша норма")
   };
 }

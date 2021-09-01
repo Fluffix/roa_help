@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/Pages/Reciepes/ReciepesItemPage.dart';
@@ -247,12 +246,11 @@ class _ReciepesState extends State<Reciepes> {
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
               child: _loading
                   ? Shimmer.fromColors(
-                      baseColor: AdaptiveTheme.of(context).theme ==
-                              AdaptiveTheme.of(context).darkTheme
+                      baseColor: Theme.of(context).brightness == Brightness.dark
                           ? Theme.of(context).cardColor
                           : Theme.of(context).disabledColor.withOpacity(0.25),
-                      highlightColor: AdaptiveTheme.of(context).theme ==
-                              AdaptiveTheme.of(context).darkTheme
+                      highlightColor: Theme.of(context).brightness ==
+                              Brightness.dark
                           ? Theme.of(context).disabledColor.withOpacity(0.25)
                           : Theme.of(context).cardColor,
                       enabled: _loading,

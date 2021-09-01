@@ -1,5 +1,7 @@
 import 'package:direct_select/direct_select.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Cities/Cities.dart';
+import 'package:roa_help/Utils/Routes/Routes.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/UI/Pages/Markets/ChooseCity.dart';
 import 'package:roa_help/UI/Pages/Markets/ChooseDrug.dart';
@@ -14,6 +16,22 @@ class Markets extends StatefulWidget {
 class _MarketsState extends State<Markets> {
   int selectedIndex = 1;
   List<String> drugs;
+  bool loading = true;
+  String chosenCity;
+  @override
+  void initState() {
+    load();
+    super.initState();
+    setState(() {});
+  }
+
+  void load() async {
+    loading = true;
+    setState(() {});
+    chosenCity = await getCity();
+    loading = false;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +121,14 @@ class _MarketsState extends State<Markets> {
 
   Widget _findCity(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ChooseCity()));
+      onTap: () async {
+        var cities = await getCities();
+        var result = await Navigator.pushNamed(context, Routes.chooseCity,
+            arguments: cities);
+        if (result != null) {
+          chosenCity = result;
+          setState(() {});
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 210 / 414,
@@ -122,7 +145,9 @@ class _MarketsState extends State<Markets> {
                 width: 16,
               ),
               Text(
-                '${S.of(context).choose_city}',
+                chosenCity != null
+                    ? '$chosenCity'
+                    : '${S.of(context).choose_city}',
                 style: Theme.of(context).textTheme.headline4,
               )
             ],

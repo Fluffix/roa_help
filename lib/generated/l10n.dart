@@ -535,10 +535,10 @@ class S {
     );
   }
 
-  /// `Ваша норма:`
+  /// `Ваша норма`
   String get your_norm {
     return Intl.message(
-      'Ваша норма:',
+      'Ваша норма',
       name: 'your_norm',
       desc: '',
       args: [],
@@ -620,6 +620,56 @@ class S {
     return Intl.message(
       'Приготовление',
       name: 'cooking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выйти из аккаунта`
+  String get log_out_of_account {
+    return Intl.message(
+      'Выйти из аккаунта',
+      name: 'log_out_of_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вы уверены?`
+  String get confirmation {
+    return Intl.message(
+      'Вы уверены?',
+      name: 'confirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `В случае выхода, все данные аккаунта, кроме уведомлений, сохраняются.`
+  String get confirmation_description {
+    return Intl.message(
+      'В случае выхода, все данные аккаунта, кроме уведомлений, сохраняются.',
+      name: 'confirmation_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Отмена`
+  String get cancel {
+    return Intl.message(
+      'Отмена',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выйти`
+  String get log_out {
+    return Intl.message(
+      'Выйти',
+      name: 'log_out',
       desc: '',
       args: [],
     );

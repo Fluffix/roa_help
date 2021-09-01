@@ -28,6 +28,7 @@ class Style {
   ];
 
   static final darkTheme = ThemeData.dark().copyWith(
+      brightness: Brightness.dark,
       primaryColorBrightness: Brightness.dark,
       sliderTheme: SliderThemeData(
           activeTrackColor: activeColor,
@@ -126,6 +127,7 @@ class Style {
               fontWeight: FontWeight.w500)));
 
   static final lightTheme = ThemeData.light().copyWith(
+      brightness: Brightness.light,
       primaryColorBrightness: Brightness.light,
       sliderTheme: SliderThemeData(
           activeTrackColor: activeColor,

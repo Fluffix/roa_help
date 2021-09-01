@@ -6,11 +6,7 @@ class ItemMainPanel {
   final Widget iconInactive;
   final Function onTap;
 
-  ItemMainPanel({
-    this.iconActive,
-    this.iconInactive,
-    this.onTap,
-  });
+  ItemMainPanel({this.iconActive, this.iconInactive, this.onTap});
 }
 
 class MainPanel extends StatefulWidget {
@@ -19,13 +15,15 @@ class MainPanel extends StatefulWidget {
   final double height;
   final List<ItemMainPanel> items;
   final Function(int index) onChange;
+  final Function onDrugTap;
 
   MainPanel(
       {@required this.backgroundColor,
       this.currentIndex = 0,
       this.height,
       @required this.items,
-      this.onChange})
+      this.onChange,
+      this.onDrugTap})
       : assert(items.isNotEmpty);
 
   @override
@@ -142,11 +140,20 @@ class _MainPanelState extends State<MainPanel> {
                                 BorderRadius.all(Radius.circular(90))),
                         child: Align(
                           alignment: Alignment.center,
-                          child: IconSvg(IconsSvg.pills,
-                              color:
-                                  Theme.of(context).cardColor.withOpacity(1.0),
-                              width: 40,
-                              height: 40),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (widget.onDrugTap != null) {
+                                widget.onDrugTap();
+                              }
+                            },
+                            behavior: HitTestBehavior.translucent,
+                            child: IconSvg(IconsSvg.pills,
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1.0),
+                                width: 40,
+                                height: 40),
+                          ),
                         )),
                   ),
                 ),

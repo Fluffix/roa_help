@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Requests/Auth/Auth.dart';
+import 'package:roa_help/Requests/Cities/Cities.dart';
 import 'package:roa_help/Utils/Routes/Routes.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/AuthController.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/generated/l10n.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Auth extends StatefulWidget {
   const Auth({Key key}) : super(key: key);
@@ -19,8 +21,11 @@ class _AuthState extends State<Auth> {
   TextEditingController confirmPasswordController = TextEditingController();
   ScrollController scrollController = ScrollController();
   double animatedContainerHeight = 136;
+
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context);
+    AuthController authController = AuthController(controller: controller);
     return MediaQuery.of(context).size.height > 795
         ? GestureDetector(
             behavior: HitTestBehavior.translucent,
@@ -38,7 +43,10 @@ class _AuthState extends State<Auth> {
                         context, Style.white, Colors.black, S.of(context).login,
                         onTap: () {
                       if (registration == false) {
-                        authLogic(isLogin: true);
+                        authController.authLogin(
+                            context: context,
+                            usernameController: usernameController,
+                            passwordController: passwordController);
                       } else {
                         usernameController.clear();
                         passwordController.clear();
@@ -53,7 +61,13 @@ class _AuthState extends State<Auth> {
                     _authButton(context, Colors.black, Colors.white,
                         S.of(context).signin, onTap: () async {
                       if (registration == true) {
-                        authLogic(isLogin: false);
+                        authController.authRegistration(
+                            context: context,
+                            usernameController: usernameController,
+                            passwordController: passwordController,
+                            confirmPasswordController:
+                                confirmPasswordController,
+                            chosenCity: chosenCity);
                       } else {
                         usernameController.clear();
                         passwordController.clear();
@@ -299,13 +313,21 @@ class _AuthState extends State<Auth> {
     );
   }
 
+  String chosenCity;
   Widget _chooseCity(bool registration) {
     return AnimatedOpacity(
       opacity: registration ? 1 : 0,
       duration: Duration(milliseconds: 400),
       child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, '/chooseCity');
+        onTap: () async {
+          var cities = await getCities();
+          var result = await Navigator.pushNamed(context, Routes.chooseCity,
+              arguments: cities);
+          if (result != null) {
+            chosenCity = result;
+          }
+
+          setState(() {});
         },
         child: Container(
           width: double.infinity,
@@ -315,7 +337,7 @@ class _AuthState extends State<Auth> {
               borderRadius: BorderRadius.circular(14)),
           child: Center(
               child: Text(
-            '${S.of(context).choose_city}',
+            chosenCity != null ? '$chosenCity' : '${S.of(context).choose_city}',
             style: Theme.of(context)
                 .textTheme
                 .headline2
@@ -324,63 +346,5 @@ class _AuthState extends State<Auth> {
         ),
       ),
     );
-  }
-
-  authLogic({@required bool isLogin}) async {
-    if (isLogin) {
-      int statusCode = await authRequest(
-        auth: "auth",
-        userName: usernameController.text,
-        password: passwordController.text,
-      );
-      print(statusCode);
-      switch (statusCode) {
-        case 201:
-          // StatsSerialise db = await getStats();
-          // print("AAAAA ${db.water}");
-          Navigator.pushNamed(
-            context, Routes.home,
-            // arguments: <StatsSerialise>{db}
-          );
-          break;
-        case 403:
-          exceptionToast('Username or password not correct');
-          break;
-      }
-    } else {
-      if (usernameController.text.isEmpty) {
-        exceptionToast('empty username');
-      } else if (passwordController.text.length < 8) {
-        exceptionToast('password unsafe');
-      } else if (passwordController.text != confirmPasswordController.text) {
-        exceptionToast('passwords differ');
-      } else {
-        int statusCode = await authRequest(
-          auth: "register",
-          userName: usernameController.text,
-          password: passwordController.text,
-        );
-        print(statusCode);
-        switch (statusCode) {
-          case 200:
-            Navigator.pushNamed(context, '/home');
-            break;
-          case 422:
-            exceptionToast('The username has already been taken');
-            break;
-        }
-      }
-    }
-  }
-
-  Future<bool> exceptionToast(String toastText) {
-    return Fluttertoast.showToast(
-        msg: "$toastText",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.red,
-        backgroundColor: Colors.green,
-        fontSize: 16.0);
   }
 }

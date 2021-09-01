@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +5,7 @@ import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/General/widgets/SwitchButton.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/UI/General/General.dart';
-import 'package:roa_help/UI/Pages/Profile/widgets/ButtonNotification.dart';
+import 'package:roa_help/UI/Pages/Profile/widgets/ButtonSettings.dart';
 import 'package:roa_help/Utils/Cache/Keys.dart';
 import 'package:roa_help/Utils/Notifications/LocalNotifyManager.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -48,8 +47,7 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: AdaptiveTheme.of(context).theme !=
-                  AdaptiveTheme.of(context).darkTheme
+          boxShadow: Theme.of(context).brightness != Brightness.dark
               ? Style.shadowCard
               : null),
       child: Padding(
@@ -194,10 +192,10 @@ class _SettingsNotificationsState extends State<SettingsNotifications> {
               ],
             ),
             SizedBox(height: 20),
-            ButtonNotification(
+            ButtonSettings(
               titleButton: S.of(context).back,
               onTap: widget.onTap,
-              onChance: () {},
+              onChange: () {},
             )
           ],
         ),
