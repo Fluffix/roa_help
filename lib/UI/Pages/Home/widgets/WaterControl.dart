@@ -74,7 +74,7 @@ class _WaterConrolState extends State<WaterConrol> {
                           '${controller.data.wasDrinked}',
                           style: TextStyle(
                               color: Style.secondary,
-                              fontFamily: Style.fontFamilyMedium,
+                              fontFamily: Style.fontFamilySanFrancisco,
                               fontSize: 18,
                               fontWeight: FontWeight.w700),
                         ),

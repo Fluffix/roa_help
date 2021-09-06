@@ -1,5 +1,10 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Controllers/SideEffectsController.dart';
+import 'package:roa_help/Requests/Stats/Stats.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/General/widgets/SwitchButton.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
@@ -16,13 +21,14 @@ class Feelings extends StatefulWidget {
 class _FeelingsState extends State<Feelings> {
   bool _loading = false;
 
-  void load() async {
+  Future<void> load(SideEffectsController controller) async {
     setState(() {
       _loading = true;
     });
     // Request func in this place
     await sendSideEffectsRequest(chosenfeelings);
-
+    var stats = await getStats();
+    controller.countSideEffects(quantity: stats.countSideEffects);
     setState(() {
       _loading = false;
     });
@@ -34,43 +40,43 @@ class _FeelingsState extends State<Feelings> {
   Widget build(BuildContext context) {
     final SideEffectsCategoryiesList allCats =
         ModalRoute.of(context).settings.arguments;
+    var conroller =
+        Provider.of<GeneralController>(context).sideEffectsController;
     return Material(
         color: Theme.of(context).backgroundColor,
         child: Stack(children: [
-          SafeArea(
-            child: Scaffold(
-              backgroundColor: Theme.of(context).backgroundColor,
-              appBar: SecondAppBar(
-                text: S.of(context).side_effects,
-                onChange: () async {
-                  // ignore: await_only_futures
-                  if (chosenfeelings.isNotEmpty) {
-                    load();
-                  }
-                  Navigator.pop(context);
-                },
-              ),
-              body: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: BouncingScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: List.generate(allCats.items.length, (index) {
-                          return _buildCategory(context, allCats.items[index]);
-                        }),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      _otherButton(),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
-                  ),
+          Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
+            appBar: SecondAppBar(
+              text: S.of(context).feeling,
+              onChange: () async {
+                // ignore: await_only_futures
+                if (chosenfeelings.isNotEmpty) {
+                  await load(conroller);
+                }
+                Navigator.pop(context);
+              },
+            ),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Column(
+                  children: [
+                    Column(
+                      children: List.generate(allCats.items.length, (index) {
+                        return _buildCategory(context, allCats.items[index]);
+                      }),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    _otherButton(),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
                 ),
               ),
             ),
@@ -129,14 +135,14 @@ class _FeelingsState extends State<Feelings> {
                     Row(
                       children: [
                         Container(
-                          width: 15,
-                          height: 15,
+                          width: 12,
+                          height: 12,
                           decoration: BoxDecoration(
                               color: Color(int.parse(category.color)),
                               shape: BoxShape.circle),
                         ),
                         SizedBox(
-                          width: 16,
+                          width: 12,
                         ),
                         Text('${category.items[index].description}',
                             style: Theme.of(context)

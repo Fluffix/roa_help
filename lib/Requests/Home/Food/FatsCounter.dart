@@ -12,7 +12,7 @@ Future<List<FoodItem>> getFood(String searchText) async {
     final String url = '$apiURL/food?text=$searchText';
     String token = await getToken();
     var response = await http.get(
-      url,
+      Uri.parse(url),
       headers: {
         'Content-Type': "application/json",
         'Authorization': "Bearer $token",

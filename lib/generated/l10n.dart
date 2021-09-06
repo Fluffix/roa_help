@@ -45,6 +45,16 @@ class S {
     );
   }
 
+  /// `Получить Код`
+  String get get_code {
+    return Intl.message(
+      'Получить Код',
+      name: 'get_code',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Как избавиться от сухости глаз?`
   String get articles_head {
     return Intl.message(
@@ -60,6 +70,16 @@ class S {
     return Intl.message(
       'Сухость глаз является неприятным ощущением, вызванным раздражением рецепторов конъюнктивы век или роговицы.',
       name: 'articles_body',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добро пожаловать!\nЗапустите Telegram бота @roa_help_bot и введите код аутентификации`
+  String get start_the_bot {
+    return Intl.message(
+      'Добро пожаловать!\nЗапустите Telegram бота @roa_help_bot и введите код аутентификации',
+      name: 'start_the_bot',
       desc: '',
       args: [],
     );
@@ -165,10 +185,10 @@ class S {
     );
   }
 
-  /// `побочек`
+  /// `выявлено`
   String get quantity_of_feelings {
     return Intl.message(
-      'побочек',
+      'выявлено',
       name: 'quantity_of_feelings',
       desc: '',
       args: [],
@@ -425,10 +445,10 @@ class S {
     );
   }
 
-  /// `ВОЙТИ`
+  /// `Войти`
   String get login {
     return Intl.message(
-      'ВОЙТИ',
+      'Войти',
       name: 'login',
       desc: '',
       args: [],
@@ -670,6 +690,26 @@ class S {
     return Intl.message(
       'Выйти',
       name: 'log_out',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Время`
+  String get time {
+    return Intl.message(
+      'Время',
+      name: 'time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Добавить`
+  String get add_dish {
+    return Intl.message(
+      'Добавить',
+      name: 'add_dish',
       desc: '',
       args: [],
     );

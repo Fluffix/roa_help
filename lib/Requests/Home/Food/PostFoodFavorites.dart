@@ -7,7 +7,7 @@ Future<void> postFavFood({int id, bool add}) async {
   try {
     final String url = '$apiURL/food';
     String token = await getToken();
-    await http.post(url,
+    await http.post(Uri.parse(url),
         headers: {
           'Content-Type': "application/json",
           'Authorization': "Bearer $token",

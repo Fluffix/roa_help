@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Requests/Auth/Auth.dart';
-import 'package:roa_help/UI/Pages/Auth/Auth.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/ButtonSettings.dart';
 import 'package:roa_help/Utils/Cache/Keys.dart';
 import 'package:roa_help/Utils/Notifications/LocalNotifyManager.dart';
+import 'package:roa_help/Utils/Routes/Routes.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class Logout extends StatefulWidget {
@@ -21,6 +21,9 @@ class _LogoutState extends State<Logout> {
     var controller =
         Provider.of<GeneralController>(context).notificationsController;
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      backgroundColor: Theme.of(context).backgroundColor,
       title: Text(
         S.of(context).confirmation,
         style: Theme.of(context).textTheme.headline2,
@@ -45,8 +48,7 @@ class _LogoutState extends State<Logout> {
             await controller.saveNotifications(
                 key: KeysCache.morningNotification, currentPosition: false);
             await removeToken();
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Auth()));
+            Navigator.pushReplacementNamed(context, Routes.welcomeNew);
           },
         ),
       ],

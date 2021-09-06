@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/UI/General/widgets/KeepAlivePage.dart';
 import 'package:roa_help/UI/General/widgets/MainPanel.dart';
@@ -77,7 +76,7 @@ class _GeneralState extends State<General> {
             alignment: Alignment.bottomCenter,
             child: MainPanel(
               height: 82,
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).bottomAppBarColor,
               currentIndex: currentIndex,
               onChange: (index) {
                 setState(() {

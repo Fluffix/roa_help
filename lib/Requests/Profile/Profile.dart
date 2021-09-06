@@ -8,7 +8,7 @@ Future<ProfileInfoSerialise> getProfile({String loadedToken}) async {
   try {
     final String url = "$apiURL/profile";
     String token = loadedToken ?? await getToken();
-    var response = await http.get(url, headers: {
+    var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': "application/json",
       'Authorization': "Bearer $token",
     });
@@ -25,7 +25,7 @@ Future<void> changeWaterDayNorm({int waterDayNorm}) async {
   try {
     final String url = '$apiURL/profile';
     String token = await getToken();
-    await http.post(url,
+    await http.post(Uri.parse(url),
         headers: {
           'Content-Type': "application/json",
           'Authorization': "Bearer $token",

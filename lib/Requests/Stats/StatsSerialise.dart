@@ -3,6 +3,7 @@ import 'package:roa_help/Requests/Home/Feelings/GetFeelingsSerialise.dart';
 class StatsSerialise {
   int water;
   String date;
+  int countSideEffects;
   List<CategoryItem> sideEffects;
 
   StatsSerialise({
@@ -14,10 +15,11 @@ class StatsSerialise {
   StatsSerialise.fromJson(Map<String, dynamic> json) {
     water = json['water'];
     date = json['date'];
+    countSideEffects = json['side_effects_count'];
     if (json['side_effects'] != null) {
       sideEffects = [];
       json['side_effects'].forEach((v) {
-        sideEffects.add(new CategoryItem.fromJson(v));
+        sideEffects.add(CategoryItem.fromJson(v));
       });
     }
   }

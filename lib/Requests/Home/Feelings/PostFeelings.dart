@@ -8,7 +8,7 @@ Future<void> sideEffectsPost(List<Map<String, dynamic>> body) async {
   try {
     final String url = '$apiURL/side_effects';
     String token = await getToken();
-    await http.post(url,
+    await http.post(Uri.parse(url),
         headers: {
           'Content-Type': "application/json",
           'Authorization': "Bearer $token",

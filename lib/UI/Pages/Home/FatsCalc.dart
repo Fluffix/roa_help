@@ -3,10 +3,10 @@ import 'package:roa_help/Controllers/FoodController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/General/widgets/Search.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
+import 'package:roa_help/UI/Pages/Home/widgets/AddDish.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/Requests/Home/Food/PostFoodFavorites.dart';
-import 'package:roa_help/UI/Pages/Home/widgets/BottomSheet.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/FatsCountModel.dart';
@@ -43,33 +43,31 @@ class _FatsCalcState extends State<FatsCalc> {
     chosenFoods = widget.meal.foodWasEaten;
     return Material(
         color: Theme.of(context).backgroundColor,
-        child: SafeArea(
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Scaffold(
-              backgroundColor: Theme.of(context).backgroundColor,
-              appBar: SecondAppBar(
-                text: S.of(context).fats_calc,
-                onChange: () {
-                  print(mealResult.foodWasEaten);
-                  int result = 0;
-                  chosenFoods.forEach((element) {
-                    result += element.fatsWasEaten;
-                  });
-                  if (result == 0) {
-                    mealResult = FatsCountInfo.empty();
-                    Navigator.pop(context, [mealResult, favoritesFoodResult]);
-                  } else {
-                    mealResult = FatsCountInfo(
-                        fatsWasEaten: result, foodWasEaten: chosenFoods);
-                    controller.foodController.setState();
-                    Navigator.pop(context, [mealResult, favoritesFoodResult]);
-                  }
-                },
-              ),
-              body: _content(),
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
+            appBar: SecondAppBar(
+              text: S.of(context).fats_calc,
+              onChange: () {
+                print(mealResult.foodWasEaten);
+                int result = 0;
+                chosenFoods.forEach((element) {
+                  result += element.fatsWasEaten;
+                });
+                if (result == 0) {
+                  mealResult = FatsCountInfo.empty();
+                  Navigator.pop(context, [mealResult, favoritesFoodResult]);
+                } else {
+                  mealResult = FatsCountInfo(
+                      fatsWasEaten: result, foodWasEaten: chosenFoods);
+                  controller.foodController.setState();
+                  Navigator.pop(context, [mealResult, favoritesFoodResult]);
+                }
+              },
             ),
+            body: _content(),
           ),
         ));
   }
@@ -80,6 +78,9 @@ class _FatsCalcState extends State<FatsCalc> {
       physics: BouncingScrollPhysics(),
       child: Column(
         children: [
+          SizedBox(
+            height: 16,
+          ),
           _search(),
           StreamBuilder<FoodState>(
             stream: controller.foodController.streamFoods,
@@ -121,43 +122,47 @@ class _FatsCalcState extends State<FatsCalc> {
                 padding: const EdgeInsets.symmetric(vertical: 24.0),
                 child: Column(
                     children: List.generate(chosenFoods.length, (index) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            top: index == 0
-                                ? BorderSide(
-                                    color: Style.inactiveColorDark
-                                        .withOpacity(1.0),
-                                    width: 0.5)
-                                : BorderSide.none,
-                            bottom: BorderSide(
-                                color: Style.inactiveColorDark.withOpacity(1.0),
-                                width: 0.5))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 32),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('${chosenFoods[index].item.name}',
-                              style: Theme.of(context)
-                                  .primaryTextTheme
-                                  .headline1
-                                  .copyWith(
-                                    fontSize: 16,
-                                  )),
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {
-                              chosenFoods.remove(chosenFoods[index]);
-                              setState(() {});
-                            },
-                            child: IconSvg(IconsSvg.remove,
-                                color: Style.inactiveColorDark.withOpacity(1.0),
-                                width: 26),
-                          )
-                        ],
+                  return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      chosenFoods.remove(chosenFoods[index]);
+                      setState(() {});
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              top: index == 0
+                                  ? BorderSide(
+                                      color: Style.inactiveColorDark
+                                          .withOpacity(1.0),
+                                      width: 0.5)
+                                  : BorderSide.none,
+                              bottom: BorderSide(
+                                  color:
+                                      Style.inactiveColorDark.withOpacity(1.0),
+                                  width: 0.5))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 32),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('${chosenFoods[index].item.name}',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline1
+                                    .copyWith(
+                                      fontSize: 16,
+                                    )),
+                            GestureDetector(
+                              child: IconSvg(IconsSvg.remove,
+                                  color:
+                                      Style.inactiveColorDark.withOpacity(1.0),
+                                  width: 26),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -178,65 +183,83 @@ class _FatsCalcState extends State<FatsCalc> {
             padding: const EdgeInsets.symmetric(vertical: 24.0),
             child: Column(
                 children: List.generate(state.foods.length, (index) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    border: Border(
-                        top: index == 0
-                            ? BorderSide(
-                                color: Style.inactiveColorDark.withOpacity(1.0),
-                                width: 0.5)
-                            : BorderSide.none,
-                        bottom: BorderSide(
-                            color: Style.inactiveColorDark.withOpacity(1.0),
-                            width: 0.5))),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 32),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        child: Text('${state.foods[index].name}',
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headline1
-                                .copyWith(
-                                  fontSize: 16,
-                                )),
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: _isChosenFood(state.foods[index])
-                            ? () {
-                                print(1);
-                                chosenFoods.removeWhere((element) =>
-                                    element.item.id == state.foods[index].id);
-                                setState(() {});
-                              }
-                            : () async {
-                                int result = await _showBottomSheetFood(
-                                    state.foods[index], foodTextController);
-                                if (result != null) {
-                                  // Add chosen food to reciepes and counting fats
-                                  int fatsWasEaten =
-                                      ((result * state.foods[index].fat) / 100)
-                                          .round();
-                                  chosenFoods.add(ChosenFoodModel(
-                                      item: state.foods[index],
-                                      fatsWasEaten: fatsWasEaten));
-                                }
-                              },
-                        child: IconSvg(
+              return GestureDetector(
+                onTap: _isChosenFood(state.foods[index])
+                    ? () {
+                        print(1);
+                        chosenFoods.removeWhere((element) =>
+                            element.item.id == state.foods[index].id);
+                        setState(() {});
+                      }
+                    : () async {
+                        int result = await showDialog(
+                            context: context,
+                            builder: (context) => AddDish(
+                                  item: state.foods[index],
+                                  onTap: () async {
+                                    if (state.foods[index].inFavorites ==
+                                        true) {
+                                      state.foods[index].inFavorites = false;
+                                      favoritesFoodResult.favorites
+                                          .remove(state.foods[index]);
+                                    } else {
+                                      state.foods[index].inFavorites = true;
+                                      favoritesFoodResult.favorites
+                                          .add(state.foods[index]);
+                                    }
+                                    await postFavFood(
+                                        id: state.foods[index].id,
+                                        add: state.foods[index].inFavorites);
+                                  },
+                                ));
+                        if (result != null) {
+                          // Add chosen food to reciepes and counting fats
+                          int fatsWasEaten =
+                              ((result * state.foods[index].fat) / 100).round();
+                          chosenFoods.add(ChosenFoodModel(
+                              item: state.foods[index],
+                              fatsWasEaten: fatsWasEaten));
+                        }
+                      },
+                behavior: HitTestBehavior.translucent,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          top: index == 0
+                              ? BorderSide(
+                                  color:
+                                      Style.inactiveColorDark.withOpacity(1.0),
+                                  width: 0.5)
+                              : BorderSide.none,
+                          bottom: BorderSide(
+                              color: Style.inactiveColorDark.withOpacity(1.0),
+                              width: 0.5))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 32),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          child: Text('${state.foods[index].name}',
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .headline1
+                                  .copyWith(
+                                    fontSize: 16,
+                                  )),
+                        ),
+                        IconSvg(
                             _isChosenFood(state.foods[index])
                                 ? IconsSvg.remove
                                 : IconsSvg.add,
                             color: Style.inactiveColorDark.withOpacity(1.0),
-                            width: 26),
-                      )
-                    ],
+                            width: 26)
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -245,34 +268,6 @@ class _FatsCalcState extends State<FatsCalc> {
         }
       }
     }
-  }
-
-  Future<int> _showBottomSheetFood(
-      FoodItem item, TextEditingController textController) {
-    return showModalBottomSheet(
-        isScrollControlled: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(24.0),
-              topRight: const Radius.circular(24.0)),
-        ),
-        context: context,
-        builder: (BuildContext context) {
-          return ContentFatsBottomSheet(
-            item: item,
-            // Add to Favorites
-            onTap: () async {
-              if (item.inFavorites == true) {
-                item.inFavorites = false;
-                favoritesFoodResult.favorites.remove(item);
-              } else {
-                item.inFavorites = true;
-                favoritesFoodResult.favorites.add(item);
-              }
-              await postFavFood(id: item.id, add: item.inFavorites);
-            },
-          );
-        });
   }
 
   bool _isChosenFood(FoodItem currentItem) {

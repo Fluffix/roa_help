@@ -16,7 +16,7 @@ Widget IconSvg(int id,
 
   String iconName;
 
-  int count = 45;
+  int count = 46;
   if (id < 0 || id >= count) id = 0;
   switch (id) {
     case 0:
@@ -153,6 +153,9 @@ Widget IconSvg(int id,
       break;
     case 44:
       iconName = icon('appIcon');
+      break;
+    case 45:
+      iconName = icon('bot');
       break;
   }
 

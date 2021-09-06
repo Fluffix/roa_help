@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
-import 'package:roa_help/UI/Pages/Profile/Loguot.dart';
+import 'package:roa_help/UI/Pages/Profile/Logout.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsNotifications.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsPassword.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsWater.dart';

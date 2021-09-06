@@ -1,66 +1,38 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:roa_help/Requests/Auth/AuthSerialise.dart';
 import 'package:roa_help/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<int> authRequest({String userName, String password}) async {
+// ignore: missing_return
+Future<int> authRequest({
+  String code,
+}) async {
   try {
     final String url = '$apiURL/auth';
     Map<String, String> headers = HashMap();
     headers['Content-type'] = 'application/json';
 
-    Response response = await http.post(url,
+    Response response = await http.post(Uri.parse(url),
         headers: headers,
         body: jsonEncode(<String, dynamic>{
-          'username': userName,
-          'password': password,
+          'code': code,
         }));
-
+    Map<String, dynamic> jsonMap = jsonDecode(response.body);
+    RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
     switch (response.statusCode) {
       case 201:
-        Map<String, dynamic> jsonMap = jsonDecode(response.body);
-        RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
         saveUser(db.token);
-    }
-    return response.statusCode;
-  } catch (e) {
-    print(e);
-    return null;
-  }
-}
-
-Future<int> regRequest({
-  String userName,
-  String password,
-  Map<String, dynamic> extra,
-}) async {
-  try {
-    final String url = '$apiURL/register';
-    Map<String, String> headers = HashMap();
-    headers['Content-type'] = 'application/json';
-
-    Response response = await http.post(url,
-        headers: headers,
-        body: jsonEncode(<String, dynamic>{
-          'username': userName,
-          'password': password,
-          'extra': extra
-        }));
-
-    switch (response.statusCode) {
+        break;
       case 200:
-        Map<String, dynamic> jsonMap = jsonDecode(response.body);
-        RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
         saveUser(db.token);
+        break;
     }
     return response.statusCode;
   } catch (e) {
     print(e);
-    return null;
   }
 }
 

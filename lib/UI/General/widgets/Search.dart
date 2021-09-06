@@ -38,6 +38,7 @@ class _SearchState extends State<Search> {
                 child: Container(
                   width: MediaQuery.of(context).size.width - 116,
                   child: TextField(
+                    textInputAction: TextInputAction.search,
                     controller: widget.controllerText,
                     keyboardType: TextInputType.text,
                     maxLines: 1,

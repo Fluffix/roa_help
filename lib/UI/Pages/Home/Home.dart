@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Controllers/SideEffectsController.dart';
 import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
 import 'package:roa_help/Controllers/WaterController.dart';
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
@@ -26,13 +29,13 @@ FavoritesFood favoritesFood = FavoritesFood.empty();
 class Home extends StatefulWidget {
   final int firstFats;
   final int secondFats;
-  final int feeling;
+  final int sideEffects;
   final int recipes;
 
   Home({
     this.firstFats,
     this.secondFats,
-    this.feeling,
+    this.sideEffects,
     this.recipes = 8,
   });
   @override
@@ -44,13 +47,13 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    setState(() {});
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).waterController;
+    var controller = Provider.of<GeneralController>(context);
+
     return Material(
         color: Colors.transparent,
         child: SafeArea(
@@ -66,7 +69,7 @@ class _HomeState extends State<Home> {
                     : const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8),
                 child: Column(
                   children: [
-                    _waterControl(controller),
+                    _waterControl(controller.waterController),
                     SizedBox(
                       height: 24,
                     ),
@@ -77,7 +80,7 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _health(),
+                        _health(controller.sideEffectsController),
                         _reciepes(),
                       ],
                     ),
@@ -161,15 +164,18 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _health() {
+  Widget _health(SideEffectsController controller) {
     return SmallCardWidget(
       onTap: () async {
         var sideEffects = await getSideEffects();
-        Navigator.pushNamed(context, Routes.sideEffects,
+        await Navigator.pushNamed(context, Routes.sideEffects,
             arguments: sideEffects);
       },
       subtitlte: S.of(context).quantity_of_feelings,
       icon: IconSvg(IconsSvg.feeling, width: 20),
+      quantity: controller.data.countSideEffects != 0
+          ? controller.data.countSideEffects
+          : null,
       text: '${S.of(context).feeling}',
     );
   }

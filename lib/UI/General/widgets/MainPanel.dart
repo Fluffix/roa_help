@@ -127,7 +127,7 @@ class _MainPanelState extends State<MainPanel> {
                   width: 88,
                   height: 88,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).bottomAppBarColor,
                       borderRadius: BorderRadius.all(Radius.circular(90))),
                   child: Align(
                     alignment: Alignment.center,
