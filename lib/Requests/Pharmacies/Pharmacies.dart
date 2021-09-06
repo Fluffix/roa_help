@@ -16,7 +16,7 @@ Future<List<Pharmacy>> getFood({
     }
     final String url = '$apiURL/food?city=$city&drug=$drug';
     var response = await http.get(
-      url,
+      Uri.parse(url),
       headers: {
         'Content-Type': "application/json",
         'Authorization': "Bearer $token",

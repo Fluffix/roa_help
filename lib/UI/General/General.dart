@@ -24,8 +24,8 @@ class _GeneralState extends State<General> {
   @override
   void initState() {
     super.initState();
-    currentIndex = 1;
-    pageControllerPage = PageController(initialPage: 1);
+    currentIndex = 0;
+    pageControllerPage = PageController(initialPage: 0);
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
   }
 
@@ -76,7 +76,7 @@ class _GeneralState extends State<General> {
             alignment: Alignment.bottomCenter,
             child: MainPanel(
               height: 82,
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).bottomAppBarColor,
               currentIndex: currentIndex,
               onChange: (index) {
                 setState(() {

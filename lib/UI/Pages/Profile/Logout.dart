@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/ButtonSettings.dart';
 import 'package:roa_help/Utils/Cache/Keys.dart';
 import 'package:roa_help/Utils/Notifications/LocalNotifyManager.dart';
@@ -19,6 +20,9 @@ class _LogoutState extends State<Logout> {
   Widget build(BuildContext context) {
     var controller = Provider.of<GeneralController>(context);
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      backgroundColor: Theme.of(context).backgroundColor,
       title: Text(
         S.of(context).confirmation,
         style: Theme.of(context).textTheme.headline2,
@@ -42,8 +46,8 @@ class _LogoutState extends State<Logout> {
                 key: KeysCache.morningNotification, currentPosition: false);
             await controller.notificationsController.saveNotifications(
                 key: KeysCache.eveningNotification, currentPosition: false);
-            await controller.authController.removeUser();
-            Navigator.pushNamed(context, Routes.welcomeNew);
+            await removeToken();
+            Navigator.pushReplacementNamed(context, Routes.welcomeNew);
           },
         ),
       ],

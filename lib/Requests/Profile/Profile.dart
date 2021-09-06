@@ -7,7 +7,7 @@ import 'package:roa_help/main.dart';
 Future<ProfileInfoSerialise> getProfile({@required String token}) async {
   try {
     final String url = "$apiURL/profile";
-    var response = await http.get(url, headers: {
+    var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': "application/json",
       'Authorization': "Bearer $token",
     });
@@ -26,7 +26,7 @@ Future<void> changeWaterDayNorm({
 }) async {
   try {
     final String url = '$apiURL/profile';
-    await http.post(url,
+    await http.post(Uri.parse(url),
         headers: {
           'Content-Type': "application/json",
           'Authorization': "Bearer $token",

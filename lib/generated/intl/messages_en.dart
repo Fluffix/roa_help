@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "add_dish" : MessageLookupByLibrary.simpleMessage("Добавить"),
     "akne_16mg" : MessageLookupByLibrary.simpleMessage("Акнекутан капс. 16 мг."),
     "akne_8mg" : MessageLookupByLibrary.simpleMessage("Акнекутан капс. 8 мг."),
     "app_name" : MessageLookupByLibrary.simpleMessage("Roa Help"),
@@ -48,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "find" : MessageLookupByLibrary.simpleMessage("ПОИСК"),
     "food_find" : MessageLookupByLibrary.simpleMessage("Поиск блюда"),
     "food_gramms" : MessageLookupByLibrary.simpleMessage("грамм"),
+    "get_code" : MessageLookupByLibrary.simpleMessage("Получить Код"),
     "glass" : MessageLookupByLibrary.simpleMessage("станкан"),
     "glass_2" : MessageLookupByLibrary.simpleMessage("станкана"),
     "glass_3" : MessageLookupByLibrary.simpleMessage("стаканов"),
@@ -59,7 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "input_user_name" : MessageLookupByLibrary.simpleMessage("Введите имя пользователя"),
     "log_out" : MessageLookupByLibrary.simpleMessage("Выйти"),
     "log_out_of_account" : MessageLookupByLibrary.simpleMessage("Выйти из аккаунта"),
-    "login" : MessageLookupByLibrary.simpleMessage("ВОЙТИ"),
+    "login" : MessageLookupByLibrary.simpleMessage("Войти"),
     "mail" : MessageLookupByLibrary.simpleMessage("Изменить почту"),
     "meal" : MessageLookupByLibrary.simpleMessage("прием"),
     "morning" : MessageLookupByLibrary.simpleMessage("Утренний приём"),
@@ -69,7 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "password" : MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "pieces" : MessageLookupByLibrary.simpleMessage("шт."),
     "protein" : MessageLookupByLibrary.simpleMessage("Белки"),
-    "quantity_of_feelings" : MessageLookupByLibrary.simpleMessage("побочек"),
+    "quantity_of_feelings" : MessageLookupByLibrary.simpleMessage("выявлено"),
     "reciepes" : MessageLookupByLibrary.simpleMessage("Рецепты"),
     "repeat_password" : MessageLookupByLibrary.simpleMessage("Повторите пароль"),
     "roa_10mg" : MessageLookupByLibrary.simpleMessage("Роаккутан капс. 10 мг."),
@@ -79,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
     "side_effects" : MessageLookupByLibrary.simpleMessage("Побочные эффекты"),
     "signin" : MessageLookupByLibrary.simpleMessage("РЕГИСТРАЦИЯ"),
+    "start_the_bot" : MessageLookupByLibrary.simpleMessage("Добро пожаловать!\nЗапустите Telegram бота @roa_help_bot и введите код аутентификации"),
+    "time" : MessageLookupByLibrary.simpleMessage("Время"),
     "time_take_drug" : MessageLookupByLibrary.simpleMessage("Настало время приёма препарата"),
     "to_change" : MessageLookupByLibrary.simpleMessage("Изменить"),
     "water_control" : MessageLookupByLibrary.simpleMessage("Потребление воды"),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/Pages/Reciepes/ReciepesItemPage.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/ReciepesModel.dart';
@@ -365,12 +366,9 @@ class _ReciepesState extends State<Reciepes> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: Theme.of(context).cardColor,
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 4),
-                    blurRadius: 12,
-                    color: Color.fromRGBO(0, 0, 0, 0.05))
-              ]),
+              boxShadow: Theme.of(context).brightness != Brightness.dark
+                  ? Style.shadowCard
+                  : null),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
             child: Row(

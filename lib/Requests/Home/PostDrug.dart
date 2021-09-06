@@ -6,7 +6,7 @@ import 'package:roa_help/main.dart';
 Future<void> postFavFood({@required int fat, @required String token}) async {
   try {
     final String url = '$apiURL/drug';
-    await http.post(url,
+    await http.post(Uri.parse(url),
         headers: {
           'Content-Type': "application/json",
           'Authorization': "Bearer $token",

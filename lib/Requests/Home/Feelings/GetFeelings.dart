@@ -10,7 +10,7 @@ Future<SideEffectsCategoryiesList> getSideEffects(
   try {
     final String url = '$apiURL/side_effects';
 
-    var response = await http.get(url, headers: {
+    var response = await http.get(Uri.parse(url), headers: {
       'Content-Type': "application/json",
       'Authorization': "Bearer $token",
     });

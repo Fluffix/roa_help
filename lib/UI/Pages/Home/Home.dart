@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Controllers/SideEffectsController.dart';
 import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/Requests/Home/Feelings/GetFeelings.dart';
@@ -25,13 +28,13 @@ FavoritesFood favoritesFood = FavoritesFood.empty();
 class Home extends StatefulWidget {
   final int firstFats;
   final int secondFats;
-  final int feeling;
+  final int sideEffects;
   final int recipes;
 
   Home({
     this.firstFats,
     this.secondFats,
-    this.feeling,
+    this.sideEffects,
     this.recipes = 8,
   });
   @override
@@ -43,7 +46,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    setState(() {});
     super.initState();
   }
 
@@ -76,7 +78,7 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _health(token: controller.authController.data.token),
+                        _health(controller),
                         _reciepes(),
                       ],
                     ),
@@ -172,15 +174,20 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _health({@required String token}) {
+  Widget _health(GeneralController controller) {
     return SmallCardWidget(
       onTap: () async {
-        var sideEffects = await getSideEffects(token: token);
-        Navigator.pushNamed(context, Routes.sideEffects,
+        var sideEffects =
+            await getSideEffects(token: controller.authController.data.token);
+        await Navigator.pushNamed(context, Routes.sideEffects,
             arguments: sideEffects);
+        setState(() {});
       },
       subtitlte: S.of(context).quantity_of_feelings,
       icon: IconSvg(IconsSvg.feeling, width: 20),
+      quantity: controller.sideEffectsController.data.countSideEffects != 0
+          ? controller.sideEffectsController.data.countSideEffects
+          : null,
       text: '${S.of(context).feeling}',
     );
   }

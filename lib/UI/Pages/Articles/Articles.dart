@@ -107,7 +107,10 @@ class _ArticlesState extends State<Articles> {
                 Container(
                   height: 90,
                   width: 90,
-                  color: color,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 8.0),

@@ -39,38 +39,32 @@ class _SecondAppBarState extends State<SecondAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 58,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 58,
+            ),
+            Text(
+              '${widget.text}',
+              style: Theme.of(context).primaryTextTheme.headline1,
+            ),
+            GestureDetector(
+              onTap: () {
+                if (widget.onChange != null) {
+                  widget.onChange();
+                }
+              },
+              child: Text(
+                '${S.of(context).done}',
+                style: Theme.of(context).primaryTextTheme.headline3,
               ),
-              Text(
-                '${widget.text}',
-                style: Theme.of(context).primaryTextTheme.headline1,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (widget.onChange != null) {
-                    widget.onChange();
-                  }
-                },
-                child: Column(
-                  children: [
-                    Text(
-                      '${S.of(context).done}',
-                      style: Theme.of(context).primaryTextTheme.headline3,
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

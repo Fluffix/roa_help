@@ -10,7 +10,7 @@ Future<void> sideEffectsPost({
 }) async {
   try {
     final String url = '$apiURL/side_effects';
-    await http.post(url,
+    await http.post(Uri.parse(url),
         headers: {
           'Content-Type': "application/json",
           'Authorization': "Bearer $token",
