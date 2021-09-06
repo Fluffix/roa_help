@@ -3,33 +3,9 @@ import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/Pages/Reciepes/ReciepesItemPage.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
+import 'package:roa_help/models/ReciepesModel.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
-
-class ReciepesModel {
-  final int id;
-  final String name;
-  final String time;
-  final String ccal;
-  final int protein;
-  final int fat;
-  final int carbo;
-  final List<String> ingredients;
-  final String description;
-  final String thumbnail;
-
-  ReciepesModel(
-      {@required this.id,
-      @required this.name,
-      @required this.time,
-      @required this.ccal,
-      @required this.protein,
-      @required this.fat,
-      @required this.carbo,
-      @required this.ingredients,
-      @required this.description,
-      @required this.thumbnail});
-}
 
 List<ReciepesModel> items = [
   ReciepesModel(

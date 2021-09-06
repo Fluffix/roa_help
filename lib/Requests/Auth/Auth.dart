@@ -1,44 +1,54 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:developer';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:roa_help/Requests/Auth/AuthSerialise.dart';
 import 'package:roa_help/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-Future<int> authRequest({String userName, String password}) async {
+Future<Map<String, dynamic>> authRequest({
+  @required String userName,
+  @required String password,
+}) async {
   try {
+    var result = Map<String, dynamic>();
+
     final String url = '$apiURL/auth';
     Map<String, String> headers = HashMap();
     headers['Content-type'] = 'application/json';
 
     Response response = await http.post(url,
         headers: headers,
-        body: jsonEncode(<String, dynamic>{
-          'username': userName,
-          'password': password,
-        }));
+        body: jsonEncode(
+          <String, dynamic>{
+            'username': userName,
+            'password': password,
+          },
+        ));
+
+    result['statusCode'] = response.statusCode;
 
     switch (response.statusCode) {
       case 201:
         Map<String, dynamic> jsonMap = jsonDecode(response.body);
         RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
-        saveUser(db.token);
+        result['token'] = db.token;
     }
-    return response.statusCode;
+    return result;
   } catch (e) {
     print(e);
     return null;
   }
 }
 
-Future<int> regRequest({
+Future<Map<String, dynamic>> regRequest({
   String userName,
   String password,
   Map<String, dynamic> extra,
 }) async {
   try {
+    var result = Map<String, dynamic>();
+
     final String url = '$apiURL/register';
     Map<String, String> headers = HashMap();
     headers['Content-type'] = 'application/json';
@@ -51,30 +61,35 @@ Future<int> regRequest({
           'extra': extra
         }));
 
+    result['statusCode'] = response.statusCode;
+
     switch (response.statusCode) {
       case 200:
         Map<String, dynamic> jsonMap = jsonDecode(response.body);
         RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
-        saveUser(db.token);
+        result['token'] = db.token;
     }
-    return response.statusCode;
+    return result;
   } catch (e) {
     print(e);
     return null;
   }
 }
 
-Future<String> getToken() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  return sharedPreferences.getString('token');
-}
-
-Future<void> saveUser(String token) async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await sharedPreferences.setString('token', token);
-}
-
-Future<void> removeToken() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await sharedPreferences.remove('token');
+Future<void> changePassword(
+    {@required String password, @required String token}) async {
+  try {
+    final String url = '$apiURL/profile';
+    Response response = await http.post(url,
+        headers: {
+          'Content-Type': "application/json",
+          'Authorization': "Bearer $token",
+        },
+        body: jsonEncode(<String, dynamic>{
+          'password': password,
+        }));
+    print(response.statusCode);
+  } catch (e) {
+    print(e);
+  }
 }

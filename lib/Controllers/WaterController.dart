@@ -40,12 +40,9 @@ class WaterController {
     setState();
   }
 
-  Future<void> setDayNorm(
-      {@required int waterDayNorm, @required bool startAnimation}) async {
+  Future<void> setDayNorm({@required int waterDayNorm}) async {
     _waterDayNorm = waterDayNorm;
-    if (startAnimation) {
-      _startAnimation();
-    }
+    _startAnimation();
     setState();
   }
 
@@ -58,13 +55,15 @@ class WaterController {
   void _startAnimation() {
     _wasDrinked = _wasDrinked ?? 0;
     _waterDayNorm = _waterDayNorm ?? 8;
-    _progress = _wasDrinked / _waterDayNorm;
-    _waterAnimationController.changeWaterHeight(_progress);
-    setState();
+    if (_wasDrinked <= _waterDayNorm) {
+      _progress = _wasDrinked / _waterDayNorm;
+      _waterAnimationController.changeWaterHeight(_progress);
+      setState();
+    }
   }
 
 //GENERAL
-  setState() {
+  void setState() {
     StateWater state = StateWater(
       waterDayNorm: _waterDayNorm,
       wasDrinked: _wasDrinked,
@@ -73,7 +72,7 @@ class WaterController {
     _controllerWater.sink.add(state);
   }
 
-  dispose() {
+  void dispose() {
     _controllerWater.close();
   }
 }

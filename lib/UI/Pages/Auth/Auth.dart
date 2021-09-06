@@ -3,7 +3,6 @@ import 'package:roa_help/Requests/Cities/Cities.dart';
 import 'package:roa_help/Utils/Routes/Routes.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:provider/provider.dart';
-import 'package:roa_help/Controllers/AuthController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/generated/l10n.dart';
 
@@ -16,16 +15,25 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
   bool registration = false;
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  ScrollController scrollController = ScrollController();
-  double animatedContainerHeight = 136;
+  TextEditingController userNameController;
+  TextEditingController passwordController;
+  TextEditingController confirmPasswordController;
+  ScrollController scrollController;
+  double animatedContainerHeight;
+
+  @override
+  void initState() {
+    super.initState();
+    userNameController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    scrollController = ScrollController();
+    animatedContainerHeight = 136;
+  }
 
   @override
   Widget build(BuildContext context) {
     var controller = Provider.of<GeneralController>(context);
-    AuthController authController = AuthController(controller: controller);
     return MediaQuery.of(context).size.height > 795
         ? GestureDetector(
             behavior: HitTestBehavior.translucent,
@@ -43,12 +51,13 @@ class _AuthState extends State<Auth> {
                         context, Style.white, Colors.black, S.of(context).login,
                         onTap: () {
                       if (registration == false) {
-                        authController.authLogin(
+                        controller.authController.authLogin(
                             context: context,
-                            usernameController: usernameController,
-                            passwordController: passwordController);
+                            userName: userNameController.text,
+                            password: passwordController.text,
+                            controller: controller);
                       } else {
-                        usernameController.clear();
+                        userNameController.clear();
                         passwordController.clear();
                         registration = false;
                       }
@@ -61,15 +70,16 @@ class _AuthState extends State<Auth> {
                     _authButton(context, Colors.black, Colors.white,
                         S.of(context).signin, onTap: () async {
                       if (registration == true) {
-                        authController.authRegistration(
-                            context: context,
-                            usernameController: usernameController,
-                            passwordController: passwordController,
-                            confirmPasswordController:
-                                confirmPasswordController,
-                            chosenCity: chosenCity);
+                        controller.authController.authRegistration(
+                          context: context,
+                          userName: userNameController.text,
+                          password: passwordController.text,
+                          confirmPassword: confirmPasswordController.text,
+                          chosenCity: chosenCity,
+                          controller: controller,
+                        );
                       } else {
-                        usernameController.clear();
+                        userNameController.clear();
                         passwordController.clear();
                         confirmPasswordController.clear();
                         registration = true;
@@ -112,7 +122,7 @@ class _AuthState extends State<Auth> {
                             duration: Duration(milliseconds: 600),
                             child: Column(
                               children: [
-                                _inputTextContainer(usernameController,
+                                _inputTextContainer(userNameController,
                                     S.of(context).input_user_name),
                                 SizedBox(
                                   height: 16,
@@ -171,7 +181,7 @@ class _AuthState extends State<Auth> {
                           height: 32,
                         ),
                         _inputTextContainer(
-                            usernameController, S.of(context).input_user_name),
+                            userNameController, S.of(context).input_user_name),
                         SizedBox(
                           height: 16,
                         ),
@@ -239,7 +249,7 @@ class _AuthState extends State<Auth> {
   }
 
   Widget _inputTextContainer(
-      TextEditingController textcontroller, String hintText,
+      TextEditingController textController, String hintText,
       {bool isPass = false}) {
     return Container(
       width: double.infinity,
@@ -249,7 +259,7 @@ class _AuthState extends State<Auth> {
           borderRadius: BorderRadius.circular(14)),
       child: Center(
           child: TextField(
-        controller: textcontroller,
+        controller: textController,
         obscureText: isPass,
         textAlign: TextAlign.center,
         style: Theme.of(context)

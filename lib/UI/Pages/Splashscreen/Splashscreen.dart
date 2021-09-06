@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Profile/Profile.dart';
 import 'package:roa_help/Requests/Profile/ProfileSetialise.dart';
 import 'package:roa_help/Requests/Stats/Stats.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
-import 'package:roa_help/UI/General/General.dart';
-import 'package:roa_help/UI/Pages/Auth/Auth.dart';
+import 'package:roa_help/Utils/Routes/Routes.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
@@ -22,25 +20,24 @@ class _SplashscreenState extends State<Splashscreen> {
   bool _isCalled = false;
 
   Future<void> load(GeneralController controller) async {
-    String _token = await getToken();
+    await controller.authController.getSavedUser();
     List<dynamic> _data;
-    if (_token == null) {
+    if (controller.authController.data.token == null) {
       await Future.delayed(Duration(milliseconds: 1500));
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Auth()));
+      Navigator.pushNamed(context, Routes.welcomeNew);
     } else {
       _data = await Future.wait([
-        getStats(loadedToken: _token),
-        getProfile(loadedToken: _token),
+        getStats(token: controller.authController.data.token),
+        getProfile(token: controller.authController.data.token),
         Future.delayed(Duration(milliseconds: 1500))
       ]);
       StatsSerialise stats = _data[0];
       ProfileInfoSerialise profileInfo = _data[1];
-      await controller.waterController.setDayNorm(
-          waterDayNorm: profileInfo.waterDayNorm, startAnimation: true);
+      await controller.waterController
+          .setDayNorm(waterDayNorm: profileInfo.waterDayNorm);
       await controller.waterController.setWasDrinked(wasDrinked: stats.water);
       await controller.notificationsController.getSavedNotifications();
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => General()));
+      Navigator.pushNamed(context, Routes.home);
     }
   }
 

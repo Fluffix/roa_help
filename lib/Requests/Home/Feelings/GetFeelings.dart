@@ -1,14 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Home/Feelings/GetFeelingsSerialise.dart';
 import 'dart:convert';
 
 import 'package:roa_help/main.dart';
 
-Future<SideEffectsCategoryiesList> getSideEffects() async {
+Future<SideEffectsCategoryiesList> getSideEffects(
+    {@required String token}) async {
   try {
     final String url = '$apiURL/side_effects';
-    String token = await getToken();
 
     var response = await http.get(url, headers: {
       'Content-Type': "application/json",

@@ -24,14 +24,14 @@ class FoodController {
     setState();
   }
 
-  search(String text) async {
+  void search({@required String text, String token}) async {
     _foods = [];
-    _foods = await getFood(text);
+    _foods = await getFood(searchText: text, token: token);
     _loading = false;
     setState();
   }
 
-  setState() {
+  void setState() {
     FoodState state = FoodState(
       loading: _loading,
       foods: _foods,
@@ -39,7 +39,7 @@ class FoodController {
     _controllerFoods.sink.add(state);
   }
 
-  dispose() {
+  void dispose() {
     _controllerFoods.close();
   }
 }

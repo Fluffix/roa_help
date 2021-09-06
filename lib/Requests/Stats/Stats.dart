@@ -1,13 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/main.dart';
 
-Future<StatsSerialise> getStats({String loadedToken}) async {
+Future<StatsSerialise> getStats({@required String token}) async {
   try {
     final String url = '$apiURL/stats';
-    String token = loadedToken ?? await getToken();
     var response = await http.get(
       url,
       headers: {

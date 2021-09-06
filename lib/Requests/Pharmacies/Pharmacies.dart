@@ -1,18 +1,20 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
-import 'package:roa_help/main.dart';
 
-Future<List<FoodItem>> getFood({
-  @required String searchText,
+import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Pharmacies/PharmaciesSerialise.dart';
+import 'package:roa_help/main.dart';
+import 'package:http/http.dart' as http;
+
+Future<List<Pharmacy>> getFood({
+  @required String city,
+  @required String drug,
   @required String token,
 }) async {
   try {
-    if (searchText == '') {
+    if (drug == '') {
       return [];
     }
-    final String url = '$apiURL/food?text=$searchText';
+    final String url = '$apiURL/food?city=$city&drug=$drug';
     var response = await http.get(
       url,
       headers: {
@@ -23,8 +25,8 @@ Future<List<FoodItem>> getFood({
     int statusCode = response.statusCode;
     if (statusCode == 200) {
       Map<String, dynamic> jsonMap = json.decode(response.body);
-      GetFood db = GetFood.fromJson(jsonMap);
-      return db.items;
+      PharmaciesSerialise db = PharmaciesSerialise.fromJson(jsonMap);
+      return db.pharmacies;
     }
     return null;
   } catch (e) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/UI/General/widgets/KeepAlivePage.dart';
 import 'package:roa_help/UI/General/widgets/MainPanel.dart';
@@ -25,8 +24,8 @@ class _GeneralState extends State<General> {
   @override
   void initState() {
     super.initState();
-    currentIndex = 0;
-    pageControllerPage = PageController(initialPage: 0);
+    currentIndex = 1;
+    pageControllerPage = PageController(initialPage: 1);
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
   }
 

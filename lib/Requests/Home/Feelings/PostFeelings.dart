@@ -1,13 +1,15 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/main.dart';
 import 'package:roa_help/models/ChosenFeelingsModel.dart';
 
-Future<void> sideEffectsPost(List<Map<String, dynamic>> body) async {
+Future<void> sideEffectsPost({
+  @required List<Map<String, dynamic>> body,
+  @required String token,
+}) async {
   try {
     final String url = '$apiURL/side_effects';
-    String token = await getToken();
     await http.post(url,
         headers: {
           'Content-Type': "application/json",
@@ -19,7 +21,10 @@ Future<void> sideEffectsPost(List<Map<String, dynamic>> body) async {
   }
 }
 
-Future<void> sendSideEffectsRequest(List<ChosenFeeling> items) async {
+Future<void> sendSideEffectsRequest({
+  @required List<ChosenFeeling> items,
+  @required String token,
+}) async {
   List<Map<String, dynamic>> body = [];
   items.forEach((e) {
     body.add({
@@ -27,5 +32,5 @@ Future<void> sendSideEffectsRequest(List<ChosenFeeling> items) async {
       'is_added': e.isAdded,
     });
   });
-  await sideEffectsPost(body);
+  await sideEffectsPost(body: body, token: token);
 }

@@ -4,7 +4,6 @@ import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
 import 'package:roa_help/UI/Pages/Profile/Loguot.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsNotifications.dart';
-import 'package:roa_help/UI/Pages/Profile/SettingsPassword.dart';
 import 'package:roa_help/UI/Pages/Profile/SettingsWater.dart';
 import 'package:roa_help/UI/Pages/Profile/widgets/CardSettings.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
@@ -67,15 +66,9 @@ class _ProfileState extends State<Profile> {
                                 setPage(1);
                               }),
                           CardSettingsItem(
-                              text: S.of(context).password,
-                              onTap: () {
-                                setNumberPageSettings(1);
-                                setPage(1);
-                              }),
-                          CardSettingsItem(
                               text: S.of(context).water_norm,
                               onTap: () {
-                                setNumberPageSettings(2);
+                                setNumberPageSettings(1);
                                 setPage(1);
                               }),
                           CardSettingsItem(
@@ -87,7 +80,7 @@ class _ProfileState extends State<Profile> {
                                     return Logout();
                                   },
                                 );
-                                setNumberPageSettings(3);
+                                setNumberPageSettings(2);
                               }),
                         ],
                       ),
@@ -105,16 +98,12 @@ class _ProfileState extends State<Profile> {
                             ? SettingsNotifications(onTap: () {
                                 setPage(0);
                               })
-                            : _numberPageSettings == 1
-                                ? SettingsPassword(onTapBack: () {
-                                    setPage(0);
-                                  })
-                                : SettingsWater(
-                                    onTapBack: () {
-                                      setPage(0);
-                                    },
-                                    waterDayNorm: controller.data.waterDayNorm,
-                                  )
+                            : SettingsWater(
+                                onTapBack: () {
+                                  setPage(0);
+                                },
+                                waterDayNorm: controller.data.waterDayNorm,
+                              )
                       ],
                     ))
               ]),

@@ -42,7 +42,7 @@ class _SettingsWaterState extends State<SettingsWater> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).waterController;
+    var controller = Provider.of<GeneralController>(context);
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -88,18 +88,30 @@ class _SettingsWaterState extends State<SettingsWater> {
               titleButton: S.of(context).save,
               onTap: widget.onTapBack,
               onChange: () async {
-                if (controller.data.wasDrinked > _waterDayNorm) {
-                  double difference =
-                      (_waterDayNorm - controller.data.wasDrinked).toDouble();
-                  await changeWaterDayNorm(waterDayNorm: _waterDayNorm);
-                  await waterRequest(wasDrinked: difference);
-                  await controller.setDayNorm(
-                      waterDayNorm: _waterDayNorm, startAnimation: false);
-                  await controller.setWasDrinked(wasDrinked: _waterDayNorm);
+                if (controller.waterController.data.wasDrinked >
+                    _waterDayNorm) {
+                  double difference = (_waterDayNorm -
+                          controller.waterController.data.wasDrinked)
+                      .toDouble();
+                  await changeWaterDayNorm(
+                    waterDayNorm: _waterDayNorm,
+                    token: controller.authController.data.token,
+                  );
+                  await waterRequest(
+                    wasDrinked: difference,
+                    token: controller.authController.data.token,
+                  );
+                  await controller.waterController
+                      .setDayNorm(waterDayNorm: _waterDayNorm);
+                  await controller.waterController
+                      .setWasDrinked(wasDrinked: _waterDayNorm);
                 } else {
-                  await changeWaterDayNorm(waterDayNorm: _waterDayNorm);
-                  await controller.setDayNorm(
-                      waterDayNorm: _waterDayNorm, startAnimation: true);
+                  await changeWaterDayNorm(
+                    waterDayNorm: _waterDayNorm,
+                    token: controller.authController.data.token,
+                  );
+                  await controller.waterController
+                      .setDayNorm(waterDayNorm: _waterDayNorm);
                 }
               },
             )

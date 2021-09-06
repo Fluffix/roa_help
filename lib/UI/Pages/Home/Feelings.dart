@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/General/widgets/SwitchButton.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
@@ -16,12 +18,12 @@ class Feelings extends StatefulWidget {
 class _FeelingsState extends State<Feelings> {
   bool _loading = false;
 
-  void load() async {
+  void load({@required String token}) async {
     setState(() {
       _loading = true;
     });
     // Request func in this place
-    await sendSideEffectsRequest(chosenfeelings);
+    await sendSideEffectsRequest(items: chosenfeelings, token: token);
 
     setState(() {
       _loading = false;
@@ -34,6 +36,7 @@ class _FeelingsState extends State<Feelings> {
   Widget build(BuildContext context) {
     final SideEffectsCategoryiesList allCats =
         ModalRoute.of(context).settings.arguments;
+    var controller = Provider.of<GeneralController>(context).authController;
     return Material(
         color: Theme.of(context).backgroundColor,
         child: Stack(children: [
@@ -45,7 +48,7 @@ class _FeelingsState extends State<Feelings> {
                 onChange: () async {
                   // ignore: await_only_futures
                   if (chosenfeelings.isNotEmpty) {
-                    load();
+                    load(token: controller.data.token);
                   }
                   Navigator.pop(context);
                 },

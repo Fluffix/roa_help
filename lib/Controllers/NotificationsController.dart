@@ -64,7 +64,7 @@ class NotificationsController {
   }
 
   //GENERAL
-  setState() {
+  void setState() {
     StateNotifications state = StateNotifications(
       morningNotification: _morningNotification,
       eveningNotification: _eveningNotification,
@@ -72,7 +72,7 @@ class NotificationsController {
     _controllerNotifications.sink.add(state);
   }
 
-  dispose() {
+  void dispose() {
     _controllerNotifications.close();
   }
 }

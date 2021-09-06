@@ -14,25 +14,38 @@ import 'package:roa_help/models/FatsCountModel.dart';
 class FatsCalc extends StatefulWidget {
   final FatsCountInfo meal;
   final FavoritesFood favoritesfood;
-  const FatsCalc({Key key, @required this.meal, @required this.favoritesfood})
-      : super(key: key);
+  final GeneralController controller;
+
+  const FatsCalc({
+    Key key,
+    @required this.meal,
+    @required this.favoritesfood,
+    @required this.controller,
+  }) : super(key: key);
 
   @override
   _FatsCalcState createState() => _FatsCalcState();
 }
 
 class _FatsCalcState extends State<FatsCalc> {
-  GeneralController controller = GeneralController();
-  TextEditingController searchController = TextEditingController();
-  TextEditingController foodTextController = TextEditingController();
+  GeneralController controller;
+  TextEditingController searchController;
+  TextEditingController foodTextController;
   List<ChosenFoodModel> chosenFoods;
   FavoritesFood favoritesFoodResult;
+
   @override
   void initState() {
     super.initState();
+    controller = widget.controller;
+    searchController = TextEditingController();
+    foodTextController = TextEditingController();
     searchController.addListener(() {
       setState(() {});
-      controller.foodController.search(searchController.text);
+      controller.foodController.search(
+        text: searchController.text,
+        token: controller.authController.data.token,
+      );
     });
   }
 
@@ -269,7 +282,11 @@ class _FatsCalcState extends State<FatsCalc> {
                 item.inFavorites = true;
                 favoritesFoodResult.favorites.add(item);
               }
-              await postFavFood(id: item.id, add: item.inFavorites);
+              await postFavFood(
+                id: item.id,
+                add: item.inFavorites,
+                token: controller.authController.data.token,
+              );
             },
           );
         });
