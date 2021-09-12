@@ -1,19 +1,20 @@
-import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:roa_help/main.dart';
 
-Future<void> postFavFood({@required int fat, @required String token}) async {
+Future<void> postDrug({@required String token}) async {
   try {
     final String url = '$apiURL/drug';
-    await http.post(Uri.parse(url),
-        headers: {
-          'Content-Type': "application/json",
-          'Authorization': "Bearer $token",
-        },
-        body: jsonEncode(<String, dynamic>{
-          'fat': fat,
-        }));
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': "Bearer $token",
+      },
+    );
+    log("${response.body}");
   } catch (e) {
     print(e);
   }

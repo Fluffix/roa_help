@@ -31,7 +31,7 @@ class _ConfirmCodeState extends State<ConfirmCode> {
     _isShowNumberBox = true;
   }
 
-  void startAnimation({@required bool codeMatch}) async {
+  Future<void> startAnimation({@required bool codeMatch}) async {
     setState(() {
       if (codeMatch) {
         _nameAnimation = 'confirm';

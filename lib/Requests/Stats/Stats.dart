@@ -7,7 +7,9 @@ import 'package:roa_help/main.dart';
 
 Future<StatsSerialise> getStats({@required String token, String date}) async {
   try {
-    final String url = '$apiURL/stats';
+    final String url =
+        date != null ? '$apiURL/stats?date=$date' : '$apiURL/stats';
+    log(url);
     var response = await http.get(
       Uri.parse(url),
       headers: {
@@ -15,9 +17,10 @@ Future<StatsSerialise> getStats({@required String token, String date}) async {
         'Authorization': "Bearer $token",
       },
     );
+    log('${response.body}');
     Map<String, dynamic> jsonMap = json.decode(response.body);
     StatsSerialise db = StatsSerialise.fromJson(jsonMap);
-    log(response.body);
+
     return db;
   } catch (e) {
     print(e);

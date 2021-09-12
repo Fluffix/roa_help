@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,21 +35,36 @@ class AuthController {
     @required GeneralController controller,
   }) async {
     int statusCode = await authRequest(code: code);
-    switch (statusCode) {
-      case 200:
-      case 201:
-        StatsSerialise stats =
-            await getStats(token: controller.authController.data.token);
-        ProfileInfoSerialise profileInfo =
-            await getProfile(token: controller.authController.data.token);
-        controller.sideEffectsController
-            .countSideEffects(quantity: stats.countSideEffects);
-        await controller.waterController
-            .setDayNorm(waterDayNorm: profileInfo.waterDayNorm);
-        await controller.waterController.setWasDrinked(wasDrinked: stats.water);
-        await controller.notificationsController.getSavedNotifications();
-        return statusCode;
+    log('$statusCode');
+    await getToken();
+    if (statusCode == 201 || statusCode == 200) {
+      StatsSerialise stats =
+          await getStats(token: controller.authController.data.token);
+      ProfileInfoSerialise profileInfo =
+          await getProfile(token: controller.authController.data.token);
+      controller.sideEffectsController
+          .countSideEffects(quantity: stats.countSideEffects);
+      await controller.waterController
+          .setDayNorm(waterDayNorm: profileInfo.waterDayNorm);
+      await controller.waterController.setWasDrinked(wasDrinked: stats.water);
+      await controller.notificationsController.getSavedNotifications();
+      return statusCode;
     }
+    // switch (statusCode) {
+    //   case 200:
+    //   case 201:
+    //     StatsSerialise stats =
+    //         await getStats(token: controller.authController.data.token);
+    //     ProfileInfoSerialise profileInfo =
+    //         await getProfile(token: controller.authController.data.token);
+    //     controller.sideEffectsController
+    //         .countSideEffects(quantity: stats.countSideEffects);
+    //     await controller.waterController
+    //         .setDayNorm(waterDayNorm: profileInfo.waterDayNorm);
+    //     await controller.waterController.setWasDrinked(wasDrinked: stats.water);
+    //     await controller.notificationsController.getSavedNotifications();
+    //     return statusCode;
+    // }
     return null;
   }
 

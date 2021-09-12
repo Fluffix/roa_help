@@ -103,7 +103,10 @@ class _FeelingsState extends State<Feelings> {
         ]));
   }
 
-  Widget _buildCategory(BuildContext context, CategoryItem category) {
+  Widget _buildCategory(
+    BuildContext context,
+    CategoryItem category,
+  ) {
     return Column(
       children: [
         Container(
@@ -131,104 +134,113 @@ class _FeelingsState extends State<Feelings> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                              color: Color(int.parse(category.color)),
-                              shape: BoxShape.circle),
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text('${category.items[index].description}',
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headline1
-                                .copyWith(fontSize: 16)),
-                      ],
-                    ),
-                    SwitchButton(
-                      isActive: category.items[index].isAdded,
-                      activeColor:
-                          Theme.of(context).sliderTheme.activeTrackColor,
-                      inactiveColor:
-                          Theme.of(context).sliderTheme.inactiveTrackColor,
-                      activeCircleColor:
-                          Theme.of(context).sliderTheme.activeTickMarkColor,
-                      inactiveCircleColor:
-                          Theme.of(context).sliderTheme.inactiveTickMarkColor,
-                      turnOn: () {
-                        ChosenFeeling removingElement = ChosenFeeling(
-                          id: 000,
-                          isAdded: false,
-                        );
-
-                        //  If chosen list is empty
-                        if (chosenfeelings.isEmpty) {
-                          chosenfeelings.add(ChosenFeeling(
-                              isAdded: true, id: category.items[index].id));
-                        } else {
-                          //  If user tap on switchButton 2 times
-                          chosenfeelings.removeWhere((element) {
-                            if (element.id != null &&
-                                element.id == category.items[index].id) {
-                              removingElement = element;
-                            }
-                            return _isNeedToRemoveWhenOn(
-                              currentItem: category.items[index],
-                              listItem: element,
-                            );
-                          });
-
-                          // If list isn`t empty and chosen item isn`t in list
-                          if (category.items[index].id != removingElement.id) {
-                            chosenfeelings.add(ChosenFeeling(
-                              id: category.items[index].id,
-                              isAdded: true,
-                            ));
-                          }
-                        }
-                      },
-                      turnOff: () {
-                        ChosenFeeling removingElement = ChosenFeeling(
-                          id: 000,
-                          isAdded: false,
-                        );
-
-                        if (chosenfeelings.isEmpty) {
-                          chosenfeelings.add(ChosenFeeling(
-                            id: category.items[index].id,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    if (category.items[index].isAdded) {
+                    } else {}
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                                color: Color(int.parse(category.color)),
+                                shape: BoxShape.circle),
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text('${category.items[index].description}',
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .headline1
+                                  .copyWith(fontSize: 16)),
+                        ],
+                      ),
+                      SwitchButton(
+                        isActive: category.items[index].isAdded,
+                        activeColor:
+                            Theme.of(context).sliderTheme.activeTrackColor,
+                        inactiveColor:
+                            Theme.of(context).sliderTheme.inactiveTrackColor,
+                        activeCircleColor:
+                            Theme.of(context).sliderTheme.activeTickMarkColor,
+                        inactiveCircleColor:
+                            Theme.of(context).sliderTheme.inactiveTickMarkColor,
+                        turnOn: () {
+                          ChosenFeeling removingElement = ChosenFeeling(
+                            id: 000,
                             isAdded: false,
-                          ));
-                        } else {
-                          //  If user tap on switchButton 2 times
-                          chosenfeelings.removeWhere((element) {
-                            if (element.id != null &&
-                                element.id == category.items[index].id) {
-                              removingElement = element;
+                          );
+
+                          //  If chosen list is empty
+                          if (chosenfeelings.isEmpty) {
+                            chosenfeelings.add(ChosenFeeling(
+                                isAdded: true, id: category.items[index].id));
+                          } else {
+                            //  If user tap on switchButton 2 times
+                            chosenfeelings.removeWhere((element) {
+                              if (element.id != null &&
+                                  element.id == category.items[index].id) {
+                                removingElement = element;
+                              }
+                              return _isNeedToRemoveWhenOn(
+                                currentItem: category.items[index],
+                                listItem: element,
+                              );
+                            });
+
+                            // If list isn`t empty and chosen item isn`t in list
+                            if (category.items[index].id !=
+                                removingElement.id) {
+                              chosenfeelings.add(ChosenFeeling(
+                                id: category.items[index].id,
+                                isAdded: true,
+                              ));
                             }
-                            return _isNeedToRemoveWhenOff(
-                              currentItem: category.items[index],
-                              listItem: element,
-                            );
-                          });
-                          // If list isn`t empty and chosen item isn`t in list
-                          if (category.items[index].id != removingElement.id) {
+                          }
+                        },
+                        turnOff: () {
+                          ChosenFeeling removingElement = ChosenFeeling(
+                            id: 000,
+                            isAdded: false,
+                          );
+
+                          if (chosenfeelings.isEmpty) {
                             chosenfeelings.add(ChosenFeeling(
                               id: category.items[index].id,
                               isAdded: false,
                             ));
+                          } else {
+                            //  If user tap on switchButton 2 times
+                            chosenfeelings.removeWhere((element) {
+                              if (element.id != null &&
+                                  element.id == category.items[index].id) {
+                                removingElement = element;
+                              }
+                              return _isNeedToRemoveWhenOff(
+                                currentItem: category.items[index],
+                                listItem: element,
+                              );
+                            });
+                            // If list isn`t empty and chosen item isn`t in list
+                            if (category.items[index].id !=
+                                removingElement.id) {
+                              chosenfeelings.add(ChosenFeeling(
+                                id: category.items[index].id,
+                                isAdded: false,
+                              ));
+                            }
                           }
-                        }
-                      },
-                    )
-                  ],
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

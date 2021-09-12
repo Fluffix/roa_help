@@ -104,7 +104,7 @@ class _AddDishState extends State<AddDish> {
                                   child: TextField(
                                     autofocus: true,
                                     onEditingComplete: () {
-                                      goBack();
+                                      _goBack();
                                     },
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly
@@ -150,7 +150,7 @@ class _AddDishState extends State<AddDish> {
               ),
               InkWell(
                 onTap: () {
-                  goBack();
+                  _goBack();
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16),
@@ -176,7 +176,7 @@ class _AddDishState extends State<AddDish> {
     );
   }
 
-  void goBack() {
+  void _goBack() {
     int out;
     if (textController.text.isNotEmpty) {
       out = int.parse(textController.text);

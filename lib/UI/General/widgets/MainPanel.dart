@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
 class ItemMainPanel {
@@ -31,6 +32,47 @@ class MainPanel extends StatefulWidget {
 }
 
 class _MainPanelState extends State<MainPanel> {
+  Artboard _riveArtboard;
+  RiveAnimationController _controller;
+  bool _isShowDrugButton;
+  bool _isPlayingAnimation;
+
+  void _togglePlay() {
+    setState(() => _controller.isActive = !_controller.isActive);
+  }
+
+  bool get isPlaying => _controller?.isActive ?? false;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _isShowDrugButton = true;
+    _isPlayingAnimation = false;
+  }
+
+  Future<void> startAnimation({@required bool pillWasDrinked}) async {
+    setState(() {
+      _isPlayingAnimation = true;
+    });
+
+    await Future.delayed(Duration(milliseconds: 15));
+    setState(() {
+      _isShowDrugButton = false;
+    });
+
+    if (pillWasDrinked) {
+      await Future.delayed(Duration(milliseconds: 2185));
+    } else {
+      await Future.delayed(Duration(milliseconds: 2185));
+    }
+
+    setState(() {
+      _isPlayingAnimation = false;
+      _isShowDrugButton = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -131,30 +173,45 @@ class _MainPanelState extends State<MainPanel> {
                       borderRadius: BorderRadius.all(Radius.circular(90))),
                   child: Align(
                     alignment: Alignment.center,
-                    child: Container(
-                        width: 64,
-                        height: 64,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).focusColor,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(90))),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (widget.onDrugTap != null) {
-                                widget.onDrugTap();
-                              }
-                            },
-                            behavior: HitTestBehavior.translucent,
-                            child: IconSvg(IconsSvg.pills,
-                                color: Theme.of(context)
-                                    .cardColor
-                                    .withOpacity(1.0),
-                                width: 40,
-                                height: 40),
-                          ),
-                        )),
+                    child: Stack(children: [
+                      _isPlayingAnimation
+                          ? Container(
+                              width: 64,
+                              height: 64,
+                              child: RiveAnimation.asset(
+                                "assets/animations/pill.riv",
+                              ),
+                            )
+                          : SizedBox(),
+                      _isShowDrugButton
+                          ? Container(
+                              width: 64,
+                              height: 64,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).focusColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(90))),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (widget.onDrugTap != null) {
+                                      widget.onDrugTap();
+                                    }
+                                    // Vibrate.feedback(FeedbackType.success);
+                                    startAnimation(pillWasDrinked: true);
+                                  },
+                                  behavior: HitTestBehavior.translucent,
+                                  child: IconSvg(IconsSvg.pills,
+                                      color: Theme.of(context)
+                                          .cardColor
+                                          .withOpacity(1.0),
+                                      width: 40,
+                                      height: 40),
+                                ),
+                              ))
+                          : SizedBox(),
+                    ]),
                   ),
                 ),
               ),

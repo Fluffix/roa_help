@@ -23,6 +23,11 @@ class _ReciepesItemPageState extends State<ReciepesItemPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SwipeDetector(
+        swipeConfiguration: SwipeConfiguration(
+          horizontalSwipeMaxHeightThreshold: 10000,
+          horizontalSwipeMinDisplacement: 20,
+          horizontalSwipeMinVelocity: 0,
+        ),
         onSwipeRight: () {
           Navigator.pop(context);
         },

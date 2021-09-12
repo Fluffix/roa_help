@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:roa_help/Requests/Auth/AuthSerialise.dart';
@@ -24,12 +25,10 @@ Future<int> authRequest({
 
     Map<String, dynamic> jsonMap = jsonDecode(response.body);
     RegisrationSerialise db = RegisrationSerialise.fromJson(jsonMap);
-
-    switch (response.statusCode) {
-      case 200:
-      case 201:
-        saveToken(db.token);
-        break;
+    log("${response.statusCode}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      log("${db.token}");
+      saveToken(db.token);
     }
     return response.statusCode;
   } catch (e) {

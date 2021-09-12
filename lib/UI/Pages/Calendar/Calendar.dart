@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:roa_help/Controllers/AuthController.dart';
+import 'package:rive/rive.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Controllers/WaterController.dart';
 import 'package:roa_help/Requests/Home/Feelings/GetFeelingsSerialise.dart';
 import 'package:roa_help/Requests/Stats/Stats.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
+import 'package:roa_help/Utils/Style/Style.dart';
+import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -23,22 +28,39 @@ class _CalendarScreenState extends State<CalendarScreen> {
   bool _loading;
   StatsSerialise db;
   String _token;
+  bool isStatsEmpty;
 
   @override
   void initState() {
     _loading = true;
     _token = widget.token;
+    isStatsEmpty = false;
     load(token: _token);
+
     super.initState();
   }
 
-  void load({@required String token}) async {
+  Future<void> load({@required String token, String date}) async {
     setState(() {
       _loading = true;
     });
     // Request func in this place
-    db = await getStats(token: token);
-
+    db = await getStats(token: token, date: date);
+    log("${db.water}");
+    isStatsEmpty = false;
+    if (db.water == 0 && db.drugs.first == null && db.drugs.second == null) {
+      log('AFPEAFLKP');
+      isStatsEmpty = true;
+      db.sideEffects.forEach((element) {
+        if (element.items.length > 0) {
+          print('d');
+          isStatsEmpty = false;
+          return;
+        }
+      });
+    }
+    log('isStatsEmpty = $isStatsEmpty');
+    // await Future.delayed(Duration(seconds: 5));
     setState(() {
       _loading = false;
     });
@@ -46,7 +68,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).authController;
+    var controller = Provider.of<GeneralController>(context).waterController;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
@@ -56,7 +78,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           child: Column(children: [
             _customAppBar(context),
             _calendar(token: _token),
-            _content()
+            _content(controller)
           ]),
         ),
       ),
@@ -114,32 +136,65 @@ class _CalendarScreenState extends State<CalendarScreen> {
           _focusedDay = selectedDay;
         });
         final List<String> date = selectedDay.toString().split(' ');
-        print(date[0]);
-        db = await getStats(date: date[0], token: token);
+        await load(token: token, date: date[0]);
       },
     );
   }
 
-  Widget _content() {
-    return Column(
-      children: [
-        // _buildHedline('${S.of(context).morning}'),
-        // _buildTakingMedication('2021-15-25', '156'),
-        // _buildHedline('${S.of(context).evening}'),
-        // _buildTakingMedication('2021-15-25', '156'),
-        // _buildHedline('${S.of(context).side_effects}'),
-        // Wrap(
-        //   children: List.generate(db.sideEffects.length, (index) {
-        //     return _buildSideEffects(
-        //         db.sideEffects.items, db.sideEffects.color);
-        //   }),
-        // ),
-        SizedBox(
-          height: 80,
-        ),
-        // _buildHedline('${S.of(context).water_control}'),
-      ],
-    );
+  Widget _content(WaterController controller) {
+    return _loading
+        ? Padding(
+            padding: const EdgeInsets.symmetric(vertical: 48.0),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).sliderTheme.activeTrackColor,
+              ),
+            ),
+          )
+        : isStatsEmpty
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                child: Column(
+                  children: [
+                    IconSvg(IconsSvg.folder,
+                        width: 120,
+                        color: Theme.of(context).focusColor.withOpacity(0.65)),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      '${S.of(context).no_data}',
+                      style: Theme.of(context).textTheme.headline2,
+                    )
+                  ],
+                ),
+              )
+            : Column(
+                children: [
+                  _buildHedline('${S.of(context).morning}'),
+                  _buildTakingMedication(db.drugs.first),
+                  _buildHedline('${S.of(context).evening}'),
+                  _buildTakingMedication(db.drugs.second),
+                  _buildHedline('${S.of(context).water_control}'),
+                  _buildWaterProgress(
+                      db.water * 100 ~/ controller.data.waterDayNorm),
+                  _buildHedline('${S.of(context).side_effects}'),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Column(
+                    children: List.generate(db.sideEffects.length, (index) {
+                      return _buildSideEffects(db.sideEffects[index].items,
+                          db.sideEffects[index].color);
+                    }),
+                  ),
+
+                  SizedBox(
+                    height: 80,
+                  ),
+                  // _buildHedline('${S.of(context).water_control}'),
+                ],
+              );
   }
 
   Widget _buildHedline(String labelText) {
@@ -157,7 +212,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
-  Widget _buildTakingMedication(String time, String fats) {
+  Widget _buildTakingMedication(Take meal) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
       child: Column(
@@ -171,7 +226,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     .headline1
                     .copyWith(fontSize: 16),
               ),
-              Text(''),
+              Text(
+                meal != null ? ' ${meal.date}' : ' ---',
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .headline1
+                    .copyWith(fontSize: 16),
+              ),
             ],
           ),
           SizedBox(
@@ -183,7 +244,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   style: Theme.of(context)
                       .primaryTextTheme
                       .headline1
-                      .copyWith(fontSize: 16))
+                      .copyWith(fontSize: 16)),
+              Text(
+                meal != null ? ' ${meal.fat}' : ' ---',
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .headline1
+                    .copyWith(fontSize: 16),
+              ),
             ],
           )
         ],
@@ -191,15 +259,66 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
+  Widget _buildWaterProgress(int progress) {
+    
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Stack(children: [
+        Center(
+          child: Container(
+            width: 300,
+            height: 30,
+            child: RiveAnimation.asset(
+              Theme.of(context).brightness == Brightness.light
+                  ? "assets/animations/waterLight.riv"
+                  : "assets/animations/waterDark.riv",
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Align(
+            alignment: Alignment.center,
+            child: Text('$progress %',
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .headline1
+                    .copyWith(fontSize: 16, color: Style.white)),
+          ),
+        )
+      ]),
+    );
+  }
+
   Widget _buildSideEffects(List<SideEffectItem> items, String color) {
-    return Wrap(
-      children: List.generate(items.length, (index) {
-        return Container(
-          decoration: BoxDecoration(
-              color: Color(int.parse(color)),
-              borderRadius: BorderRadius.circular(15)),
-        );
-      }),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: List.generate(items.length, (index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Row(
+              children: [
+                Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                      color: Color(int.parse(color)), shape: BoxShape.circle),
+                ),
+                SizedBox(
+                  width: 12,
+                ),
+                Text('${items[index].description}',
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .headline1
+                        .copyWith(fontSize: 16)),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

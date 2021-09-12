@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
@@ -22,6 +24,7 @@ class _SplashscreenState extends State<Splashscreen> {
   bool _isCalled = false;
 
   Future<void> load(GeneralController controller) async {
+    log('${DateTime.now().timeZoneOffset}');
     await controller.authController.getToken();
     List<dynamic> _data;
     if (controller.authController.data.token == null) {

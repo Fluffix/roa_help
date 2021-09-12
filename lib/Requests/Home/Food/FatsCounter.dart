@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
@@ -26,9 +27,7 @@ Future<List<FoodItem>> getFood({
       GetFood db = GetFood.fromJson(jsonMap);
       return db.items;
     }
-    return null;
   } catch (e) {
     print(e);
-    return null;
   }
 }

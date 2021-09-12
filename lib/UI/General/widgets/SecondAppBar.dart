@@ -1,16 +1,28 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/UI/Pages/FatsCounter/Favorites.dart';
+import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String text;
   final Function onChange;
+  final bool isSecondPage;
+  final bool isFatsCounterPage;
+  final int mealIndex;
+
 
   const SecondAppBar({
     this.height = 60,
+    this.mealIndex = 0,
     @required this.text,
+    this.isSecondPage = false,
+    this.isFatsCounterPage = false,
     this.onChange,
   });
   @override
@@ -39,30 +51,62 @@ class _SecondAppBarState extends State<SecondAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context).authController;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 58,
-            ),
+            widget.isFatsCounterPage
+                ? GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            child: Favorites(
+                              mealIndex: widget.mealIndex,
+                              token: controller.data.token,
+                            )),
+                      );
+                    },
+                    child: IconSvg(IconsSvg.inactiveStar,
+                        width: 24,
+                        color: Theme.of(context).textTheme.headline1.color),
+                  )
+                : SizedBox(),
+            widget.isSecondPage
+                ? GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: IconSvg(
+                      IconsSvg.backArrow,
+                    ),
+                  )
+                : SizedBox(),
             Text(
               '${widget.text}',
               style: Theme.of(context).primaryTextTheme.headline1,
             ),
-            GestureDetector(
-              onTap: () {
-                if (widget.onChange != null) {
-                  widget.onChange();
-                }
-              },
-              child: Text(
-                '${S.of(context).done}',
-                style: Theme.of(context).primaryTextTheme.headline3,
-              ),
-            )
+            widget.isSecondPage
+                ? SizedBox(
+                    width: 24,
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      if (widget.onChange != null) {
+                        widget.onChange();
+                      }
+                    },
+                    child: Text(
+                      '${S.of(context).done}',
+                      style: Theme.of(context).primaryTextTheme.headline3,
+                    ),
+                  )
           ],
         ),
       ),

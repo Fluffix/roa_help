@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Requests/Home/PostDrug.dart';
 import 'package:roa_help/Requests/Stats/StatsSerialise.dart';
 import 'package:roa_help/UI/General/widgets/KeepAlivePage.dart';
 import 'package:roa_help/UI/General/widgets/MainPanel.dart';
@@ -41,6 +44,7 @@ class _GeneralState extends State<General> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<GeneralController>(context).authController;
     return Material(
       color: Theme.of(context).backgroundColor,
       child: Stack(
@@ -84,9 +88,7 @@ class _GeneralState extends State<General> {
                 });
               },
               onDrugTap: () async {
-                // var a = await getStats();
-                // if(meals[1].fatsWasEaten != null){
-                // } else if(meals[0].fatsWasEaten)
+                await postDrug(token: controller.data.token);
               },
               items: [
                 ItemMainPanel(

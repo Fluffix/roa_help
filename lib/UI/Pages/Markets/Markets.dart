@@ -1,5 +1,6 @@
 import 'package:direct_select/direct_select.dart';
 import 'package:flutter/material.dart';
+import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Cities/Cities.dart';
 import 'package:roa_help/Utils/Routes/Routes.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
@@ -159,7 +160,9 @@ class _MarketsState extends State<Markets> {
 
   Widget _findButton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        removeToken();
+      },
       child: Container(
         width: MediaQuery.of(context).size.width * 138 / 414,
         decoration: BoxDecoration(

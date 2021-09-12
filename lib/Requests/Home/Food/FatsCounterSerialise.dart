@@ -32,7 +32,7 @@ class FoodItem {
   FoodItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    fat = json['fat'];
+    fat = json['fat'].toDouble();
     inFavorites = json['in_favorites'];
   }
 

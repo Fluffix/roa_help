@@ -30,6 +30,10 @@ class Style {
   static const Color darkExtraButtons = Color.fromRGBO(230, 197, 244, 0.5);
   static const Color lightExtraIcons = Color.fromRGBO(136, 134, 145, 0.7);
   static const Color darkExtraIcons = Color.fromRGBO(230, 197, 244, 0.5);
+  static const Color fatsCounterButtonsDark =
+      Color.fromRGBO(131, 116, 142, 0.7);
+  static const Color fatsCounterButtonsLight =
+      Color.fromRGBO(131, 116, 142, 0.7);
 
   static const List<BoxShadow> shadowCard = [
     BoxShadow(offset: Offset(0, 10), blurRadius: 10, color: shadow)
@@ -57,6 +61,7 @@ class Style {
       accentColor: darkExtraIcons,
       selectedRowColor: white,
       splashColor: darkConfirmCodeBox,
+      hintColor: fatsCounterButtonsDark,
       // Home Text Theme
       primaryTextTheme: TextTheme(
         headline1: TextStyle(
@@ -163,6 +168,7 @@ class Style {
       focusColor: lightIcon,
       disabledColor: secondary,
       dividerColor: lightIcon,
+      hintColor: fatsCounterButtonsLight,
       hoverColor: lightExtraButtons,
       accentColor: lightExtraIcons,
       selectedRowColor: text,
@@ -224,7 +230,7 @@ class Style {
               fontSize: 14,
               fontWeight: FontWeight.w700),
           headline6: TextStyle(
-              color: secondary,
+              color: black,
               fontFamily: fontFamilySanFrancisco,
               fontSize: 12,
               fontWeight: FontWeight.w600),
