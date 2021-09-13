@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:roa_help/Controllers/AuthController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Requests/Home/Feelings/GetFeelingsSerialise.dart';
 import 'package:roa_help/Requests/Stats/Stats.dart';

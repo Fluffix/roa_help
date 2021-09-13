@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
+import 'package:roa_help/UI/General/widgets/FilledButton.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
@@ -29,14 +30,13 @@ class _AddDishState extends State<AddDish> {
       backgroundColor: Theme.of(context).backgroundColor,
       contentPadding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          borderRadius: BorderRadius.all(Radius.circular(16.0))),
       content: Container(
         height: MediaQuery.of(context).size.height * 0.285,
         width: MediaQuery.of(context).size.width,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            // mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding:
@@ -148,28 +148,7 @@ class _AddDishState extends State<AddDish> {
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  goBack();
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(32.0),
-                        bottomRight: Radius.circular(32.0)),
-                  ),
-                  child: Text(
-                    '${S.of(context).add_dish}',
-                    style: Theme.of(context)
-                        .primaryTextTheme
-                        .headline1
-                        .copyWith(fontSize: 16, color: Style.white),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              )
+              FilledButton(nameButton: S.of(context).add_dish, onTap: goBack)
             ]),
       ),
       // content:

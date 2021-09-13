@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/Requests/Home/Water.dart';
 import 'package:roa_help/Requests/Profile/Profile.dart';
+import 'package:roa_help/UI/General/widgets/FilledButton.dart';
 import 'package:roa_help/Utils/Style/Style.dart';
-import 'package:roa_help/UI/Pages/Profile/widgets/ButtonSettings.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -47,76 +47,87 @@ class _SettingsWaterState extends State<SettingsWater> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(16.0),
           boxShadow: Theme.of(context).brightness != Brightness.dark
               ? Style.shadowCard
               : null),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-        child: Column(
-          children: [
-            Text(
-              '${S.of(context).your_norm}',
-              style: Theme.of(context).textTheme.headline2,
+      child: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+            child: Column(
+              children: [
+                Text(
+                  '${S.of(context).your_norm}',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '$_waterDayNorm '
+                  '${chooseEnding(_waterDayNorm)}  '
+                  '${S.of(context).in_the_day}',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SfSlider(
+                    min: 1,
+                    max: 14,
+                    value: _waterDayNorm,
+                    interval: 1,
+                    inactiveColor:
+                        Theme.of(context).sliderTheme.inactiveTrackColor,
+                    activeColor: Theme.of(context).sliderTheme.activeTrackColor,
+                    onChanged: (dynamic waterDayNorm) {
+                      setState(() {
+                        _waterDayNorm = waterDayNorm.round();
+                      });
+                    }),
+                SizedBox(height: 10),
+              ],
             ),
-            SizedBox(
-              height: 10,
+          ),
+          Flex(direction: Axis.horizontal, children: [
+            Expanded(
+              flex: 1,
+              child: FilledButton(
+                nameButton: S.of(context).save,
+                onTap: widget.onTapBack,
+                onChange: () async {
+                  if (controller.waterController.data.wasDrinked >
+                      _waterDayNorm) {
+                    double difference = (_waterDayNorm -
+                            controller.waterController.data.wasDrinked)
+                        .toDouble();
+                    await changeWaterDayNorm(
+                      waterDayNorm: _waterDayNorm,
+                      token: controller.authController.data.token,
+                    );
+                    await waterRequest(
+                      wasDrinked: difference,
+                      token: controller.authController.data.token,
+                    );
+                    await controller.waterController
+                        .setDayNorm(waterDayNorm: _waterDayNorm);
+                    await controller.waterController
+                        .setWasDrinked(wasDrinked: _waterDayNorm);
+                  } else {
+                    await changeWaterDayNorm(
+                      waterDayNorm: _waterDayNorm,
+                      token: controller.authController.data.token,
+                    );
+                    await controller.waterController
+                        .setDayNorm(waterDayNorm: _waterDayNorm);
+                  }
+                },
+              ),
             ),
-            Text(
-              '$_waterDayNorm '
-              '${chooseEnding(_waterDayNorm)}  '
-              '${S.of(context).in_the_day}',
-              style: Theme.of(context).textTheme.headline2,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SfSlider(
-                min: 1,
-                max: 14,
-                value: _waterDayNorm,
-                interval: 1,
-                inactiveColor: Theme.of(context).sliderTheme.inactiveTrackColor,
-                activeColor: Theme.of(context).sliderTheme.activeTrackColor,
-                onChanged: (dynamic waterDayNorm) {
-                  setState(() {
-                    _waterDayNorm = waterDayNorm.round();
-                  });
-                }),
-            SizedBox(height: 10),
-            ButtonSettings(
-              titleButton: S.of(context).save,
-              onTap: widget.onTapBack,
-              onChange: () async {
-                if (controller.waterController.data.wasDrinked >
-                    _waterDayNorm) {
-                  double difference = (_waterDayNorm -
-                          controller.waterController.data.wasDrinked)
-                      .toDouble();
-                  await changeWaterDayNorm(
-                    waterDayNorm: _waterDayNorm,
-                    token: controller.authController.data.token,
-                  );
-                  await waterRequest(
-                    wasDrinked: difference,
-                    token: controller.authController.data.token,
-                  );
-                  await controller.waterController
-                      .setDayNorm(waterDayNorm: _waterDayNorm);
-                  await controller.waterController
-                      .setWasDrinked(wasDrinked: _waterDayNorm);
-                } else {
-                  await changeWaterDayNorm(
-                    waterDayNorm: _waterDayNorm,
-                    token: controller.authController.data.token,
-                  );
-                  await controller.waterController
-                      .setDayNorm(waterDayNorm: _waterDayNorm);
-                }
-              },
-            )
-          ],
-        ),
+          ])
+        ],
       ),
     );
   }

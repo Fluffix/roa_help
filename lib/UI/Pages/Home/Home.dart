@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Controllers/SideEffectsController.dart';
 import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/Requests/Home/Feelings/GetFeelings.dart';

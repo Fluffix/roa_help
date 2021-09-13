@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Requests/Auth/Auth.dart';
 import 'package:roa_help/Requests/Profile/Profile.dart';
 import 'package:roa_help/Requests/Profile/ProfileSetialise.dart';
 import 'package:roa_help/Requests/Stats/Stats.dart';

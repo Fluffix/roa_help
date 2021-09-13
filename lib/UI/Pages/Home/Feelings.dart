@@ -1,9 +1,7 @@
-import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
-import 'package:roa_help/Controllers/SideEffectsController.dart';
 import 'package:roa_help/Requests/Stats/Stats.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/General/widgets/SwitchButton.dart';
@@ -14,17 +12,28 @@ import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/ChosenFeelingsModel.dart';
 
 class Feelings extends StatefulWidget {
+
+  const Feelings({Key key}) : super(key: key);
   @override
   _FeelingsState createState() => _FeelingsState();
 }
 
 class _FeelingsState extends State<Feelings> {
-  bool _loading = false;
+  bool _loading;
+  bool _isShow;
+
+  @override
+  void initState() {
+    super.initState();
+    _loading = false;
+    _isShow = true;
+  }
 
   Future<void> load(GeneralController controller) async {
     setState(() {
       _loading = true;
     });
+
     // Request func in this place
     await sendSideEffectsRequest(
         items: chosenfeelings, token: controller.authController.data.token);
@@ -52,7 +61,6 @@ class _FeelingsState extends State<Feelings> {
             appBar: SecondAppBar(
               text: S.of(context).feeling,
               onChange: () async {
-                // ignore: await_only_futures
                 if (chosenfeelings.isNotEmpty) {
                   await load(conroller);
                 }
@@ -68,7 +76,10 @@ class _FeelingsState extends State<Feelings> {
                   children: [
                     Column(
                       children: List.generate(allCats.items.length, (index) {
-                        return _buildCategory(context, allCats.items[index]);
+                        return _buildCategory(
+                          context: context,
+                          category: allCats.items[index],
+                        );
                       }),
                     ),
                     SizedBox(
@@ -103,14 +114,20 @@ class _FeelingsState extends State<Feelings> {
         ]));
   }
 
-  Widget _buildCategory(BuildContext context, CategoryItem category) {
+  Widget _buildCategory({BuildContext context, CategoryItem category}) {
     return Column(
       children: [
-        Container(
-          color: Theme.of(context).sliderTheme.inactiveTrackColor,
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _isShow = !_isShow;
+            });
+          },
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 400),
+            color: Theme.of(context).sliderTheme.inactiveTrackColor,
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(vertical: _isShow ? 3 : 6),
             child: Center(
               child: Text('${category.name}',
                   style: Theme.of(context).textTheme.headline6.copyWith(
@@ -118,122 +135,134 @@ class _FeelingsState extends State<Feelings> {
             ),
           ),
         ),
-        Column(
-          children: List.generate(category.items.length, (index) {
-            return Container(
-              decoration: BoxDecoration(
-                  border: (index + 1) != category.items.length
-                      ? Border(
-                          bottom: BorderSide(
-                              color: Style.inactiveColorDark.withOpacity(1.0),
-                              width: 0.5))
-                      : null),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+        AnimatedCrossFade(
+            firstChild: Column(
+              children: List.generate(category.items.length, (index) {
+                return Container(
+                  decoration: BoxDecoration(
+                      border: (index + 1) != category.items.length
+                          ? Border(
+                              bottom: BorderSide(
+                                  color:
+                                      Style.inactiveColorDark.withOpacity(1.0),
+                                  width: 0.5))
+                          : null),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 24),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                              color: Color(int.parse(category.color)),
-                              shape: BoxShape.circle),
+                        Row(
+                          children: [
+                            Container(
+                              width: 12,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                  color: Color(int.parse(category.color)),
+                                  shape: BoxShape.circle),
+                            ),
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Text('${category.items[index].description}',
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline1
+                                    .copyWith(fontSize: 16)),
+                          ],
                         ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text('${category.items[index].description}',
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .headline1
-                                .copyWith(fontSize: 16)),
+                        SwitchButton(
+                          isActive: category.items[index].isAdded,
+                          activeColor:
+                              Theme.of(context).sliderTheme.activeTrackColor,
+                          inactiveColor:
+                              Theme.of(context).sliderTheme.inactiveTrackColor,
+                          activeCircleColor:
+                              Theme.of(context).sliderTheme.activeTickMarkColor,
+                          inactiveCircleColor: Theme.of(context)
+                              .sliderTheme
+                              .inactiveTickMarkColor,
+                          turnOn: () {
+                            ChosenFeeling removingElement = ChosenFeeling(
+                              id: 000,
+                              isAdded: false,
+                            );
+
+                            //  If chosen list is empty
+                            if (chosenfeelings.isEmpty) {
+                              chosenfeelings.add(ChosenFeeling(
+                                  isAdded: true, id: category.items[index].id));
+                            } else {
+                              //  If user tap on switchButton 2 times
+                              chosenfeelings.removeWhere((element) {
+                                if (element.id != null &&
+                                    element.id == category.items[index].id) {
+                                  removingElement = element;
+                                }
+                                return _isNeedToRemoveWhenOn(
+                                  currentItem: category.items[index],
+                                  listItem: element,
+                                );
+                              });
+
+                              // If list isn`t empty and chosen item isn`t in list
+                              if (category.items[index].id !=
+                                  removingElement.id) {
+                                chosenfeelings.add(ChosenFeeling(
+                                  id: category.items[index].id,
+                                  isAdded: true,
+                                ));
+                              }
+                            }
+                          },
+                          turnOff: () {
+                            ChosenFeeling removingElement = ChosenFeeling(
+                              id: 000,
+                              isAdded: false,
+                            );
+
+                            if (chosenfeelings.isEmpty) {
+                              chosenfeelings.add(ChosenFeeling(
+                                id: category.items[index].id,
+                                isAdded: false,
+                              ));
+                            } else {
+                              //  If user tap on switchButton 2 times
+                              chosenfeelings.removeWhere((element) {
+                                if (element.id != null &&
+                                    element.id == category.items[index].id) {
+                                  removingElement = element;
+                                }
+                                return _isNeedToRemoveWhenOff(
+                                  currentItem: category.items[index],
+                                  listItem: element,
+                                );
+                              });
+                              // If list isn`t empty and chosen item isn`t in list
+                              if (category.items[index].id !=
+                                  removingElement.id) {
+                                chosenfeelings.add(ChosenFeeling(
+                                  id: category.items[index].id,
+                                  isAdded: false,
+                                ));
+                              }
+                            }
+                          },
+                        )
                       ],
                     ),
-                    SwitchButton(
-                      isActive: category.items[index].isAdded,
-                      activeColor:
-                          Theme.of(context).sliderTheme.activeTrackColor,
-                      inactiveColor:
-                          Theme.of(context).sliderTheme.inactiveTrackColor,
-                      activeCircleColor:
-                          Theme.of(context).sliderTheme.activeTickMarkColor,
-                      inactiveCircleColor:
-                          Theme.of(context).sliderTheme.inactiveTickMarkColor,
-                      turnOn: () {
-                        ChosenFeeling removingElement = ChosenFeeling(
-                          id: 000,
-                          isAdded: false,
-                        );
-
-                        //  If chosen list is empty
-                        if (chosenfeelings.isEmpty) {
-                          chosenfeelings.add(ChosenFeeling(
-                              isAdded: true, id: category.items[index].id));
-                        } else {
-                          //  If user tap on switchButton 2 times
-                          chosenfeelings.removeWhere((element) {
-                            if (element.id != null &&
-                                element.id == category.items[index].id) {
-                              removingElement = element;
-                            }
-                            return _isNeedToRemoveWhenOn(
-                              currentItem: category.items[index],
-                              listItem: element,
-                            );
-                          });
-
-                          // If list isn`t empty and chosen item isn`t in list
-                          if (category.items[index].id != removingElement.id) {
-                            chosenfeelings.add(ChosenFeeling(
-                              id: category.items[index].id,
-                              isAdded: true,
-                            ));
-                          }
-                        }
-                      },
-                      turnOff: () {
-                        ChosenFeeling removingElement = ChosenFeeling(
-                          id: 000,
-                          isAdded: false,
-                        );
-
-                        if (chosenfeelings.isEmpty) {
-                          chosenfeelings.add(ChosenFeeling(
-                            id: category.items[index].id,
-                            isAdded: false,
-                          ));
-                        } else {
-                          //  If user tap on switchButton 2 times
-                          chosenfeelings.removeWhere((element) {
-                            if (element.id != null &&
-                                element.id == category.items[index].id) {
-                              removingElement = element;
-                            }
-                            return _isNeedToRemoveWhenOff(
-                              currentItem: category.items[index],
-                              listItem: element,
-                            );
-                          });
-                          // If list isn`t empty and chosen item isn`t in list
-                          if (category.items[index].id != removingElement.id) {
-                            chosenfeelings.add(ChosenFeeling(
-                              id: category.items[index].id,
-                              isAdded: false,
-                            ));
-                          }
-                        }
-                      },
-                    )
-                  ],
-                ),
-              ),
-            );
-          }),
-        )
+                  ),
+                );
+              }),
+            ),
+            secondChild: Container(
+              height: 3,
+              color: Theme.of(context).canvasColor,
+            ),
+            crossFadeState:
+                _isShow ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+            duration: Duration(milliseconds: 400))
       ],
     );
   }

@@ -18,7 +18,7 @@ class _CardSettingsState extends State<CardSettings> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: Theme.of(context).brightness != Brightness.dark
               ? Style.shadowCard
               : null),

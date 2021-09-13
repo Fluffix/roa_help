@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
-import 'package:roa_help/Controllers/AuthController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/Pages/Auth/NumericPad.dart';
 import 'package:roa_help/Utils/Routes/Routes.dart';

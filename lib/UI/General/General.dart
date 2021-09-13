@@ -7,6 +7,7 @@ import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/UI/Pages/Markets/Markets.dart';
 import 'package:roa_help/UI/Pages/Profile/Profile.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
+import 'package:swipedetector/swipedetector.dart';
 
 class General extends StatefulWidget {
   final StatsSerialise db;
@@ -29,14 +30,16 @@ class _GeneralState extends State<General> {
     pageControllerBackground = ScrollController(initialScrollOffset: 0.0);
   }
 
-  setPage(int index) {
-    currentIndex = index;
-    pageControllerPage.animateToPage(index,
-        duration: Duration(milliseconds: 400), curve: Curves.easeOut);
-    pageControllerBackground.animateTo(
-        index * (MediaQuery.of(context).size.width / 2),
-        duration: Duration(milliseconds: 400),
-        curve: Curves.easeOut);
+  void setPage(int index) {
+    setState(() {
+      currentIndex = index;
+      pageControllerPage.animateToPage(index,
+          duration: Duration(milliseconds: 400), curve: Curves.easeOut);
+      pageControllerBackground.animateTo(
+          index * (MediaQuery.of(context).size.width / 2),
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeOut);
+    });
   }
 
   @override
@@ -62,15 +65,32 @@ class _GeneralState extends State<General> {
               ],
             ),
           ),
-          PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: pageControllerPage,
-            children: [
-              KeepAlivePage(child: Home()),
-              KeepAlivePage(child: Articles()),
-              KeepAlivePage(child: Markets()),
-              KeepAlivePage(child: Profile()),
-            ],
+          SwipeDetector(
+            swipeConfiguration: SwipeConfiguration(
+              horizontalSwipeMaxHeightThreshold: 10000,
+              horizontalSwipeMinDisplacement: 20,
+              horizontalSwipeMinVelocity: 0,
+            ),
+            onSwipeLeft: () {
+              if (currentIndex < 3) {
+                setPage(currentIndex + 1);
+              }
+            },
+            onSwipeRight: () {
+              if (currentIndex > 0) {
+                setPage(currentIndex - 1);
+              }
+            },
+            child: PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: pageControllerPage,
+              children: [
+                KeepAlivePage(child: Home()),
+                KeepAlivePage(child: Articles()),
+                KeepAlivePage(child: Markets()),
+                KeepAlivePage(child: Profile()),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
