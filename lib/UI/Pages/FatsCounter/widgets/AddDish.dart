@@ -70,7 +70,6 @@ class _AddDishState extends State<AddDish> {
                             if (widget.onTap != null) {
                               widget.onTap();
                             }
-                            print(widget.item.inFavorites);
                             setState(() {});
                           },
                           child: IconSvg(

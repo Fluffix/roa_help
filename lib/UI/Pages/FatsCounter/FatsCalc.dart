@@ -71,6 +71,19 @@ class _FatsCalcState extends State<FatsCalc> {
               mealIndex: mealIndex,
               isFatsCounterPage: true,
               text: S.of(context).fats_calc,
+              onFavorites: () async {
+                await Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.fade,
+                      child: Favorites(
+                        controller: controller,
+                        mealIndex: widget.mealIndex,
+                        token: controller.authController.data.token,
+                      )),
+                );
+                setState(() {});
+              },
               onChange: () {
                 controller.foodController.updateMealResult(mealIndex);
                 Navigator.pop(context);

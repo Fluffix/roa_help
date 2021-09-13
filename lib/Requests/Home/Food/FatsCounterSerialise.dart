@@ -22,7 +22,7 @@ class GetFood {
 }
 
 class FoodItem {
-  int id;
+  int id; 
   String name;
   double fat;
   bool inFavorites;

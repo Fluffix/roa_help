@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:roa_help/Requests/Home/Food/FatsCounter.dart';
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
+import 'package:roa_help/Requests/Home/Food/PostFoodFavorites.dart';
 import 'package:roa_help/UI/Pages/Home/Home.dart';
 import 'package:roa_help/models/FatsCountModel.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,8 +12,9 @@ class FoodState {
   final bool loading;
   final List<FoodItem> foods;
   final List<FatsCountInfo> meals;
+  final List<FoodItem> favorites;
 
-  FoodState({this.loading, this.foods, this.meals});
+  FoodState({this.loading, this.foods, this.meals, this.favorites});
 }
 
 class FoodController {
@@ -19,6 +22,7 @@ class FoodController {
   bool _loading;
   List<FoodItem> _foods;
   List<FatsCountInfo> _meals;
+  List<FoodItem> _favorites;
 
   BehaviorSubject<FoodState> _controllerFoods = BehaviorSubject();
   FoodState get data => _controllerFoods.valueOrNull;
@@ -31,6 +35,7 @@ class FoodController {
     setState();
   }
 
+  //  Search
   void search({@required String text, String token}) async {
     _foods = [];
     _foods = await getFood(searchText: text, token: token);
@@ -38,6 +43,7 @@ class FoodController {
     setState();
   }
 
+  // Add and Remove Dish, Count Meal Fats
   void addToChosenList({
     @required int index,
     @required FoodItem item,
@@ -95,11 +101,31 @@ class FoodController {
     setState();
   }
 
+  // Favorites
+  void setFavoritesList({@required List<FoodItem> list}) {
+    _favorites = list;
+    setState();
+  }
+
+  void favoritesControll({
+    @required int index,
+    @required String token,
+  }) async {
+    _favorites[index].inFavorites = !_favorites[index].inFavorites;
+    setState();
+    await postFavFood(
+      id: _favorites[index].id,
+      add: _favorites[index].inFavorites,
+      token: token,
+    );
+  }
+
   void setState() {
     FoodState state = FoodState(
       loading: _loading,
       foods: _foods,
       meals: _meals,
+      favorites: _favorites,
     );
     _controllerFoods.sink.add(state);
   }

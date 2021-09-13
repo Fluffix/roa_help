@@ -11,16 +11,19 @@ import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/Pages/FatsCounter/widgets/AddDish.dart';
 import 'package:roa_help/UI/Pages/FatsCounter/widgets/DishItemButton.dart';
 import 'package:roa_help/UI/Pages/FatsCounter/widgets/FavoritesAppBar.dart';
+import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:swipedetector/swipedetector.dart';
 
 class Favorites extends StatefulWidget {
   final String token;
   final int mealIndex;
+  final GeneralController controller;
 
   const Favorites({
     @required this.token,
     @required this.mealIndex,
+    @required this.controller,
     Key key,
   }) : super(key: key);
 
@@ -29,6 +32,7 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
+  GeneralController controller;
   bool _loading;
   String _token;
   int _mealIndex;
@@ -36,6 +40,7 @@ class _FavoritesState extends State<Favorites> {
 
   @override
   void initState() {
+    controller = widget.controller;
     _loading = true;
     _favoritesList = [];
     _mealIndex = widget.mealIndex;
@@ -51,6 +56,8 @@ class _FavoritesState extends State<Favorites> {
     });
     // Request func in this place
     _favoritesList = await getFavorites(token: token);
+    controller.foodController.setFavoritesList(list: _favoritesList);
+    log('${controller.foodController.data.favorites.length}');
     // await Future.delayed(Duration(seconds: 5));
     setState(() {
       _loading = false;
@@ -59,7 +66,6 @@ class _FavoritesState extends State<Favorites> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context);
     return SwipeDetector(
       swipeConfiguration: SwipeConfiguration(
         horizontalSwipeMaxHeightThreshold: 10000,
@@ -80,63 +86,82 @@ class _FavoritesState extends State<Favorites> {
                   color: Theme.of(context).sliderTheme.activeTrackColor,
                 ),
               )
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
-                  child: Column(
-                    children: List.generate(_favoritesList.length, (index) {
-                      return DishItemButton(
-                        item: _favoritesList[index],
-                        isInChosen: controller.foodController.isItemInChosen(
-                            index: _mealIndex,
-                            currentItem: _favoritesList[index]),
-                        dishIndex: index,
-                        onTap: controller.foodController.isItemInChosen(
-                                index: _mealIndex,
-                                currentItem: _favoritesList[index])
-                            ? () {
-                                controller.foodController.removeFromChosenList(
-                                    index: _mealIndex,
-                                    removingItem: _favoritesList[index]);
-                                setState(() {});
-                              }
-                            : () async {
-                                int result = await showDialog(
-                                    context: context,
-                                    builder: (context) => AddDish(
-                                          item: _favoritesList[index],
-                                          onTap: () async {
-                                            _favoritesList[index].inFavorites =
-                                                !_favoritesList[index]
-                                                    .inFavorites;
-                                            await postFavFood(
-                                              id: _favoritesList[index].id,
-                                              add: _favoritesList[index]
-                                                  .inFavorites,
-                                              token: controller
-                                                  .authController.data.token,
+            : controller.foodController.data.favorites.isNotEmpty
+                ? SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      child: Column(
+                        children: List.generate(
+                            controller.foodController.data.favorites.length,
+                            (index) {
+                          return controller.foodController.data.favorites[index]
+                                  .inFavorites
+                              ? DishItemButton(
+                                  item: controller
+                                      .foodController.data.favorites[index],
+                                  isInChosen: controller.foodController
+                                      .isItemInChosen(
+                                          index: _mealIndex,
+                                          currentItem: controller.foodController
+                                              .data.favorites[index]),
+                                  dishIndex: index,
+                                  onTap: controller.foodController
+                                          .isItemInChosen(
+                                              index: _mealIndex,
+                                              currentItem:
+                                                  _favoritesList[index])
+                                      ? () {
+                                          controller.foodController
+                                              .removeFromChosenList(
+                                                  index: _mealIndex,
+                                                  removingItem:
+                                                      _favoritesList[index]);
+                                          setState(() {});
+                                        }
+                                      : () async {
+                                          int result = await showDialog(
+                                              context: context,
+                                              builder: (context) => AddDish(
+                                                    item: controller
+                                                        .foodController
+                                                        .data
+                                                        .favorites[index],
+                                                    onTap: () async {
+                                                      controller.foodController
+                                                          .favoritesControll(
+                                                              index: index,
+                                                              token: controller
+                                                                  .authController
+                                                                  .data
+                                                                  .token);
+                                                      setState(() {});
+                                                    },
+                                                  ));
+
+                                          if (result != null) {
+                                            // Add chosen food to reciepes and counting fats
+                                            int fatsWasEaten = ((result *
+                                                        _favoritesList[index]
+                                                            .fat) /
+                                                    100)
+                                                .round();
+                                            log('$fatsWasEaten');
+                                            controller.foodController
+                                                .addToChosenList(
+                                              index: _mealIndex,
+                                              item: _favoritesList[index],
+                                              fatsWasEaten: fatsWasEaten,
                                             );
-                                          },
-                                        ));
-                                if (result != null) {
-                                  // Add chosen food to reciepes and counting fats
-                                  int fatsWasEaten =
-                                      ((result * _favoritesList[index].fat) /
-                                              100)
-                                          .round();
-                                  controller.foodController.addToChosenList(
-                                    index: _mealIndex,
-                                    item: _favoritesList[index],
-                                    fatsWasEaten: fatsWasEaten,
-                                  );
-                                }
-                                setState(() {});
-                              },
-                      );
-                    }),
-                  ),
-                ),
-              ),
+                                          }
+                                          setState(() {});
+                                        },
+                                )
+                              : SizedBox();
+                        }),
+                      ),
+                    ),
+                  )
+                : Center(child: IconSvg(IconsSvg.emptyFav)),
       ),
     );
   }

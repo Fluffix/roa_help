@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
 import 'package:roa_help/Controllers/AuthController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
@@ -110,6 +111,7 @@ class _HomeState extends State<Home> {
                   .getPercentage ==
               controller.waterController.data.wasDrinked /
                   controller.waterController.data.waterDayNorm) {
+            Vibrate.feedback(FeedbackType.success);
             await waterRequest(
               wasDrinked: 1.0,
               token: controller.authController.data.token,
@@ -126,6 +128,7 @@ class _HomeState extends State<Home> {
                   .getPercentage ==
               controller.waterController.data.wasDrinked /
                   controller.waterController.data.waterDayNorm) {
+            Vibrate.feedback(FeedbackType.success);
             await waterRequest(
               wasDrinked: -1.0,
               token: controller.authController.data.token,

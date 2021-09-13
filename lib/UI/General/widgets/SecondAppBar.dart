@@ -15,7 +15,7 @@ class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool isSecondPage;
   final bool isFatsCounterPage;
   final int mealIndex;
-
+  final Function onFavorites;
 
   const SecondAppBar({
     this.height = 60,
@@ -24,6 +24,7 @@ class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.isSecondPage = false,
     this.isFatsCounterPage = false,
     this.onChange,
+    this.onFavorites,
   });
   @override
   _SecondAppBarState createState() => _SecondAppBarState();
@@ -51,7 +52,7 @@ class _SecondAppBarState extends State<SecondAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<GeneralController>(context).authController;
+    var controller = Provider.of<GeneralController>(context);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
@@ -62,15 +63,9 @@ class _SecondAppBarState extends State<SecondAppBar> {
                 ? GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.fade,
-                            child: Favorites(
-                              mealIndex: widget.mealIndex,
-                              token: controller.data.token,
-                            )),
-                      );
+                      if (widget.onFavorites != null) {
+                        widget.onFavorites();
+                      }
                     },
                     child: IconSvg(IconsSvg.inactiveStar,
                         width: 24,

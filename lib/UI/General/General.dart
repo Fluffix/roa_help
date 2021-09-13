@@ -87,8 +87,13 @@ class _GeneralState extends State<General> {
                   setPage(index);
                 });
               },
-              onDrugTap: () async {
-                await postDrug(token: controller.data.token);
+              onDrugSend: () async {
+                await postDrug(
+                    token: controller.data.token, requestText: "drug");
+              },
+              onDrugRemove: () async {
+                await postDrug(
+                    token: controller.data.token, requestText: "cancel_drug");
               },
               items: [
                 ItemMainPanel(

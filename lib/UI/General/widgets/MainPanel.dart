@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:rive/rive.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 
@@ -16,16 +17,18 @@ class MainPanel extends StatefulWidget {
   final double height;
   final List<ItemMainPanel> items;
   final Function(int index) onChange;
-  final Function onDrugTap;
+  final Function onDrugSend;
+  final Function onDrugRemove;
 
-  MainPanel(
-      {@required this.backgroundColor,
-      this.currentIndex = 0,
-      this.height,
-      @required this.items,
-      this.onChange,
-      this.onDrugTap})
-      : assert(items.isNotEmpty);
+  MainPanel({
+    @required this.backgroundColor,
+    this.currentIndex = 0,
+    this.height,
+    @required this.items,
+    this.onChange,
+    this.onDrugSend,
+    this.onDrugRemove,
+  }) : assert(items.isNotEmpty);
 
   @override
   _MainPanelState createState() => _MainPanelState();
@@ -42,7 +45,6 @@ class _MainPanelState extends State<MainPanel> {
   }
 
   bool get isPlaying => _controller?.isActive ?? false;
-
 
   @override
   void initState() {
@@ -195,11 +197,17 @@ class _MainPanelState extends State<MainPanel> {
                                 alignment: Alignment.center,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (widget.onDrugTap != null) {
-                                      widget.onDrugTap();
+                                    if (widget.onDrugSend != null) {
+                                      widget.onDrugSend();
                                     }
-                                    // Vibrate.feedback(FeedbackType.success);
+                                    Vibrate.feedback(FeedbackType.success);
                                     startAnimation(pillWasDrinked: true);
+                                  },
+                                  onLongPress: () {
+                                    if (widget.onDrugSend != null) {
+                                      widget.onDrugRemove();
+                                    }
+                                    Vibrate.feedback(FeedbackType.success);
                                   },
                                   behavior: HitTestBehavior.translucent,
                                   child: IconSvg(IconsSvg.pills,
