@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
   flutter_localizations:
     sdk: flutter
 
@@ -50,7 +51,10 @@ dependencies:
   webview_flutter: ^2.0.12
   url_launcher: ^6.0.10
   rive: ^0.7.28
-
+  page_transition: ^1.1.5
+  liquid_progress_indicator: ^0.4.0
+  flutter_vibrate: ^1.1.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:roa_help/main.dart';
 
-Future<void> postDrug({@required String token, @required String requestText}) async {
+Future<void> postDrug({@required String token}) async {
   try {
-    final String url = '$apiURL/$requestText';
+    final String url = '$apiURL/meal';
     var response = await http.post(
       Uri.parse(url),
       headers: {
@@ -19,3 +19,5 @@ Future<void> postDrug({@required String token, @required String requestText}) as
     print(e);
   }
 }
+
+

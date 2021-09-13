@@ -30,6 +30,10 @@ class Style {
   static const Color darkExtraButtons = Color.fromRGBO(230, 197, 244, 0.5);
   static const Color lightExtraIcons = Color.fromRGBO(136, 134, 145, 0.7);
   static const Color darkExtraIcons = Color.fromRGBO(230, 197, 244, 0.5);
+  static const Color fatsCounterButtonsDark =
+      Color.fromRGBO(131, 116, 142, 0.7);
+  static const Color fatsCounterButtonsLight =
+      Color.fromRGBO(131, 116, 142, 0.7);
 
   static const List<BoxShadow> shadowCard = [
     BoxShadow(offset: Offset(0, 10), blurRadius: 10, color: shadow)
@@ -43,20 +47,21 @@ class Style {
           inactiveTrackColor: inactiveColorDark,
           activeTickMarkColor: white,
           inactiveTickMarkColor: inactiveColorMark),
-      appBarTheme: AppBarTheme(color: darkAppBar),
+      appBarTheme: AppBarTheme(backgroundColor: darkAppBar),
       shadowColor: Colors.transparent,
       dialogBackgroundColor: inactiveColorDark,
       cardColor: darkCard,
-      buttonColor: text,
+      buttonTheme: ButtonThemeData(buttonColor: text),
       bottomAppBarColor: black,
       backgroundColor: black,
       focusColor: darkIcon,
       disabledColor: secondary,
       dividerColor: activeColor,
       hoverColor: darkExtraButtons,
-      accentColor: darkExtraIcons,
+      iconTheme: IconThemeData(color: darkExtraIcons),
       selectedRowColor: white,
       splashColor: darkConfirmCodeBox,
+      hintColor: fatsCounterButtonsDark,
       // Home Text Theme
       primaryTextTheme: TextTheme(
         headline1: TextStyle(
@@ -154,17 +159,18 @@ class Style {
           inactiveTrackColor: inactiveColorLight,
           activeTickMarkColor: white,
           inactiveTickMarkColor: inactiveColorMark),
-      appBarTheme: AppBarTheme(color: lightAppBar),
+      appBarTheme: AppBarTheme(backgroundColor: lightAppBar),
       shadowColor: icon,
       dialogBackgroundColor: white,
       cardColor: lightCard,
-      buttonColor: white,
+      buttonTheme: ButtonThemeData(buttonColor: white),
       backgroundColor: backgroundLight,
       focusColor: lightIcon,
       disabledColor: secondary,
       dividerColor: lightIcon,
+      hintColor: fatsCounterButtonsLight,
       hoverColor: lightExtraButtons,
-      accentColor: lightExtraIcons,
+      iconTheme: IconThemeData(color: lightExtraIcons),
       selectedRowColor: text,
       splashColor: lightConfirmCodeBox,
 
@@ -224,7 +230,7 @@ class Style {
               fontSize: 14,
               fontWeight: FontWeight.w700),
           headline6: TextStyle(
-              color: secondary,
+              color: black,
               fontFamily: fontFamilySanFrancisco,
               fontSize: 12,
               fontWeight: FontWeight.w600),

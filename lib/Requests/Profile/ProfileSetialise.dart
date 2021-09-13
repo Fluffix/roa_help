@@ -32,8 +32,8 @@ class Extra {
 
   Extra.fromJson(Map<String, dynamic> json) {
     city = json['city'];
+    
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['city'] = this.city;

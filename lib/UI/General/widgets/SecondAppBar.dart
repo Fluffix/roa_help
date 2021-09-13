@@ -1,17 +1,26 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 
 class SecondAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final String text;
   final Function onChange;
+  final bool isSecondPage;
+  final bool isFatsCounterPage;
+  final int mealIndex;
+  final Function onFavorites;
 
   const SecondAppBar({
     this.height = 60,
+    this.mealIndex = 0,
     @required this.text,
+    this.isSecondPage = false,
+    this.isFatsCounterPage = false,
     this.onChange,
+    this.onFavorites,
   });
   @override
   _SecondAppBarState createState() => _SecondAppBarState();
@@ -45,24 +54,49 @@ class _SecondAppBarState extends State<SecondAppBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 58,
-            ),
+            widget.isFatsCounterPage
+                ? GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      if (widget.onFavorites != null) {
+                        widget.onFavorites();
+                      }
+                    },
+                    child: IconSvg(IconsSvg.inactiveStar,
+                        width: 24,
+                        color: Theme.of(context).textTheme.headline1.color),
+                  )
+                : SizedBox(),
+            widget.isSecondPage
+                ? GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: IconSvg(
+                      IconsSvg.backArrow,
+                    ),
+                  )
+                : SizedBox(),
             Text(
               '${widget.text}',
               style: Theme.of(context).primaryTextTheme.headline1,
             ),
-            GestureDetector(
-              onTap: () {
-                if (widget.onChange != null) {
-                  widget.onChange();
-                }
-              },
-              child: Text(
-                '${S.of(context).done}',
-                style: Theme.of(context).primaryTextTheme.headline3,
-              ),
-            )
+            widget.isSecondPage
+                ? SizedBox(
+                    width: 24,
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      if (widget.onChange != null) {
+                        widget.onChange();
+                      }
+                    },
+                    child: Text(
+                      '${S.of(context).done}',
+                      style: Theme.of(context).primaryTextTheme.headline3,
+                    ),
+                  )
           ],
         ),
       ),

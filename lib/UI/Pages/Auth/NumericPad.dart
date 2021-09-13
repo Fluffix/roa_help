@@ -112,7 +112,7 @@ class NumericPad extends StatelessWidget {
                 child: Icon(
               Icons.backspace,
               size: 28,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).iconTheme.color,
             )),
           ),
         ),
@@ -138,7 +138,7 @@ class NumericPad extends StatelessWidget {
                 child: Icon(
               Icons.smart_toy,
               size: 28,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).iconTheme.color,
             )),
           ),
         ),

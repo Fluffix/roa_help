@@ -55,6 +55,26 @@ class S {
     );
   }
 
+  /// `Избранные`
+  String get favorites {
+    return Intl.message(
+      'Избранные',
+      name: 'favorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Свое блюдо`
+  String get personal_dish {
+    return Intl.message(
+      'Свое блюдо',
+      name: 'personal_dish',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Как избавиться от сухости глаз?`
   String get articles_head {
     return Intl.message(
@@ -165,6 +185,16 @@ class S {
     );
   }
 
+  /// `гр. жира`
+  String get fats_gramms {
+    return Intl.message(
+      'гр. жира',
+      name: 'fats_gramms',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `станкана`
   String get glass_2 {
     return Intl.message(
@@ -180,6 +210,16 @@ class S {
     return Intl.message(
       'стаканов',
       name: 'glass_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Укажите название`
+  String get input_name {
+    return Intl.message(
+      'Укажите название',
+      name: 'input_name',
       desc: '',
       args: [],
     );
@@ -350,6 +390,16 @@ class S {
     return Intl.message(
       'Побочные эффекты',
       name: 'side_effects',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Выпито`
+  String get was_drinked {
+    return Intl.message(
+      'Выпито',
+      name: 'was_drinked',
       desc: '',
       args: [],
     );
@@ -710,6 +760,16 @@ class S {
     return Intl.message(
       'Добавить',
       name: 'add_dish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Нет данных за этот день`
+  String get no_data {
+    return Intl.message(
+      'Нет данных за этот день',
+      name: 'no_data',
       desc: '',
       args: [],
     );

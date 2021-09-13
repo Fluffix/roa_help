@@ -22,7 +22,7 @@ class GetFood {
 }
 
 class FoodItem {
-  int id;
+  int id; 
   String name;
   double fat;
   bool inFavorites;
@@ -32,7 +32,7 @@ class FoodItem {
   FoodItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    fat = json['fat'];
+    fat = json['fat'].toDouble();
     inFavorites = json['in_favorites'];
   }
 

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
+import 'package:roa_help/Controllers/AuthController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
 import 'package:roa_help/UI/General/widgets/CustomAppBar.dart';
 import 'package:roa_help/Requests/Home/Food/FatsCounterSerialise.dart';
 import 'package:roa_help/Requests/Home/Feelings/GetFeelings.dart';
 import 'package:roa_help/Requests/Home/Water.dart';
 import 'package:roa_help/UI/Pages/Calendar/Calendar.dart';
-import 'package:roa_help/UI/Pages/Home/FatsCalc.dart';
+import 'package:roa_help/UI/Pages/FatsCounter/FatsCalc.dart';
 import 'package:roa_help/UI/Pages/Reciepes/Reciepes.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/SmallCardWidget.dart';
 import 'package:roa_help/UI/Pages/Home/widgets/WaterControl.dart';
@@ -14,11 +16,6 @@ import 'package:roa_help/Utils/Routes/Routes.dart';
 import 'package:roa_help/Utils/Svg/IconSvg.dart';
 import 'package:roa_help/generated/l10n.dart';
 import 'package:roa_help/models/FatsCountModel.dart';
-
-List<FatsCountInfo> meals = [
-  FatsCountInfo.empty(),
-  FatsCountInfo.empty(),
-];
 
 FavoritesFood favoritesFood = FavoritesFood.empty();
 
@@ -54,7 +51,7 @@ class _HomeState extends State<Home> {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: _customAppbar(),
+            appBar: _customAppbar(controller.authController),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               physics: BouncingScrollPhysics(),
@@ -90,13 +87,17 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Widget _customAppbar() {
+  Widget _customAppbar(AuthController controller) {
     return CustomAppBar(
       title: S.of(context).app_name,
       icon: IconsSvg.calendar,
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => CalendarScreen()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => CalendarScreen(
+                      token: controller.data.token,
+                    )));
       },
     );
   }
@@ -110,6 +111,7 @@ class _HomeState extends State<Home> {
                   .getPercentage ==
               controller.waterController.data.wasDrinked /
                   controller.waterController.data.waterDayNorm) {
+            Vibrate.feedback(FeedbackType.success);
             await waterRequest(
               wasDrinked: 1.0,
               token: controller.authController.data.token,
@@ -126,6 +128,7 @@ class _HomeState extends State<Home> {
                   .getPercentage ==
               controller.waterController.data.wasDrinked /
                   controller.waterController.data.waterDayNorm) {
+            Vibrate.feedback(FeedbackType.success);
             await waterRequest(
               wasDrinked: -1.0,
               token: controller.authController.data.token,
@@ -143,23 +146,21 @@ class _HomeState extends State<Home> {
     return Wrap(
       spacing: 24,
       runSpacing: 16,
-      children: List.generate(meals.length, (index) {
+      children:
+          List.generate(controller.foodController.data.meals.length, (index) {
         return SmallCardWidget(
           onTap: () async {
-            List<dynamic> mealResult = await Navigator.push(
+            await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => FatsCalc(
-                        meal: meals[index],
-                        favoritesfood: favoritesFood,
+                        mealIndex: index,
                         controller: controller,
                       )),
             );
-            meals[index] = mealResult[0];
-            favoritesFood = mealResult[1];
             setState(() {});
           },
-          quantity: meals[index].fatsWasEaten,
+          quantity: controller.foodController.data.meals[index].fatsWasEaten,
           subtitlte: S.of(context).gramms_eating,
           icon: IconSvg(
             IconsSvg.fats,

@@ -47,4 +47,7 @@ class IconsSvg {
   static const int backArrow = 43;
   static const int appIcon = 44;
   static const int bot = 45;
+  static const int folder = 46;
+  static const int emptyFav = 47;
+
 }
