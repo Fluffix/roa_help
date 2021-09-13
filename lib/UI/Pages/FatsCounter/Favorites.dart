@@ -115,7 +115,7 @@ class _FavoritesState extends State<Favorites> {
                                           setState(() {});
                                         }
                                       : () async {
-                                          int result = await showDialog(
+                                          int _result = await showDialog(
                                               context: context,
                                               builder: (context) => AddDish(
                                                     item: controller
@@ -134,9 +134,9 @@ class _FavoritesState extends State<Favorites> {
                                                     },
                                                   ));
 
-                                          if (result != null) {
+                                          if (_result != null) {
                                             // Add chosen food to reciepes and counting fats
-                                            int fatsWasEaten = ((result *
+                                            int fatsWasEaten = ((_result *
                                                         _favoritesList[index]
                                                             .fat) /
                                                     100)
@@ -145,6 +145,7 @@ class _FavoritesState extends State<Favorites> {
                                             controller.foodController
                                                 .addToChosenList(
                                               index: _mealIndex,
+                                              amount: _result,
                                               item: _favoritesList[index],
                                               fatsWasEaten: fatsWasEaten,
                                             );

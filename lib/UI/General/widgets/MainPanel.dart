@@ -58,15 +58,15 @@ class _MainPanelState extends State<MainPanel> {
       _isPlayingAnimation = true;
     });
 
-    await Future.delayed(Duration(milliseconds: 15));
+    await Future.delayed(Duration(milliseconds: 30));
     setState(() {
       _isShowDrugButton = false;
     });
 
     if (pillWasDrinked) {
-      await Future.delayed(Duration(milliseconds: 2185));
+      await Future.delayed(Duration(milliseconds: 2170));
     } else {
-      await Future.delayed(Duration(milliseconds: 2185));
+      await Future.delayed(Duration(milliseconds: 2170));
     }
 
     setState(() {

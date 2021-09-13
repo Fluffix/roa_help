@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:roa_help/Controllers/FoodController.dart';
 import 'package:roa_help/Controllers/GeneralController.dart';
+import 'package:roa_help/Requests/Home/Food/PostMeal.dart';
 import 'package:roa_help/UI/General/widgets/Search.dart';
 import 'package:roa_help/UI/General/widgets/SecondAppBar.dart';
 import 'package:roa_help/UI/Pages/FatsCounter/Favorites.dart';
@@ -80,8 +81,13 @@ class _FatsCalcState extends State<FatsCalc> {
                 );
                 setState(() {});
               },
-              onChange: () {
+              onChange: () async {
                 controller.foodController.updateMealResult(mealIndex);
+                await postDrug(
+                  mealIndex: mealIndex,
+                  meal: controller.foodController.data.meals[mealIndex],
+                  token: controller.authController.data.token,
+                );
                 Navigator.pop(context);
               },
             ),
@@ -217,7 +223,7 @@ class _FatsCalcState extends State<FatsCalc> {
                         setState(() {});
                       }
                     : () async {
-                        int result = await showDialog(
+                        int _result = await showDialog(
                             context: context,
                             builder: (context) => AddDish(
                                   item: state.foods[index],
@@ -232,13 +238,15 @@ class _FatsCalcState extends State<FatsCalc> {
                                     );
                                   },
                                 ));
-                        if (result != null) {
+                        if (_result != null) {
                           // Add chosen food to reciepes and counting fats
                           int fatsWasEaten =
-                              ((result * state.foods[index].fat) / 100).round();
+                              ((_result * state.foods[index].fat) / 100)
+                                  .round();
                           controller.foodController.addToChosenList(
                             index: mealIndex,
                             item: state.foods[index],
+                            amount: _result,
                             fatsWasEaten: fatsWasEaten,
                           );
                         }

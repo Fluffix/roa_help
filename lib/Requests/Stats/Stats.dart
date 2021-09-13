@@ -17,7 +17,6 @@ Future<StatsSerialise> getStats({@required String token, String date}) async {
         'Authorization': "Bearer $token",
       },
     );
-    log('${response.body}');
     Map<String, dynamic> jsonMap = json.decode(response.body);
     StatsSerialise db = StatsSerialise.fromJson(jsonMap);
 

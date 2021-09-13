@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
    <application
-        android:label="roa_help"
+        android:label="Roa Help"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
         >

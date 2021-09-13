@@ -46,10 +46,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
     });
     // Request func in this place
     db = await getStats(token: token, date: date);
-    log("${db.water}");
     isStatsEmpty = false;
     if (db.water == 0 && db.drugs.first == null && db.drugs.second == null) {
-      log('AFPEAFLKP');
       isStatsEmpty = true;
       db.sideEffects.forEach((element) {
         if (element.items.length > 0) {
@@ -59,7 +57,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         }
       });
     }
-    log('isStatsEmpty = $isStatsEmpty');
     // await Future.delayed(Duration(seconds: 5));
     setState(() {
       _loading = false;

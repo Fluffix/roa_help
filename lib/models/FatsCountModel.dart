@@ -20,8 +20,13 @@ class FavoritesFood {
 }
 
 class ChosenFoodModel {
-  final FoodItem item;
-  final int fatsWasEaten;
+  ChosenFoodModel({
+    @required this.item,
+    @required this.amount,
+    @required this.fatsWasEaten,
+  });
 
-  ChosenFoodModel({@required this.item, @required this.fatsWasEaten});
+  final FoodItem item;
+  final int amount;
+  final int fatsWasEaten;
 }

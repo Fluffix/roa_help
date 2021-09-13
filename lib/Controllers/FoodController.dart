@@ -44,11 +44,11 @@ class FoodController {
   void addToChosenList({
     @required int index,
     @required FoodItem item,
+    @required amount,
     @required int fatsWasEaten,
   }) {
-    _meals[index]
-        .foodWasEaten
-        .add(ChosenFoodModel(item: item, fatsWasEaten: fatsWasEaten));
+    _meals[index].foodWasEaten.add(ChosenFoodModel(
+        item: item, fatsWasEaten: fatsWasEaten, amount: amount));
     setState();
   }
 
